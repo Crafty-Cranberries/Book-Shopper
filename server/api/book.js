@@ -13,11 +13,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const book = await Book.findByPk({
-      where: {
-        id: req.params.id
-      }
-    })
+    const book = await Book.findByPk(req.params.id)
     res.json(book)
   } catch (err) {
     next(err)
