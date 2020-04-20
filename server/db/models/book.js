@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-export const Book = db.define('book', {
+const Book = db.define('book', {
   title: {
     type: Sequelize.STRING,
     allowNull: false
@@ -21,3 +21,5 @@ export const Book = db.define('book', {
     validate: {min: 1, max: 5}
   }
 })
+
+module.exports = Book
