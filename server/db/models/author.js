@@ -24,13 +24,13 @@ const Author = db.define('author', {
     }
   },
   imageUrl: {
-    type: Sequelize.TEXT,
-    defaultValue:
-      'https://firstsiteguide.com/wp-content/uploads/2017/09/change-default-author-permalink-640x400.png',
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
+    type: Sequelize.TEXT
+    // defaultValue:
+    //   'https://firstsiteguide.com/wp-content/uploads/2017/09/change-default-author-permalink-640x400.png',
+    // allowNull: false,
+    // validate: {
+    //   notEmpty: true
+    // }
   }
 })
 

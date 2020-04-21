@@ -1,15 +1,77 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Book, Author, Order, OrderHistory} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
   const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
+    User.create({
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'cody@email.com',
+      password: '123'
+    }),
+    User.create({
+      firstName: 'Franco',
+      lastName: 'Fullstack',
+      email: 'murphy1@email.com',
+      password: '123'
+    }),
+    User.create({
+      firstName: 'Jared',
+      lastName: 'Fullstack',
+      email: 'murphy2@email.com',
+      password: '123'
+    }),
+    User.create({
+      firstName: 'Gary',
+      lastName: 'Fullstack',
+      email: 'murphy3@email.com',
+      password: '123'
+    }),
+    User.create({
+      firstName: 'Iskak',
+      lastName: 'Fullstack',
+      email: 'murphy4@email.com',
+      password: '123'
+    })
+  ])
+
+  const books = await Promise.all([
+    Book.create({
+      title: 'Harry Potter',
+      genre: 'Fantasy',
+      price: 10,
+      rating: 5
+    }),
+    Book.create({
+      title: 'Harry Potter 2',
+      genre: 'Fantasy',
+      price: 10,
+      rating: 5
+    }),
+    Book.create({
+      title: 'Harry Potter 3',
+      genre: 'Fantasy',
+      price: 10,
+      rating: 5
+    })
+  ])
+
+  const authors = await Promise.all([
+    Author.create({
+      firstName: 'J.K',
+      lastName: 'Rowling',
+      email: 'jkrowling@mail.com'
+    }),
+    Author.create({
+      firstName: 'George',
+      lastName: 'Orwell',
+      email: 'georgeorwell@mail.com'
+    })
   ])
 
   console.log(`seeded ${users.length} users`)
