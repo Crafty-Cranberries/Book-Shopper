@@ -1,9 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-// Shipping Address
-// Billing Info( CVC code, exp. date )
-
 const OrderHistory = db.define('orderHistory', {
   status: {
     type: Sequelize.ENUM('Created', 'Shipping', 'Cancelled', 'Completed'),
@@ -38,18 +35,18 @@ const OrderHistory = db.define('orderHistory', {
     // },
   },
   cvcNumber: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
     // allowNull: false,
-    // validate: {
-    //   len: [1, 3],
-    // },
+    validate: {
+      len: [1, 3]
+    }
   },
   cardExpDate: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
     // allowNull: false,
-    //     validate: {
-    //       isDate: true,
-    //     },
+    validate: {
+      isDate: true
+    }
   }
 })
 

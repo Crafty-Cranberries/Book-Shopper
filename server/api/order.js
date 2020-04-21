@@ -1,21 +1,21 @@
 const router = require('express').Router()
-const {Author} = require('../db/models')
+const {Order} = require('../db/models')
 
-//Find all authors:
+//Find all orders:
 router.get('/', async (req, res, next) => {
   try {
-    const authors = await Author.findAll()
-    res.json(authors)
+    const order = await Order.findAll()
+    res.json(order)
   } catch (err) {
     next(err)
   }
 })
 
-//Find single authors:
+//Find single order:
 router.get('/:id', async (req, res, next) => {
   try {
-    const singleAuthor = await Author.findByPk(req.params.id)
-    res.json(singleAuthor)
+    const singleOrder = await Order.findByPk(req.params.id)
+    res.json(singleOrder)
   } catch (err) {
     next(err)
   }
