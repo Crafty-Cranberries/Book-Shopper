@@ -16,10 +16,10 @@ Order.belongsTo(User)
 User.hasMany(OrderHistory)
 OrderHistory.belongsTo(User)
 
-Author.hasMany(Book)
 Book.belongsTo(Author)
+Author.hasMany(Book)
 
-Order.hasMany(Book)
+//Order.hasMany(Book)
 Book.belongsToMany(Order, {through: 'Cart'})
 
 /**

@@ -40,27 +40,6 @@ async function seed() {
     })
   ])
 
-  const books = await Promise.all([
-    Book.create({
-      title: 'Harry Potter',
-      genre: 'Fantasy',
-      price: 10,
-      rating: 5
-    }),
-    Book.create({
-      title: 'Harry Potter 2',
-      genre: 'Fantasy',
-      price: 10,
-      rating: 5
-    }),
-    Book.create({
-      title: 'Harry Potter 3',
-      genre: 'Fantasy',
-      price: 10,
-      rating: 5
-    })
-  ])
-
   const authors = await Promise.all([
     Author.create({
       firstName: 'J.K',
@@ -71,6 +50,39 @@ async function seed() {
       firstName: 'George',
       lastName: 'Orwell',
       email: 'georgeorwell@mail.com'
+    })
+  ])
+
+  const books = await Promise.all([
+    Book.create({
+      title: 'Harry Potter',
+      genre: 'Fantasy',
+      price: 10,
+      rating: 5,
+      authorId: 1
+    }),
+    Book.create({
+      title: 'Harry Potter 2',
+      genre: 'Fantasy',
+      price: 10,
+      rating: 5,
+      authorId: 1
+    }),
+    Book.create({
+      title: 'Harry Potter 3',
+      genre: 'Fantasy',
+      price: 10,
+      rating: 5,
+      authorId: 1
+    })
+  ])
+
+  const orders = await Promise.all([
+    Order.create({
+      productName: 'Harry Potter',
+      totalCost: 10,
+      totalItems: 3,
+      userId: 2
     })
   ])
 
