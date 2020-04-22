@@ -1,7 +1,6 @@
 const User = require('./user')
 const Book = require('./book')
 const Order = require('./order')
-const Cart = require('./cart')
 const Author = require('./author')
 const BookOrder = require('./bookOrder')
 
@@ -11,18 +10,14 @@ const BookOrder = require('./bookOrder')
  *
  *    BlogPost.belongsTo(User)
  */
-User.hasOne(Order)
+User.hasMany(Order)
 Order.belongsTo(User)
-
-User.hasMany(Cart)
-Cart.belongsTo(User)
 
 Book.belongsTo(Author)
 Author.hasMany(Book)
 
 Book.belongsToMany(Order, {through: 'BookOrder'})
 Order.belongsToMany(Book, {through: 'BookOrder'})
-//Book.belongsToMany(Order, {through: 'BookOrder'})
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -34,7 +29,6 @@ module.exports = {
   User,
   Book,
   Order,
-  Cart,
   Author,
   BookOrder
 }
