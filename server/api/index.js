@@ -3,7 +3,7 @@ module.exports = router
 
 router.use('/users', require('./users'))
 router.use('/book', require('./book'))
-router.use('/authors', require('./author-routes'))
+router.use('/authors', require('./author'))
 router.use('/order', require('./order'))
 router.use('/bookOrder', require('./bookOrder'))
 
