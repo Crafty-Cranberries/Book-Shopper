@@ -1,11 +1,11 @@
 const router = require('express').Router()
-const {OrderHistory} = require('../db/models')
+const {BookOrder} = require('../db/models')
 
 //Find all orders:
 router.get('/', async (req, res, next) => {
   try {
-    const orderHistory = await OrderHistory.findAll()
-    res.json(orderHistory)
+    const bookOrder = await BookOrder.findAll()
+    res.json(bookOrder)
   } catch (err) {
     next(err)
   }
@@ -14,8 +14,8 @@ router.get('/', async (req, res, next) => {
 //Find single order:
 router.get('/:id', async (req, res, next) => {
   try {
-    const singleOrderHistory = await OrderHistory.findByPk(req.params.id)
-    res.json(singleOrderHistory)
+    const singleBookOrder = await BookOrder.findByPk(req.params.id)
+    res.json(singleBookOrder)
   } catch (err) {
     next(err)
   }
