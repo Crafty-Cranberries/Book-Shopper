@@ -19,7 +19,11 @@ async function seed() {
       firstName: 'John',
       lastName: 'Doe',
       email: 'cody@email.com',
-      password: '123'
+      password: '123',
+      paymentInfo: {
+        debitCard: 'test',
+        shippingAddress: 'address'
+      }
     }),
     User.create({
       firstName: 'Franco',
@@ -111,6 +115,8 @@ async function seed() {
       bookId: 2
     })
   ])
+
+  const placedOrders = await Promise.all([OrderHistory.create()])
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)

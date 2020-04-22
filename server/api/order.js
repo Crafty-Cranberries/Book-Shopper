@@ -12,6 +12,7 @@ router.get('/', async (req, res, next) => {
 })
 
 //Find single order:
+//add middleware
 router.get('/:id', async (req, res, next) => {
   try {
     const singleOrder = await Order.findByPk(req.params.id)
