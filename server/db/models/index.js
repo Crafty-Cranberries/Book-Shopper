@@ -1,7 +1,7 @@
 const User = require('./user')
 const Book = require('./book')
 const Order = require('./order')
-const OrderHistory = require('./orderHistory')
+const Cart = require('./cart')
 const Author = require('./author')
 const BookOrder = require('./bookOrder')
 
@@ -14,8 +14,8 @@ const BookOrder = require('./bookOrder')
 User.hasOne(Order)
 Order.belongsTo(User)
 
-User.hasMany(OrderHistory)
-OrderHistory.belongsTo(User)
+User.hasMany(Cart)
+Cart.belongsTo(User)
 
 Book.belongsTo(Author)
 Author.hasMany(Book)
@@ -34,7 +34,7 @@ module.exports = {
   User,
   Book,
   Order,
-  OrderHistory,
+  Cart,
   Author,
   BookOrder
 }

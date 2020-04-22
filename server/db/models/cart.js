@@ -1,11 +1,22 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const OrderHistory = db.define('orderHistory', {
-  status: {
-    type: Sequelize.ENUM('Created', 'Shipping', 'Cancelled', 'Completed'),
-    defaultValue: 'Created'
+const Cart = db.define('cart', {
+  orderId: {
+    type: Sequelize.INTEGER,
+    allowNull: false
   },
+  bookId: {
+    type: Sequelize.INTEGER
+  },
+  unitPrice: {
+    type: Sequelize.FLOAT
+  },
+  quantity: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
+  }
+  /*
   shippingAddress: {
     type: Sequelize.STRING
     // allowNull: false,
@@ -48,6 +59,7 @@ const OrderHistory = db.define('orderHistory', {
       isDate: true
     }
   }
+  */
 })
 
-module.exports = OrderHistory
+module.exports = Cart
