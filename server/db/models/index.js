@@ -3,6 +3,7 @@ const Book = require('./book')
 const Order = require('./order')
 const OrderHistory = require('./orderHistory')
 const Author = require('./author')
+const BookOrder = require('./bookOrder')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -19,8 +20,9 @@ OrderHistory.belongsTo(User)
 Book.belongsTo(Author)
 Author.hasMany(Book)
 
-//Order.hasMany(Book)
-Book.belongsToMany(Order, {through: 'Cart'})
+Book.belongsToMany(Order, {through: 'BookOrder'})
+Order.belongsToMany(Book, {through: 'BookOrder'})
+//Book.belongsToMany(Order, {through: 'BookOrder'})
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -33,5 +35,6 @@ module.exports = {
   Book,
   Order,
   OrderHistory,
-  Author
+  Author,
+  BookOrder
 }

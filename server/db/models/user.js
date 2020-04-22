@@ -24,6 +24,9 @@ const User = db.define('user', {
       return () => this.getDataValue('password')
     }
   },
+  paymentInfo: {
+    type: Sequelize.JSONB
+  },
   address: {
     type: Sequelize.STRING
   },
