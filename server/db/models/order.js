@@ -2,16 +2,9 @@ const Sequelize = require('sequelize')
 const db = require('../db.js')
 
 const Order = db.define('order', {
-  productName: {
-    type: Sequelize.STRING,
-    // allowNull: false,
-    validate: {
-      notEmpty: true
-    }
-  },
   totalCost: {
     type: Sequelize.FLOAT,
-    // allowNull: false,
+    allowNull: false,
     defaultValue: 0.0,
     validate: {
       notEmpty: true
@@ -19,11 +12,19 @@ const Order = db.define('order', {
   },
   totalItems: {
     type: Sequelize.INTEGER,
-    // allowNull: false,
+    allowNull: false,
     defaultValue: 0,
     validate: {
       notEmpty: true
     }
+  },
+  status: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
+  userId: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0 // 0 = guest
   }
 })
 
