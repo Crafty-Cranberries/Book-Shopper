@@ -11,6 +11,28 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+// router.get('/:author', async (req, res, next) => {
+//   try {
+//     const booksByAuthor = await Book.findAll({
+//       where: {author: req.params.author}
+//     })
+//     res.json(booksByAuthor)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
+
+router.get('/:genre', async (req, res, next) => {
+  try {
+    const booksByGenre = await Book.findAll({
+      where: {genre: req.params.genre}
+    })
+    res.json(booksByGenre)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.post('/', async (req, res, next) => {
   try {
     const newBook = await Book.create(req.body)
