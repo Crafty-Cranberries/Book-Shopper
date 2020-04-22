@@ -13,8 +13,8 @@ const BookOrder = require('./bookOrder')
 User.hasMany(Order)
 Order.belongsTo(User)
 
-Book.belongsTo(Author)
-Author.hasMany(Book)
+// Book.belongsTo(Author)
+// Author.hasMany(Book)
 
 Book.belongsToMany(Order, {through: 'BookOrder'})
 Order.belongsToMany(Book, {through: 'BookOrder'})

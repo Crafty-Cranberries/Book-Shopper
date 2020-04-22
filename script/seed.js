@@ -63,21 +63,21 @@ async function seed() {
       genre: 'Fantasy',
       price: 10,
       rating: 5,
-      authorId: 1
+      author: 'penis'
     }),
     Book.create({
       title: 'Harry Potter 2',
       genre: 'Fantasy',
       price: 10,
       rating: 5,
-      authorId: 1
+      author: 'hi'
     }),
     Book.create({
       title: 'Harry Potter 3',
       genre: 'Fantasy',
       price: 10,
       rating: 5,
-      authorId: 1
+      author: 'bye'
     })
   ])
 
