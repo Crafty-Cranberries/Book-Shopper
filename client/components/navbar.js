@@ -9,6 +9,10 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     <Link to="/">
       <h1>Book-Shopper!</h1>
     </Link>
+
+    <Link to="/cart">
+      <h1>View Cart</h1>
+    </Link>
     <nav>
       {isLoggedIn ? (
         <div>
