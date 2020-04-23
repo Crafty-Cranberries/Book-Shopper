@@ -25,7 +25,7 @@ const removeBook = book => ({
 //Thunk Creators:
 export const fetchBooks = () => async dispatch => {
   try {
-    const {data} = await axios.get('/api/book')
+    const {data} = await axios.get('/api/books')
     dispatch(getBooks(data))
   } catch (error) {
     console.error(error)

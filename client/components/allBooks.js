@@ -6,7 +6,6 @@ import Card from 'react-bootstrap/Card'
 class AllBooks extends React.Component {
   componentDidMount() {
     this.props.fetchBooks()
-    console.log('This ish is mounted')
   }
 
   render() {
@@ -35,7 +34,7 @@ class AllBooks extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  books: state.booksReducer
+  books: state.books
 })
 
 const mapDispatchToProps = dispatch => ({
