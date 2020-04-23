@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchBooks} from '../store'
 import Card from 'react-bootstrap/Card'
+import {Link} from 'react-router-dom'
 
 class AllBooks extends React.Component {
   componentDidMount() {
@@ -17,7 +18,9 @@ class AllBooks extends React.Component {
             <Card key={book.id} style={{width: '18rem'}}>
               <Card.Img variant="top" src={book.imageUrl} />
               <Card.Body>
-                <Card.Title> {book.title}</Card.Title>
+                <Link to={`/allBooks/${book.id}`}>
+                  <Card.Title> {book.title}</Card.Title>
+                </Link>
                 <Card.Subtitle>
                   {book.author.firstName} {book.author.lastName}
                 </Card.Subtitle>
