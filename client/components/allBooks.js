@@ -6,8 +6,9 @@ class AllBooks extends React.Component {
   componentDidMount() {
     this.props.fetchBooks()
   }
+
   render() {
-    console.log('props ---->', this.props)
+    console.log('props ---->', this.props.books)
     return (
       <div>
         <h1>Books:</h1>
