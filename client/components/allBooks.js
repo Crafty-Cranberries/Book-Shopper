@@ -18,7 +18,7 @@ class AllBooks extends React.Component {
             <Card key={book.id} style={{width: '18rem'}}>
               <Card.Img variant="top" src={book.imageUrl} />
               <Card.Body>
-                <Link to={`allBooks/${book.id}`}>
+                <Link to={`/allBooks/${book.id}`}>
                   <Card.Title> {book.title}</Card.Title>
                 </Link>
                 <Card.Subtitle>

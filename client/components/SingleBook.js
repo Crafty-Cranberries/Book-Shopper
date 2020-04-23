@@ -2,7 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleBook} from '../store/singleBook'
 import {Link} from 'react-router-dom'
-
 class SingleBook extends React.Component {
   componentDidMount() {
     this.props.getSingleBook()
@@ -11,14 +10,18 @@ class SingleBook extends React.Component {
   render() {
     let book = this.props.book
     let author = this.props.book.author
-    console.log(' >>> props >>>', this.props)
-    console.log('>>>> author >>>', author)
     return (
       <div>
         <main>
           <h2>Title: {book.title}</h2>
           <img src={book.imageUrl} />
-          {/* <h3>Author: {author.firstName} {author.lastName} </h3> */}
+          {author ? (
+            <h3>
+              Author: {author.firstName} {author.lastName}{' '}
+            </h3>
+          ) : (
+            'loading'
+          )}
           <h4>Genre: {book.genre}</h4>
         </main>
         <div>
@@ -41,8 +44,9 @@ const mapState = state => {
 
 const mapDispatch = (dispatch, ownProps) => {
   // console.log('this is dispatch to props >>>>', ownProps)
+  const id = ownProps.match.params.id
   return {
-    getSingleBook: () => dispatch(fetchSingleBook(ownProps.match.params.id))
+    getSingleBook: () => dispatch(fetchSingleBook(id))
   }
 }
 
