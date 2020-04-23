@@ -27,7 +27,7 @@ export const fetchBooks = () => async dispatch => {
     const {data} = await axios.get('/api/book')
     dispatch(getBooks(data))
   } catch (error) {
-    return error
+    console.error(error)
   }
 }
 

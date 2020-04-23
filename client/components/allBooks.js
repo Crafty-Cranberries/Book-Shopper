@@ -5,10 +5,11 @@ import {fetchBooks} from '../store'
 class AllBooks extends React.Component {
   componentDidMount() {
     this.props.fetchBooks()
+    console.log('This ish is mounted')
   }
 
   render() {
-    console.log('props ---->', this.props.books)
+    console.log('props ---->', this.props)
     return (
       <div>
         <h1>Books:</h1>
@@ -23,7 +24,7 @@ class AllBooks extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  books: state.books
+  books: state.booksReducer
 })
 
 const mapDispatchToProps = dispatch => ({
