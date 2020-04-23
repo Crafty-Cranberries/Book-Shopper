@@ -11,6 +11,7 @@ const getBooks = books => ({
   type: GET_BOOKS,
   books
 })
+
 //Place holder action creators for future functionality:
 const addBook = book => ({
   type: ADD_BOOK,

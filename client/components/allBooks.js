@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchBooks} from '../store'
+import Card from 'react-bootstrap/Card'
 
 class AllBooks extends React.Component {
   componentDidMount() {
@@ -9,15 +10,25 @@ class AllBooks extends React.Component {
   }
 
   render() {
-    console.log('props ---->', this.props)
     return (
       <div>
         <h1>Books:</h1>
-        <ul>
-          {this.props.books.map(book => {
-            return <li key={book.id}>{book.title}</li>
-          })}
-        </ul>
+        {this.props.books.map(book => {
+          return (
+            <Card key={book.id} style={{width: '18rem'}}>
+              <Card.Img variant="top" src={book.imageUrl} />
+              <Card.Body>
+                <Card.Title> {book.title}</Card.Title>
+                <Card.Subtitle>
+                  {book.author.firstName} {book.author.lastName}
+                </Card.Subtitle>
+                <Card.Text>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit{' '}
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          )
+        })}
       </div>
     )
   }
