@@ -6,10 +6,10 @@ const Book = db.define('book', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  author: {
-    type: Sequelize.STRING,
-    defaultValue: 'Unknown'
-  },
+  // author: {
+  //   type: Sequelize.STRING,
+  //   defaultValue: 'Unknown'
+  // },
   genre: {
     type: Sequelize.STRING,
     allowNull: false
