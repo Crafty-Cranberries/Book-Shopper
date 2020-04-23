@@ -2,6 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleBook} from '../store/singleBook'
 import {Link} from 'react-router-dom'
+import AddButton from './AddButton'
+
 class SingleBook extends React.Component {
   componentDidMount() {
     this.props.getSingleBook()
@@ -23,6 +25,9 @@ class SingleBook extends React.Component {
             'loading'
           )}
           <h4>Genre: {book.genre}</h4>
+          <div>
+            <AddButton bookId={this.props.book.id} />
+          </div>
         </main>
         <div>
           <br />
