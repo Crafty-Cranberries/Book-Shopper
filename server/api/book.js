@@ -22,7 +22,7 @@ router.get('/', async (req, res, next) => {
 //   }
 // })
 
-router.get('/:genre', async (req, res, next) => {
+router.get('/genre/:genre', async (req, res, next) => {
   try {
     const booksByGenre = await Book.findAll({
       where: {genre: req.params.genre}
@@ -51,6 +51,7 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
+module.exports = router
 router.put('/:id', async (req, res, next) => {
   try {
     const [numOfAffected, updatedBook] = await Book.update(
@@ -65,8 +66,6 @@ router.put('/:id', async (req, res, next) => {
         plain: true
       }
     )
-    // console.log('>>>> one >>>>', one)
-    // console.log('>>>> two >>>>', two)
     res.json(updatedBook)
   } catch (error) {
     next(error)
