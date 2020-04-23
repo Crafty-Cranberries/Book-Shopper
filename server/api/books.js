@@ -43,7 +43,6 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-module.exports = router
 router.put('/:id', async (req, res, next) => {
   try {
     const [numOfAffected, updatedBook] = await Book.update(
@@ -74,3 +73,5 @@ router.delete('/:id', async (req, res, next) => {
     next(error)
   }
 })
+
+module.exports = router
