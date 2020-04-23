@@ -10,7 +10,21 @@ export const UserHome = props => {
 
   return (
     <div>
-      <h3>Welcome, {email}</h3>
+      {/* <h3>Welcome, {email}</h3> */}
+      <div className="home-page-container">
+        <div className="front-page-welcome">
+          <div>
+            <h1 className="front-display-text">
+              Buy the best books from all over
+            </h1>
+          </div>
+          <div className="front-page-buttons">
+            <button type="button">All Books</button>
+            <button type="button">All Authors</button>
+          </div>
+        </div>
+        <div className="placeholder" />
+      </div>
     </div>
   )
 }

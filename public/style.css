@@ -19,3 +19,35 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.home-page-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: #ff9020;
+}
+
+.front-display-text {
+  color: white;
+  font-size: 30px;
+  font-family: 'Roboto';
+  font-weight: 600;
+}
+
+.front-page-welcome {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+  width: 100%;
+}
+.front-page-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.placeholder {
+  height: 500px;
+  width: 100%;
+}
