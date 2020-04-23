@@ -1,26 +1,16 @@
 const router = require('express').Router()
 const {Book} = require('../db/models')
+const {Author} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const books = await Book.findAll()
+    const books = await Book.findAll({include: Author})
     res.json(books)
   } catch (err) {
     next(err)
   }
 })
-
-// router.get('/:author', async (req, res, next) => {
-//   try {
-//     const booksByAuthor = await Book.findAll({
-//       where: {author: req.params.author}
-//     })
-//     res.json(booksByAuthor)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
 
 router.get('/genre/:genre', async (req, res, next) => {
   try {

@@ -6,10 +6,6 @@ const Book = db.define('book', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  // author: {
-  //   type: Sequelize.STRING,
-  //   defaultValue: 'Unknown'
-  // },
   genre: {
     type: Sequelize.STRING,
     allowNull: false
@@ -18,7 +14,9 @@ const Book = db.define('book', {
     type: Sequelize.INTEGER
   },
   imageUrl: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    defaultValue:
+      'https://dl.acm.org/specs/products/acm/releasedAssets/images/cover-default--book.svg'
   },
   rating: {
     type: Sequelize.INTEGER,
