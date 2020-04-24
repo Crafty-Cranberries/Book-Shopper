@@ -35,12 +35,6 @@ async function seed() {
       lastName: 'Fullstack',
       email: 'murphy3@email.com',
       password: '123'
-    }),
-    User.create({
-      firstName: 'Iskak',
-      lastName: 'Fullstack',
-      email: 'murphy4@email.com',
-      password: '123'
     })
   ])
 
@@ -87,6 +81,10 @@ async function seed() {
     }),
     Order.create({
       userId: 3
+    }),
+    Order.create({
+      userId: 2,
+      status: true
     })
   ])
 
@@ -104,6 +102,11 @@ async function seed() {
     BookOrder.create({
       quantity: 3,
       orderId: 2,
+      bookId: 2
+    }),
+    BookOrder.create({
+      quantity: 7,
+      orderId: 3,
       bookId: 2
     })
   ])
