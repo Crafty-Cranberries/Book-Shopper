@@ -60,6 +60,12 @@ const createApp = () => {
       saveUninitialized: false
     })
   )
+
+  app.use((req, res, next) => {
+    console.log('SESSION: ', req.session)
+    next()
+  })
+
   app.use(passport.initialize())
   app.use(passport.session())
 

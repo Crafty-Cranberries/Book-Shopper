@@ -6,12 +6,14 @@ import user from './user'
 import booksReducer from './books'
 import singleBookReducer from './singleBook'
 import cartReducer from './cart'
+import bookOrdersReducer from './bookOrders'
 
 const reducer = combineReducers({
   user: user,
   books: booksReducer,
   book: singleBookReducer,
-  cart: cartReducer
+  cart: cartReducer,
+  bookOrders: bookOrdersReducer
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
@@ -22,3 +24,4 @@ export default store
 export * from './user'
 export * from './books'
 export * from './cart'
+export * from './bookOrders'

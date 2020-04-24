@@ -22,10 +22,10 @@ const removeBook = bookId => ({
 })
 
 //Thunk Creator
-export const fetchCart = () => {
+export const fetchCart = userId => {
   return async dispatch => {
     try {
-      const {data} = await Axios.post('/api/order/cart')
+      const {data} = await Axios.get(`/api/order/${userId}`)
       dispatch(getCart(data))
     } catch (error) {
       console.error(error)
@@ -36,7 +36,7 @@ export const fetchCart = () => {
 export const fetchAddBook = bookId => {
   return async dispatch => {
     try {
-      const {data} = await Axios.put(`/api/order/add/${bookId}`)
+      const {data} = await Axios.put(`/api/order/${bookId}`)
       dispatch(addBook(data))
     } catch (error) {
       console.error(error)
@@ -44,14 +44,12 @@ export const fetchAddBook = bookId => {
   }
 }
 
-const initialState = []
-
 //Cart Reducer
-export default function cartReducer(state = initialState, action) {
+export default function cartReducer(state = [], action) {
   switch (action.type) {
     case GET_CART:
-      return {...state, cart: action.cart}
-
+      console.log('THIS IS ACTION >>>>>>>', action)
+      return action.cart
     default:
       return state
   }

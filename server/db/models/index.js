@@ -19,6 +19,11 @@ Author.hasMany(Book)
 Book.belongsToMany(Order, {through: 'BookOrder'})
 Order.belongsToMany(Book, {through: 'BookOrder'})
 
+Book.hasMany(BookOrder)
+BookOrder.belongsTo(Book)
+Order.hasMany(BookOrder)
+BookOrder.belongsTo(Order)
+
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'

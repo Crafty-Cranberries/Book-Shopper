@@ -33,7 +33,7 @@ class Routes extends Component {
         <Route exact path="/allBooks" component={AllBooks} />
         <Route path="/allBooks/:id" component={SingleBook} />
         <Route path="/home" component={UserHome} />
-        <Route path="/cart" component={Cart} />
+        <Route path="/cart/:userId" component={Cart} />
         />
         {isLoggedIn && (
           <Switch>

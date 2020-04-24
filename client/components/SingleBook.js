@@ -48,7 +48,7 @@ const mapState = state => {
 }
 
 const mapDispatch = (dispatch, ownProps) => {
-  // console.log('this is dispatch to props >>>>', ownProps)
+  console.log('this is dispatch to props >>>>', ownProps)
   const id = ownProps.match.params.id
   return {
     getSingleBook: () => dispatch(fetchSingleBook(id))
