@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchCart} from '../store/cart'
+import {fetchCart} from '../store/order'
 import {me} from '../store/user'
 
 class Cart extends React.Component {
@@ -10,7 +10,7 @@ class Cart extends React.Component {
   }
 
   render() {
-    let bookOrders = this.props.cart.BookOrders
+    let bookOrders = this.props.order.BookOrders
     return (
       <div>
         {this.props.user.id ? <h1>Cart</h1> : 'no cart'}
@@ -33,7 +33,7 @@ class Cart extends React.Component {
 
 const mapState = state => {
   return {
-    cart: state.cart,
+    order: state.order,
     user: state.user
   }
 }

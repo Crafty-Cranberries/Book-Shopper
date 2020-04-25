@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchAddBook} from '../store/cart'
+import {fetchAddBook} from '../store/order'
 
 class AddButton extends Component {
   constructor() {
@@ -9,7 +9,11 @@ class AddButton extends Component {
   }
 
   handleOnClick() {
-    this.props.addToCart(this.props.bookId)
+    // let data = {
+    //   orderId: 2,
+    //   bookId: 3,
+    // }
+    // this.props.fetchAddBook(data)
   }
 
   render() {
@@ -25,7 +29,7 @@ class AddButton extends Component {
 
 const mapDispatch = dispatch => {
   return {
-    addToCart: bookId => dispatch(fetchAddBook(bookId))
+    fetchAddBook: info => dispatch(fetchAddBook(info))
   }
 }
 
