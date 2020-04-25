@@ -33,10 +33,12 @@ export const fetchCart = userId => {
   }
 }
 
-export const fetchAddBook = bookId => {
+export const fetchAddBook = info => {
   return async dispatch => {
     try {
-      const {data} = await Axios.put(`/api/order/${bookId}`)
+      const {data} = await Axios.post(
+        `/api/bookOrder/${info.orderId}/${info.bookId}`
+      )
       dispatch(addBook(data))
     } catch (error) {
       console.error(error)
@@ -45,11 +47,12 @@ export const fetchAddBook = bookId => {
 }
 
 //Cart Reducer
-export default function cartReducer(state = [], action) {
+export default function orderReducer(state = [], action) {
   switch (action.type) {
     case GET_CART:
-      console.log('THIS IS ACTION >>>>>>>', action)
       return action.cart
+    case ADD_BOOK:
+      return [...state, action.book]
     default:
       return state
   }
