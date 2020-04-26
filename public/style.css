@@ -67,3 +67,8 @@ form div {
   margin-left: 75px;
   margin-right: 20px;
 }
+
+.cart-nav {
+  height: 100%;
+  width: 100px;
+}

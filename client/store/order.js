@@ -1,26 +1,21 @@
 import Axios from 'axios'
-
 //Action Type
 const GET_CART = 'GET_CART'
 const ADD_BOOK = 'ADD_BOOK'
 const REMOVE_BOOK = 'REMOVE_BOOK'
-
 //Action Creator
 const getCart = cart => ({
   type: GET_CART,
   cart
 })
-
 const addBook = book => ({
   type: ADD_BOOK,
   book
 })
-
 const removeBook = bookId => ({
   type: REMOVE_BOOK,
   bookId
 })
-
 //Thunk Creator
 export const fetchCart = userId => {
   return async dispatch => {
@@ -32,7 +27,6 @@ export const fetchCart = userId => {
     }
   }
 }
-
 export const fetchAddBook = info => {
   return async dispatch => {
     try {
@@ -45,14 +39,13 @@ export const fetchAddBook = info => {
     }
   }
 }
-
 //Cart Reducer
 export default function orderReducer(state = [], action) {
   switch (action.type) {
     case GET_CART:
       return action.cart
     case ADD_BOOK:
-      return [...state, action.book]
+      return state
     default:
       return state
   }

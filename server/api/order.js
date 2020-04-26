@@ -14,11 +14,16 @@ router.get('/', async (req, res, next) => {
 //Find active single order:
 router.get('/:id', async (req, res, next) => {
   try {
-    const singleOrder = await Order.findOne({
-      where: {userId: req.params.id, status: false},
-      include: [{model: BookOrder}]
-    })
-    res.json(singleOrder)
+    if (req.session.passport) {
+      let id = req.session.passport.user
+      const singleOrder = await Order.findOne({
+        where: {userId: id, status: false},
+        include: [{model: BookOrder}]
+      })
+      res.json(singleOrder)
+    } else {
+      res.sendStatus(404)
+    }
   } catch (err) {
     next(err)
   }
