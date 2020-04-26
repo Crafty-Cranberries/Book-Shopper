@@ -3,15 +3,14 @@ import {connect} from 'react-redux'
 import {fetchSingleBook} from '../store/singleBook'
 import {Link} from 'react-router-dom'
 import AddButton from './AddButton'
-
 class SingleBook extends React.Component {
   componentDidMount() {
     this.props.getSingleBook()
   }
-
   render() {
     let book = this.props.book
     let author = this.props.book.author
+    console.log('SINGLEBOOK PROPS', this.props)
     return (
       <div>
         <main>
@@ -26,7 +25,7 @@ class SingleBook extends React.Component {
           )}
           <h4>Genre: {book.genre}</h4>
           <div>
-            <AddButton bookId={this.props.book.id} />
+            <AddButton bookId={this.props.book.id} userId={this.props.userId} />
           </div>
         </main>
         <div>
@@ -39,14 +38,12 @@ class SingleBook extends React.Component {
     )
   }
 }
-
 const mapState = state => {
-  // console.log('mapping state.book >>>>', state.book)
   return {
-    book: state.book
+    book: state.book,
+    userId: state.user.id
   }
 }
-
 const mapDispatch = (dispatch, ownProps) => {
   console.log('this is dispatch to props >>>>', ownProps)
   const id = ownProps.match.params.id
@@ -54,5 +51,4 @@ const mapDispatch = (dispatch, ownProps) => {
     getSingleBook: () => dispatch(fetchSingleBook(id))
   }
 }
-
 export default connect(mapState, mapDispatch)(SingleBook)

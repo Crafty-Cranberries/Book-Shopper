@@ -1,21 +1,23 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchAddBook} from '../store/order'
-
+import {fetchAddBook, fetchCart} from '../store/order'
 class AddButton extends Component {
   constructor() {
     super()
     this.handleOnClick = this.handleOnClick.bind(this)
   }
-
-  handleOnClick() {
-    // let data = {
-    //   orderId: 2,
-    //   bookId: 3,
-    // }
-    // this.props.fetchAddBook(data)
+  componentWillReceiveProps(nextProps) {
+    if (this.props.userId !== nextProps.userId) {
+      this.props.getCart(nextProps.userId)
+    }
   }
-
+  handleOnClick() {
+    let info = {
+      bookId: this.props.bookId,
+      orderId: this.props.order.id
+    }
+    this.props.fetchAddBook(info)
+  }
   render() {
     return (
       <div>
@@ -26,11 +28,15 @@ class AddButton extends Component {
     )
   }
 }
-
-const mapDispatch = dispatch => {
+const mapState = state => {
   return {
-    fetchAddBook: info => dispatch(fetchAddBook(info))
+    order: state.order
   }
 }
-
-export default connect(null, mapDispatch)(AddButton)
+const mapDispatch = dispatch => {
+  return {
+    fetchAddBook: info => dispatch(fetchAddBook(info)),
+    getCart: userId => dispatch(fetchCart(userId))
+  }
+}
+export default connect(mapState, mapDispatch)(AddButton)
