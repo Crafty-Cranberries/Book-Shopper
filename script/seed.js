@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Product, Order} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -9,7 +9,49 @@ async function seed() {
 
   const users = await Promise.all([
     User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
+    User.create({email: 'murphy@email.com', password: '123'}),
+    User.create({email: 'michael@email.com', password: '123'}),
+    User.create({email: 'franco@email.com', password: '123'}),
+    User.create({email: 'gary@email.com', password: '123'}),
+    User.create({email: 'jared@email.com', password: '123'})
+  ])
+
+  const books = await Promise.all([
+    Product.create({
+      title: "Harry Potter and The Sorcerer's Stone",
+      author: 'J.K Rowling',
+      price: 15.99,
+      rating: 5,
+      genre: 'Fantasy'
+    }),
+    Product.create({
+      title: 'Green Eggs and Ham',
+      author: 'Dr. Seuss',
+      price: 10.99,
+      rating: 5,
+      genre: 'Children'
+    }),
+    Product.create({
+      title: 'The Very Hungry Caterpillar',
+      author: 'Eric Carle',
+      price: 10.99,
+      rating: 5,
+      genre: 'Children'
+    }),
+    Product.create({
+      title: 'If It Bleeds',
+      author: 'Stephen King',
+      price: 13.99,
+      rating: 4,
+      genre: 'Horror'
+    }),
+    Product.create({
+      title: 'The Hobbit',
+      author: 'J.R.R Tolkien',
+      price: 9.99,
+      rating: 5,
+      genre: 'Fantasy'
+    })
   ])
 
   console.log(`seeded ${users.length} users`)
