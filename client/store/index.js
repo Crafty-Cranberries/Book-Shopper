@@ -3,18 +3,12 @@ import {createLogger} from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
-import booksReducer from './books'
-import singleBookReducer from './singleBook'
-import orderReducer from './order'
-import bookOrdersReducer from './bookOrders'
 
-const reducer = combineReducers({
-  user: user,
-  books: booksReducer,
-  book: singleBookReducer,
-  order: orderReducer,
-  bookOrders: bookOrdersReducer
-})
+import products from './products'
+import singleProduct from './single-product'
+import cart from './cart'
+
+const reducer = combineReducers({user, products, singleProduct, cart})
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
@@ -22,6 +16,6 @@ const store = createStore(reducer, middleware)
 
 export default store
 export * from './user'
-export * from './books'
-export * from './order'
-export * from './bookOrders'
+export * from './products'
+export * from './single-product'
+export * from './cart'

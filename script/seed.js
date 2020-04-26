@@ -1,113 +1,56 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Book, Author, Order, BookOrder} = require('../server/db/models')
+const {User, Product, Order} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
   const users = await Promise.all([
-    User.create({
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'cody@email.com',
-      password: '123',
-      paymentInfo: {
-        debitCard: 'test',
-        shippingAddress: 'address'
-      }
-    }),
-    User.create({
-      firstName: 'Franco',
-      lastName: 'Fullstack',
-      email: 'murphy1@email.com',
-      password: '123'
-    }),
-    User.create({
-      firstName: 'Jared',
-      lastName: 'Fullstack',
-      email: 'murphy2@email.com',
-      password: '123'
-    }),
-    User.create({
-      firstName: 'Gary',
-      lastName: 'Fullstack',
-      email: 'murphy3@email.com',
-      password: '123'
-    })
-  ])
-
-  const authors = await Promise.all([
-    Author.create({
-      firstName: 'J.K',
-      lastName: 'Rowling',
-      email: 'jkrowling@mail.com'
-    }),
-    Author.create({
-      firstName: 'George',
-      lastName: 'Orwell',
-      email: 'georgeorwell@mail.com'
-    })
+    User.create({email: 'cody@email.com', password: '123'}),
+    User.create({email: 'murphy@email.com', password: '123'}),
+    User.create({email: 'michael@email.com', password: '123'}),
+    User.create({email: 'franco@email.com', password: '123'}),
+    User.create({email: 'gary@email.com', password: '123'}),
+    User.create({email: 'jared@email.com', password: '123'})
   ])
 
   const books = await Promise.all([
-    Book.create({
-      title: 'Harry Potter',
-      genre: 'Fantasy',
-      price: 10,
+    Product.create({
+      title: "Harry Potter and The Sorcerer's Stone",
+      author: 'J.K Rowling',
+      price: 15.99,
       rating: 5,
-      authorId: 1
+      genre: 'Fantasy'
     }),
-    Book.create({
-      title: 'Harry Potter 2',
-      genre: 'Fantasy',
-      price: 10,
+    Product.create({
+      title: 'Green Eggs and Ham',
+      author: 'Dr. Seuss',
+      price: 10.99,
       rating: 5,
-      authorId: 2
+      genre: 'Children'
     }),
-    Book.create({
-      title: 'Harry Potter 3',
-      genre: 'Fantasy',
-      price: 10,
+    Product.create({
+      title: 'The Very Hungry Caterpillar',
+      author: 'Eric Carle',
+      price: 10.99,
       rating: 5,
-      authorId: 1
-    })
-  ])
-
-  const orders = await Promise.all([
-    Order.create({
-      userId: 2
+      genre: 'Children'
     }),
-    Order.create({
-      userId: 3
+    Product.create({
+      title: 'If It Bleeds',
+      author: 'Stephen King',
+      price: 13.99,
+      rating: 4,
+      genre: 'Horror'
     }),
-    Order.create({
-      userId: 2,
-      status: true
-    })
-  ])
-
-  const cart = await Promise.all([
-    BookOrder.create({
-      quantity: 3,
-      orderId: 1,
-      bookId: 2
-    }),
-    BookOrder.create({
-      quantity: 2,
-      orderId: 1,
-      bookId: 1
-    }),
-    BookOrder.create({
-      quantity: 3,
-      orderId: 2,
-      bookId: 2
-    }),
-    BookOrder.create({
-      quantity: 7,
-      orderId: 3,
-      bookId: 2
+    Product.create({
+      title: 'The Hobbit',
+      author: 'J.R.R Tolkien',
+      price: 9.99,
+      rating: 5,
+      genre: 'Fantasy'
     })
   ])
 
