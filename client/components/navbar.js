@@ -5,7 +5,6 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 import {Button} from 'react-bootstrap'
 import Cart from './cart'
-
 const Navbar = ({handleClick, isLoggedIn}) => {
   const [modalShow, setModalShow] = React.useState(false)
   return (
@@ -33,6 +32,7 @@ const Navbar = ({handleClick, isLoggedIn}) => {
         Cart
       </Button>
       <Cart show={modalShow} onHide={() => setModalShow(false)} />
+
     </div>
   )
 }
@@ -42,7 +42,8 @@ const Navbar = ({handleClick, isLoggedIn}) => {
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    user: state.user.id
   }
 }
 
