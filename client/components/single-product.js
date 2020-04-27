@@ -9,7 +9,6 @@ class SingleProduct extends React.Component {
   }
   render() {
     const book = this.props.book
-    console.log('THIS IS MY BOOK >>', book)
     return (
       <div>
         <main>
