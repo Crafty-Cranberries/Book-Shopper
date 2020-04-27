@@ -9,7 +9,7 @@ async function admin(req, res, next) {
   })
 
   if (!user.admin()) {
-    return res.json('You do not have access to this')
+    res.json('You do not have access to this')
   }
   next()
 }
