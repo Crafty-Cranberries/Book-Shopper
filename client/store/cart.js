@@ -1,7 +1,9 @@
+/* eslint-disable complexity */
 /* eslint-disable no-case-declarations */
 
 const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
+const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 const INCREASE_QUANTITY = 'INCREASE_QUANTITY'
 const DECREASE_QUANTITY = 'DECREASE_QUANTITY'
 const COMPLETE_PURCHASE = 'COMPLETE_PURCHASE'
@@ -15,6 +17,7 @@ if (localStorage.getItem('cart')) {
 
 export const getCart = () => ({type: GET_CART})
 export const addToCart = product => ({type: ADD_TO_CART, product})
+export const removeFromCart = product => ({type: REMOVE_FROM_CART, product})
 export const increaseQuantity = product => ({
   type: INCREASE_QUANTITY,
   product
@@ -27,11 +30,20 @@ export const completePurchase = () => ({
   type: COMPLETE_PURCHASE
 })
 
+// const getCartThunk = () => async (dispatch) => {
+//   try {
+//     const {data} = await axios.get('/api/order')
+//     dispatch(getProducts(data))
+//   } catch (err) {
+//     console.error(err)
+//   }
+// }
+
 // eslint-disable-next-line complexity
 export default function(state = defaultCart, action) {
   switch (action.type) {
     case GET_CART:
-      return state
+      return [...state]
     case ADD_TO_CART:
       let newCart = state
       let inCart = false
@@ -48,6 +60,18 @@ export default function(state = defaultCart, action) {
       }
       localStorage.setItem('cart', JSON.stringify(newCart))
       return [...newCart]
+    case REMOVE_FROM_CART:
+      let updatedCart = state
+      let position
+      for (let i = 0; i < updatedCart.length; i++) {
+        if (updatedCart[i].id === action.product.id) {
+          position = i
+          break
+        }
+      }
+      updatedCart.splice(position, 1)
+      localStorage.setItem('cart', JSON.stringify(updatedCart))
+      return [...updatedCart]
 
     case INCREASE_QUANTITY:
       let updatedQuantity = state

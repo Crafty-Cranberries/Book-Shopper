@@ -1,9 +1,24 @@
 import React from 'react'
 import {Modal, Button, ButtonGroup, Col} from 'react-bootstrap'
 import {connect} from 'react-redux'
-import {increaseQuantity, decreaseQuantity, completePurchase} from '../store'
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
+import {
+  increaseQuantity,
+  decreaseQuantity,
+  completePurchase,
+  removeFromCart
+} from '../store'
 
 function Cart(props) {
+  const removeFromCartSuccess = () => {
+    toast('Removed Item from Cart', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 1500
+    })
+  }
+
   return (
     <Modal
       show={props.show}
@@ -38,6 +53,15 @@ function Cart(props) {
               </ButtonGroup>
               <h4>Price: ${product.price}</h4>
               <h4>Subtotal: ${product.price * product.quantity}</h4>
+              <button
+                type="button"
+                onClick={() => {
+                  props.removeFromCart(product)
+                  removeFromCartSuccess()
+                }}
+              >
+                Remove from cart
+              </button>
             </div>
           )
         })}
@@ -47,7 +71,6 @@ function Cart(props) {
           Total: ${' '}
           {props.cart
             .reduce((total, product) => {
-              console.log('PRODUCT IN CART', product.price * product.quantity)
               return total + product.price * product.quantity
             }, 0.0)
             .toFixed(2)}
@@ -73,6 +96,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
+    removeFromCart: product => dispatch(removeFromCart(product)),
     increaseQuantity: product => dispatch(increaseQuantity(product)),
     decreaseQuantity: product => dispatch(decreaseQuantity(product)),
     completePurchase: () => dispatch(completePurchase())

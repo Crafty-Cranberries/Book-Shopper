@@ -15,6 +15,8 @@ describe('User model', () => {
 
       beforeEach(async () => {
         cody = await User.create({
+          firstName: 'Cody',
+          lastName: 'Pup',
           email: 'cody@puppybook.com',
           password: 'bones'
         })
@@ -26,6 +28,18 @@ describe('User model', () => {
 
       it('returns false if the password is incorrect', () => {
         expect(cody.correctPassword('bonez')).to.be.equal(false)
+      })
+
+      it('returns correct admin status', () => {
+        expect(cody.dataValues.isAdmin).to.be.equal(false)
+      })
+
+      it('returns correct first name', () => {
+        expect(cody.dataValues.firstName).to.be.equal('Cody')
+      })
+
+      it('returns correct last name', () => {
+        expect(cody.dataValues.lastName).to.be.equal('Pup')
       })
     }) // end describe('correctPassword')
   }) // end describe('instanceMethods')

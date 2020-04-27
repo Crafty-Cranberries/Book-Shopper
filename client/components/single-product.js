@@ -2,12 +2,19 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {fetchSingleProduct, getCart, addToCart} from '../store'
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
+toast.configure()
+
 class SingleProduct extends React.Component {
   componentDidMount() {
     this.props.fetchBook(this.props.match.params.id)
     this.props.fetchCart()
   }
+
   render() {
+    console.log('THESE ARE MY PROPS: ', this.props)
     const book = this.props.book
     return (
       <div>
@@ -20,7 +27,10 @@ class SingleProduct extends React.Component {
           <p>Synopsis: {book.synopsis}</p>
           <div>
             <button
-              onClick={() => this.props.addToCart(this.props.book)}
+              onClick={() => {
+                this.props.addToCart(this.props.book)
+                this.props.addToCartSuccess()
+              }}
               type="button"
             >
               Add To Cart
@@ -47,7 +57,10 @@ const mapDispatch = dispatch => {
   return {
     fetchBook: bookId => dispatch(fetchSingleProduct(bookId)),
     fetchCart: () => dispatch(getCart()),
-    addToCart: product => dispatch(addToCart(product))
+    addToCart: product => dispatch(addToCart(product)),
+    addToCartSuccess: () =>
+      toast('Added Book To Cart!', {position: toast.POSITION.TOP_CENTER})
   }
 }
+
 export default connect(mapState, mapDispatch)(SingleProduct)
