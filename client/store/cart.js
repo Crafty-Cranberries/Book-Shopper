@@ -1,7 +1,9 @@
+/* eslint-disable complexity */
 /* eslint-disable no-case-declarations */
 
 const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
+const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 
 let defaultCart
 if (localStorage.getItem('cart')) {
@@ -12,11 +14,12 @@ if (localStorage.getItem('cart')) {
 
 export const getCart = () => ({type: GET_CART})
 export const addToCart = product => ({type: ADD_TO_CART, product})
+export const removeFromCart = product => ({type: REMOVE_FROM_CART, product})
 
 export default function(state = defaultCart, action) {
   switch (action.type) {
     case GET_CART:
-      return state
+      return [...state]
     case ADD_TO_CART:
       let newCart = state
       let inCart = false
@@ -32,7 +35,19 @@ export default function(state = defaultCart, action) {
         newCart.push(action.product)
       }
       localStorage.setItem('cart', JSON.stringify(newCart))
-      return newCart
+      return [...newCart]
+    case REMOVE_FROM_CART:
+      let updatedCart = state
+      let position
+      for (let i = 0; i < updatedCart.length; i++) {
+        if (updatedCart[i].id === action.product.id) {
+          position = i
+          break
+        }
+      }
+      updatedCart.splice(position, 1)
+      localStorage.setItem('cart', JSON.stringify(updatedCart))
+      return [...updatedCart]
     default:
       return state
   }

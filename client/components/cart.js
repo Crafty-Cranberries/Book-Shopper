@@ -1,11 +1,13 @@
 import React from 'react'
 import {Modal, Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
+import {removeFromCart} from '../store'
 
 function Cart(props) {
   return (
     <Modal
-      {...props}
+      show={props.show}
+      onHide={props.onHide}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       dispatch="false"
@@ -21,6 +23,12 @@ function Cart(props) {
               <h3>{product.title}</h3>
               <h4>Quantity: {product.quantity}</h4>
               <h4>Price {product.price}</h4>
+              <button
+                type="button"
+                onClick={() => props.removeFromCart(product)}
+              >
+                Remove from cart
+              </button>
             </div>
           )
         })}
@@ -38,4 +46,10 @@ const mapState = state => {
   }
 }
 
-export default connect(mapState)(Cart)
+const mapDispatch = dispatch => {
+  return {
+    removeFromCart: product => dispatch(removeFromCart(product))
+  }
+}
+
+export default connect(mapState, mapDispatch)(Cart)
