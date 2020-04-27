@@ -2,6 +2,12 @@ const router = require('express').Router()
 const {Product} = require('../db/models')
 module.exports = router
 
+function admin(req, res, next) {
+  if (!req.user.isAdmin) {
+    res.json('You do not have access to this.')
+  }
+}
+
 //Get all products (Books)
 router.get('/', async (req, res, next) => {
   try {
@@ -23,7 +29,7 @@ router.get('/:id', async (req, res, next) => {
 })
 
 //Add a new product
-router.post('/add', async (req, res, next) => {
+router.post('/add', admin, async (req, res, next) => {
   try {
     const createProduct = await Product.create(req.body)
     res.json(createProduct)
@@ -33,7 +39,7 @@ router.post('/add', async (req, res, next) => {
 })
 
 //Update a product
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', admin, async (req, res, next) => {
   try {
     const [filled, updatedProduct] = await Product.update(req.body, {
       where: {id: req.params.id},
@@ -46,7 +52,7 @@ router.put('/:id', async (req, res, next) => {
 })
 
 //Delete a product
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', admin, async (req, res, next) => {
   try {
     const numOfDeleted = await Product.destroy({
       where: {id: req.params.id}
