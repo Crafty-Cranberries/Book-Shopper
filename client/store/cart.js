@@ -19,17 +19,9 @@ let defaultCart = []
 //   defaultCart = []
 // }
 
-//This formats the api data response so we can access the information easier
-function returnFormatedProducts(obj) {
-  const reformatted = obj.products.map(product => {
-    return {
-      ...product,
-      quantity: product.ProductOrder.quantity,
-      price: product.ProductOrder.price
-    }
-  })
-  return reformatted
-}
+//////////////////////////////////
+// ***** ACTION CREATORS ***** //
+////////////////////////////////
 
 export const getCart = cart => ({type: GET_CART, cart})
 export const addToCart = product => ({type: ADD_TO_CART, product})
@@ -46,6 +38,38 @@ export const completePurchase = () => ({
   type: COMPLETE_PURCHASE
 })
 
+////////////////////////////////////
+// ***** UTILITY FUNCTIONS ***** //
+//////////////////////////////////
+
+//This formats the api data response so we can access the information easier
+function returnFormatedProducts(obj) {
+  const reformatted = obj.products.map(product => {
+    return {
+      ...product,
+      quantity: product.ProductOrder.quantity,
+      price: product.ProductOrder.price
+    }
+  })
+  return reformatted
+}
+
+//loops through the local storage cart and makes a post request for each product
+async function asyncForEachPost(books, userId) {
+  for (let i = 0; i < books.length; i++) {
+    let product = books[i]
+    await axios.post(`/api/users/${userId}/orders/active`, {
+      price: product.price,
+      quantity: product.quantity,
+      productId: product.id
+    })
+  }
+}
+
+/////////////////////////
+// ***** THUNKS ***** //
+///////////////////////
+
 export const getCartThunk = info => async dispatch => {
   try {
     if (!info.isLoggedIn) {
@@ -54,16 +78,7 @@ export const getCartThunk = info => async dispatch => {
     } else {
       const localCart = JSON.parse(localStorage.getItem('cart'))
       if (localCart) {
-        localCart.forEach(async product => {
-          const {data} = await axios.post(
-            `/api/users/${info.userId}/orders/active`,
-            {
-              price: product.price,
-              quantity: product.quantity,
-              productId: product.id
-            }
-          )
-        })
+        await asyncForEachPost(localCart, info.userId)
       }
       const {data} = await axios.get(`/api/users/${info.userId}/orders/active`)
       let cart = returnFormatedProducts(data)
@@ -74,6 +89,10 @@ export const getCartThunk = info => async dispatch => {
     console.error(err)
   }
 }
+
+/////////////////////////
+// ***** REDUCER ***** //
+///////////////////////
 
 // eslint-disable-next-line complexity
 export default function(state = defaultCart, action) {
