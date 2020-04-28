@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Order, User, BookOrder} = require('../db/models')
+const {Order, User, BookOrder, Product} = require('../db/models')
 
 //Find all orders:
 router.get('/', async (req, res, next) => {
@@ -12,22 +12,22 @@ router.get('/', async (req, res, next) => {
 })
 
 //Find active single order:
-router.get('/:id', async (req, res, next) => {
-  try {
-    if (req.session.passport) {
-      let id = req.session.passport.user
-      const singleOrder = await Order.findOne({
-        where: {userId: id, status: false},
-        include: [{model: BookOrder}]
-      })
-      res.json(singleOrder)
-    } else {
-      res.sendStatus(404)
-    }
-  } catch (err) {
-    next(err)
-  }
-})
+// router.get('/:id/', async (req, res, next) => {
+//   try {
+//     if (req.session.passport) {
+//       let id = req.params.id
+//       const singleOrder = await Order.findOne({
+//         where: {userId: id, status: 'ongoing'},
+//         include: [{model: Product}],
+//       })
+//       res.json(singleOrder)
+//     } else {
+//       res.sendStatus(404)
+//     }
+//   } catch (err) {
+//     next(err)
+//   }
+// })
 router.get('/:id/all', async (req, res, next) => {
   try {
     const allUserOrders = await Order.findAll({

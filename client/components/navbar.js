@@ -2,12 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {logout} from '../store'
+import {logout, getCartThunk} from '../store'
 import {Button} from 'react-bootstrap'
 import Cart from './cart'
 
-const Navbar = ({handleClick, isLoggedIn}) => {
+const Navbar = props => {
+  const {handleClick, isLoggedIn, fetchCart, user} = props
   const [modalShow, setModalShow] = React.useState(false)
+  console.log('THESE ARE NAVBAR PROPS', props)
   return (
     <div className="nav-bar">
       <h1>Book-Shopper</h1>
@@ -29,7 +31,13 @@ const Navbar = ({handleClick, isLoggedIn}) => {
         )}
       </nav>
       <hr />
-      <Button variant="primary" onClick={() => setModalShow(true)}>
+      <Button
+        variant="primary"
+        onClick={() => {
+          setModalShow(true)
+          fetchCart({isLoggedIn: isLoggedIn, userId: user})
+        }}
+      >
         Cart
       </Button>
       <Cart show={modalShow} onHide={() => setModalShow(false)} />
@@ -51,7 +59,8 @@ const mapDispatch = dispatch => {
   return {
     handleClick() {
       dispatch(logout())
-    }
+    },
+    fetchCart: info => dispatch(getCartThunk(info))
   }
 }
 

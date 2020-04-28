@@ -11,6 +11,7 @@ function admin(req, res, next) {
 //Get all products (Books)
 router.get('/', async (req, res, next) => {
   try {
+    console.log('THIS IS REQ USER >>>>', req.user)
     const allProducts = await Product.findAll()
     res.json(allProducts)
   } catch (err) {
