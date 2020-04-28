@@ -8,7 +8,8 @@ import {
   Signup,
   UserHome,
   AllProducts,
-  SingleProduct
+  SingleProduct,
+  AddProduct
   // CompletePurchase
 } from './components'
 import {me, fetchProducts} from './store'
@@ -21,7 +22,8 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn} = this.props
+    const {isLoggedIn, isAdmin} = this.props
+
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
@@ -34,6 +36,11 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
+            {isAdmin && (
+              <Switch>
+                <Route exact path="/addproduct" component={AddProduct} />{' '}
+              </Switch>
+            )}
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
@@ -52,7 +59,8 @@ const mapState = state => {
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
     user: state.user,
-    userId: state.user.id
+    userId: state.user.id,
+    isAdmin: state.user.isAdmin
   }
 }
 

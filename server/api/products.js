@@ -1,15 +1,23 @@
 const router = require('express').Router()
 const {Product} = require('../db/models')
+const {
+  isLoggedIn,
+  isAdmin,
+  isAdminOrCorrectUser
+} = require('../api/utility/utility')
+
 module.exports = router
 
-function admin(req, res, next) {
-  if (!req.user.isAdmin) {
-    res.json('You do not have access to this.')
-  }
-}
+// function admin(req, res, next) {
+//   if (!req.user.isAdmin) {
+//     res.json('You do not have access to this.')
+//   }
+// }
 
 //Get all products (Books)
 router.get('/', async (req, res, next) => {
+  console.log('THIS IS REQ.USER', req.user.isAdmin)
+  console.log('SECURITY ---->', isLoggedIn)
   try {
     console.log('THIS IS REQ USER >>>>', req.user)
     const allProducts = await Product.findAll()
@@ -30,7 +38,7 @@ router.get('/:id', async (req, res, next) => {
 })
 
 //Add a new product
-router.post('/add', admin, async (req, res, next) => {
+router.post('/add', isAdmin, async (req, res, next) => {
   try {
     const createProduct = await Product.create(req.body)
     res.json(createProduct)
@@ -40,7 +48,7 @@ router.post('/add', admin, async (req, res, next) => {
 })
 
 //Update a product
-router.put('/:id', admin, async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
   try {
     const [filled, updatedProduct] = await Product.update(req.body, {
       where: {id: req.params.id},
@@ -53,7 +61,7 @@ router.put('/:id', admin, async (req, res, next) => {
 })
 
 //Delete a product
-router.delete('/:id', admin, async (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
   try {
     const numOfDeleted = await Product.destroy({
       where: {id: req.params.id}

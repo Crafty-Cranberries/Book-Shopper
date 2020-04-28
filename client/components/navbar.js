@@ -7,8 +7,15 @@ import {Button} from 'react-bootstrap'
 import Cart from './cart'
 
 const Navbar = props => {
-  const {handleClick, isLoggedIn, fetchCart, user} = props
+  const {handleClick, isLoggedIn, fetchCart, user, isAdmin} = props
+
   const [modalShow, setModalShow] = React.useState(false)
+
+  const isAdminFunc = admin => {
+    if (admin) {
+      return <Link to="/addproduct"> Add Product </Link>
+    }
+  }
   return (
     <div className="nav-bar">
       <h1>Book-Shopper</h1>
@@ -20,6 +27,7 @@ const Navbar = props => {
             <a href="#" onClick={handleClick}>
               Logout
             </a>
+            {/* {isAdmin ? <Link to="/addproduct"> Add Product </Link> : ''} */}
           </div>
         ) : (
           <div>
@@ -28,6 +36,7 @@ const Navbar = props => {
             <Link to="/signup">Sign Up</Link>
           </div>
         )}
+        {isAdminFunc(isAdmin)}
       </nav>
       <hr />
       <Button
@@ -50,7 +59,8 @@ const Navbar = props => {
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
-    user: state.user.id
+    user: state.user.id,
+    isAdmin: state.user.isAdmin
   }
 }
 
