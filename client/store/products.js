@@ -15,14 +15,23 @@ export const fetchProducts = () => async dispatch => {
   }
 }
 
-export const newProduct = () => async dispatch => {
+export const newProduct = info => async dispatch => {
   try {
-    const {data} = await axios.post('/api/products/add')
+    if (info.coverImg.length > 0) {
+      info = {
+        ...info.productInfo,
+        coverImg: info.coverImg
+      }
+    } else {
+      info = info.productInfo
+    }
+    const {data} = await axios.post('/api/products/add', info)
     dispatch(addProduct(data))
   } catch (error) {
     console.error(error)
   }
 }
+
 const defaultProducts = []
 
 export default function(state = defaultProducts, action) {
@@ -31,7 +40,7 @@ export default function(state = defaultProducts, action) {
       console.log('THIS IS STATE', action.products)
       return [...action.products]
     case ADD_PRODUCT:
-      return [...state, ...action.product]
+      return [...state, action.product]
     default:
       return state
   }
