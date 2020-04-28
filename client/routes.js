@@ -8,7 +8,8 @@ import {
   Signup,
   UserHome,
   AllProducts,
-  SingleProduct
+  SingleProduct,
+  AddProduct
   // CompletePurchase
 } from './components'
 import {me, fetchProducts, getCart} from './store'
@@ -35,6 +36,7 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
+            <Route exact path="/addproduct" component={AddProduct} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
