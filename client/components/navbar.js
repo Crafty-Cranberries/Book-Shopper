@@ -9,7 +9,6 @@ import Cart from './cart'
 const Navbar = props => {
   const {handleClick, isLoggedIn, fetchCart, user} = props
   const [modalShow, setModalShow] = React.useState(false)
-  console.log('THESE ARE NAVBAR PROPS', props)
   return (
     <div className="nav-bar">
       <h1>Book-Shopper</h1>

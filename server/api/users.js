@@ -45,19 +45,32 @@ router.get('/:userId/orders/active', async (req, res, next) => {
 // add a product into an ongoing active user order
 router.post('/:userId/orders/active', async (req, res, next) => {
   try {
+    //search for that user's order first
     let id = req.params.userId
     const singleOrder = await Order.findOne({
       where: {userId: id, status: 'ongoing'}
     })
     const orderId = singleOrder.dataValues.id
 
-    const newCartItem = await ProductOrder.create({
-      quantity: req.body.quantity,
-      productId: req.body.productId,
-      orderId: orderId,
-      price: req.body.price
+    //search for an existing book on the cart, if it's not there, create it
+    //with these default values
+    const productOnCart = await ProductOrder.findOrCreate({
+      where: {orderId: orderId, productId: req.body.productId},
+      defaults: {
+        quantity: req.body.quantity,
+        price: req.body.price
+      }
     })
-    res.json(newCartItem)
+
+    //if it was newly created, send it, else increment the quantity
+    if (productOnCart[1]) {
+      res.json(productOnCart[0])
+    } else {
+      const updated = await productOnCart[0].increment('quantity', {
+        by: req.body.quantity
+      })
+      res.json(updated)
+    }
   } catch (error) {
     next(error)
   }

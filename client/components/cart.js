@@ -8,8 +8,7 @@ import {
   increaseQuantity,
   decreaseQuantity,
   completePurchase,
-  removeFromCart,
-  getCartThunk
+  removeFromCart
 } from '../store'
 
 function Cart(props) {
@@ -75,9 +74,6 @@ function Cart(props) {
             }, 0.0)
             .toFixed(2)}
         </Col>
-        {/* <button type="button" onClick={() => props.testRun(isLoggedIn)}>
-          TEST
-        </button> */}
         <Button
           variant="success"
           href="/completepurchase"
@@ -103,7 +99,6 @@ const mapDispatch = dispatch => {
     increaseQuantity: product => dispatch(increaseQuantity(product)),
     decreaseQuantity: product => dispatch(decreaseQuantity(product)),
     completePurchase: () => dispatch(completePurchase())
-    // testRun: (param) => dispatch(getCartThunk(param)),
   }
 }
 

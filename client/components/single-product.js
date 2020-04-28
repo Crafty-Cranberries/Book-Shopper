@@ -10,7 +10,6 @@ toast.configure()
 class SingleProduct extends React.Component {
   componentDidMount() {
     this.props.fetchBook(this.props.match.params.id)
-    // this.props.fetchCart()
   }
 
   render() {
@@ -55,7 +54,6 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     fetchBook: bookId => dispatch(fetchSingleProduct(bookId)),
-    // fetchCart: () => dispatch(getCart()),
     addToCart: product => dispatch(addToCart(product)),
     addToCartSuccess: () =>
       toast('Added Book To Cart!', {position: toast.POSITION.TOP_CENTER})

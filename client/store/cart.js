@@ -21,7 +21,6 @@ let defaultCart = []
 
 //This formats the api data response so we can access the information easier
 function returnFormatedProducts(obj) {
-  console.log('THIS IS FORMATTED INPUT: ', obj)
   const reformatted = obj.products.map(product => {
     return {
       ...product,
@@ -50,29 +49,26 @@ export const completePurchase = () => ({
 export const getCartThunk = info => async dispatch => {
   try {
     if (!info.isLoggedIn) {
-      console.log('NOT LOGGED IN')
-      let localCart = localStorage.getItem('cart')
-      dispatch(getCart(JSON.parse(localCart)))
+      const cart = JSON.parse(localStorage.getItem('cart'))
+      dispatch(getCart(cart))
     } else {
-      console.log('LOGGED IN')
-      let localCart = localStorage.getItem('cart')
-      localCart = JSON.parse(localCart)
-      if (localCart.length) {
-        console.log('CART HAS LENGTH')
+      const localCart = JSON.parse(localStorage.getItem('cart'))
+      if (localCart) {
         localCart.forEach(async product => {
-          const {data} = await axios.post('/:userId/orders/active', {
-            price: product.price,
-            quantity: product.quantity,
-            productId: product.id
-          })
-          console.log('THIS IS EACH ITEM INFO', data)
+          const {data} = await axios.post(
+            `/api/users/${info.userId}/orders/active`,
+            {
+              price: product.price,
+              quantity: product.quantity,
+              productId: product.id
+            }
+          )
         })
       }
       const {data} = await axios.get(`/api/users/${info.userId}/orders/active`)
       let cart = returnFormatedProducts(data)
-      let newCart = cart.concat(localCart)
-      localStorage.setItem('cart', JSON.stringify([]))
-      dispatch(getCart(newCart))
+      localStorage.removeItem('cart')
+      dispatch(getCart(cart))
     }
   } catch (err) {
     console.error(err)
@@ -86,7 +82,7 @@ export default function(state = defaultCart, action) {
       if (action.cart === null) action.cart = []
       return [...action.cart]
     case ADD_TO_CART:
-      let newCart = state
+      let newCart = [...state]
       let inCart = false
       for (let i = 0; i < newCart.length; i++) {
         if (newCart[i].id === action.product.id) {
