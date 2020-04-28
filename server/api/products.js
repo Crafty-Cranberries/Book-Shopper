@@ -19,6 +19,7 @@ router.get('/', async (req, res, next) => {
   console.log('THIS IS REQ.USER', req.user.isAdmin)
   console.log('SECURITY ---->', isLoggedIn)
   try {
+    console.log('THIS IS REQ USER >>>>', req.user)
     const allProducts = await Product.findAll()
     res.json(allProducts)
   } catch (err) {

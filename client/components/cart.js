@@ -18,7 +18,6 @@ function Cart(props) {
       autoClose: 1500
     })
   }
-
   return (
     <Modal
       show={props.show}

@@ -12,7 +12,7 @@ import {
   AddProduct
   // CompletePurchase
 } from './components'
-import {me, fetchProducts, getCart} from './store'
+import {me, fetchProducts} from './store'
 /**
  * COMPONENT
  */
@@ -58,6 +58,8 @@ const mapState = state => {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
+    user: state.user,
+    userId: state.user.id,
     isAdmin: state.user.isAdmin
   }
 }
@@ -67,7 +69,6 @@ const mapDispatch = dispatch => {
     loadInitialData() {
       dispatch(me())
       dispatch(fetchProducts())
-      dispatch(getCart())
     }
   }
 }
