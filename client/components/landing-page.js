@@ -32,7 +32,7 @@ export const LandingPage = () => {
           <div className="right-container">
             <img
               className="main-page-image"
-              src="https://lh3.googleusercontent.com/proxy/dVFOy4qIAUcjvcAmBkvJB1D_uNezATnkaA1M51Q8arLln7VtCfQkPDvyCCpl_vGo15Mb5G5mLMqXFeb0VmS1hffVdF5ftcY"
+              src="https://i.imgur.com/EZPUkqg.png"
             />
           </div>
         </div>
