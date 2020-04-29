@@ -11,16 +11,16 @@ class AllUsers extends React.Component {
   render() {
     return (
       <div>
-        <h1>Users:</h1>
-        <CardDeck>
+        <h1 className="user-page-text">Users</h1>
+        {/* <CardDeck> */}
+        <div className="user-cards">
           {this.props.users &&
             this.props.users.map(singleUser => {
               return (
                 <Card key={singleUser.id} style={{width: '18rem'}}>
                   <Card.Body>
                     <Card.Title>
-                      Name:
-                      {singleUser.firstName || 'Not Filled Out'}
+                      Name: {singleUser.firstName || 'Not Filled Out'}{' '}
                       {singleUser.lastName}
                     </Card.Title>
                     <Card.Subtitle>Email: {singleUser.email}</Card.Subtitle>
@@ -28,7 +28,8 @@ class AllUsers extends React.Component {
                 </Card>
               )
             })}
-        </CardDeck>
+        </div>
+        {/* </CardDeck> */}
       </div>
     )
   }
