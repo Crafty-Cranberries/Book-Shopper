@@ -48,7 +48,7 @@ router.post('/add', isAdmin, async (req, res, next) => {
 })
 
 //Update a product
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', isAdmin, async (req, res, next) => {
   try {
     const [filled, updatedProduct] = await Product.update(req.body, {
       where: {id: req.params.id},
@@ -61,7 +61,7 @@ router.put('/:id', async (req, res, next) => {
 })
 
 //Delete a product
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', isAdmin, async (req, res, next) => {
   try {
     const numOfDeleted = await Product.destroy({
       where: {id: req.params.id}

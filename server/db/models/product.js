@@ -10,15 +10,16 @@ const Product = db.define('product', {
     type: Sequelize.STRING
   },
   price: {
-    type: Sequelize.FLOAT,
-    allowNull: false
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    default: 0
   },
   coverImg: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     defaultValue: 'https://wfbf.com/wp-content/uploads/2016/08/cover.jpg'
   },
   rating: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.INTEGER,
     defaultValue: 0,
     validate: {
       min: 0,
