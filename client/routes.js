@@ -9,7 +9,8 @@ import {
   UserHome,
   AllProducts,
   SingleProduct,
-  AddProduct
+  AddProduct,
+  AllUsers
   // CompletePurchase
 } from './components'
 import {me, fetchProducts} from './store'
@@ -40,6 +41,7 @@ class Routes extends Component {
             {isAdmin && (
               <Switch>
                 <Route exact path="/addproduct" component={AddProduct} />{' '}
+                <Route exact path="/users" component={AllUsers} />
               </Switch>
             )}
           </Switch>
