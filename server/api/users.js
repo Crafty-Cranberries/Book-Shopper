@@ -118,3 +118,25 @@ router.delete('/:userId/orders/active/:productId', async (req, res, next) => {
     next(error)
   }
 })
+
+router.post('/:userId/orders/completed', async (req, res, next) => {
+  try {
+    //complete their active order
+    let id = req.params.userId
+    const [numOfAffected, completedOrder] = await Order.update(
+      {
+        status: 'completed'
+      },
+      {
+        where: {userId: id, status: 'ongoing'}
+      }
+    )
+    const newActiveOrder = await Order.create({
+      userId: id
+    })
+
+    res.json(newActiveOrder)
+  } catch (error) {
+    next(error)
+  }
+})

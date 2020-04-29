@@ -5,10 +5,8 @@ import axios from 'axios'
 const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
-const INCREASE_QUANTITY = 'INCREASE_QUANTITY'
-const DECREASE_QUANTITY = 'DECREASE_QUANTITY'
-const COMPLETE_PURCHASE = 'COMPLETE_PURCHASE'
 const INCREMENT_OR_DECREMENT = 'INCREMENT_OR_DECREMENT'
+const COMPLETE_PURCHASE = 'COMPLETE_PURCHASE'
 
 let defaultCart = []
 
@@ -26,14 +24,6 @@ export const incrementOrDecrement = (productId, method) => ({
   type: INCREMENT_OR_DECREMENT,
   productId,
   method
-})
-export const increaseQuantity = product => ({
-  type: INCREASE_QUANTITY,
-  product
-})
-export const decreaseQuantity = product => ({
-  type: DECREASE_QUANTITY,
-  product
 })
 export const completePurchase = () => ({
   type: COMPLETE_PURCHASE
