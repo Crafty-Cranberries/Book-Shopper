@@ -35,7 +35,6 @@ export const newProduct = info => async dispatch => {
 }
 
 export const removedProduct = productId => async dispatch => {
-  console.log(productId)
   try {
     const {data} = await axios.delete(`/api/products/${productId}`)
     dispatch(removeProduct(productId))
