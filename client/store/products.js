@@ -37,7 +37,6 @@ const defaultProducts = []
 export default function(state = defaultProducts, action) {
   switch (action.type) {
     case GET_PRODUCTS:
-      console.log('THIS IS STATE', action.products)
       return [...action.products]
     case ADD_PRODUCT:
       return [...state, action.product]
