@@ -28,25 +28,33 @@ class AllProducts extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Books:</h1>
-        {this.props.products.map(book => {
-          return (
-            <Card key={book.id} style={{width: '18rem'}}>
-              <Card.Img variant="top" src={book.coverImg} />
-              <Card.Body>
-                <Link to={`/books/${book.id}`}>
-                  <Card.Title> {book.title}</Card.Title>
-                </Link>
-                <Card.Subtitle>{book.author}</Card.Subtitle>
-                <Card.Text>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit{' '}
-                </Card.Text>
-                {this.isAdminFunc(this.props.isAdmin, book.id)}
-              </Card.Body>
-            </Card>
-          )
-        })}
+      <div className="all-products-start">
+        <div>
+          <h1>Books:</h1>
+        </div>
+        <div className="all-products-container">
+          {this.props.products.map(book => {
+            return (
+              <Card
+                className="product-preview"
+                key={book.id}
+                style={{width: '18rem'}}
+              >
+                <Card.Img variant="top" src={book.coverImg} />
+                <Card.Body>
+                  <Link to={`/books/${book.id}`}>
+                    <Card.Title> {book.title}</Card.Title>
+                  </Link>
+                  <Card.Subtitle>{book.author}</Card.Subtitle>
+                  <Card.Text>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit{' '}
+                  </Card.Text>
+                  {this.isAdminFunc(this.props.isAdmin, book.id)}
+                </Card.Body>
+              </Card>
+            )
+          })}
+        </div>
       </div>
     )
   }

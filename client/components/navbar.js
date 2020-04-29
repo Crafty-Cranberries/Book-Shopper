@@ -23,7 +23,7 @@ const Navbar = props => {
   }
   return (
     <div className="nav-bar">
-      <h1>Book-Shopper</h1>
+      <h1 className="nav-title">BookShopper</h1>
       <nav>
         {isLoggedIn ? (
           <div>
@@ -43,16 +43,18 @@ const Navbar = props => {
         )}
         {isAdminFunc(isAdmin)}
       </nav>
-      <hr />
-      <Button
-        variant="primary"
-        onClick={() => {
-          setModalShow(true)
-          fetchCart({isLoggedIn: isLoggedIn, userId: user})
-        }}
-      >
-        Cart
-      </Button>
+      <div className="button-container">
+        <Button
+          className="cart-button"
+          variant="primary"
+          onClick={() => {
+            setModalShow(true)
+            fetchCart({isLoggedIn: isLoggedIn, userId: user})
+          }}
+        >
+          Cart
+        </Button>
+      </div>
       <Cart
         isLoggedIn={isLoggedIn}
         userId={user}

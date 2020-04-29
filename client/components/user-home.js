@@ -1,18 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Button} from 'react-bootstrap'
+import {Button, Image, Col} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 
 /**
  * COMPONENT
  */
 export const UserHome = props => {
-  const {email} = props
+  const {name} = props
   return (
     <div>
       <div>
-        <h3>Welcome, {email}</h3>
+        <div className="welcome">
+          <h3 className="welcomeText">Welcome back, {name}!</h3>
+          <Col xs={6} md={4}>
+            <Image
+              className="user-welcome-img"
+              src="https://www.pinclipart.com/picdir/big/165-1653686_female-user-icon-png-download-user-colorful-icon.png"
+              roundedCircle
+            />
+          </Col>
+        </div>
         <div className="home-page-container">
           <div className="front-page-welcome">
             <div>
@@ -33,7 +42,12 @@ export const UserHome = props => {
               <Button variant="outline-light">All Authors</Button>
             </div>
           </div>
-          <div className="placeholder" />
+          <div className="right-container">
+            <img
+              className="main-page-image"
+              src="https://lh3.googleusercontent.com/proxy/dVFOy4qIAUcjvcAmBkvJB1D_uNezATnkaA1M51Q8arLln7VtCfQkPDvyCCpl_vGo15Mb5G5mLMqXFeb0VmS1hffVdF5ftcY"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -45,7 +59,8 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
-    email: state.user.email
+    email: state.user.email,
+    name: state.user.firstName
   }
 }
 
