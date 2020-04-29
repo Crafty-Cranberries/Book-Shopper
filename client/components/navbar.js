@@ -13,7 +13,12 @@ const Navbar = props => {
 
   const isAdminFunc = admin => {
     if (admin) {
-      return <Link to="/addproduct"> Add Product </Link>
+      return (
+        <div>
+          <Link to="/addproduct"> Add Product </Link>
+          <Link to="/users"> View Users </Link>
+        </div>
+      )
     }
   }
   return (

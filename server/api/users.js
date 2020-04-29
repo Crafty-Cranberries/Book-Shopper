@@ -8,7 +8,7 @@ router.get('/', async (req, res, next) => {
       // explicitly select only the id and email fields - even though
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
-      attributes: ['id', 'email']
+      attributes: ['id', 'email', 'firstName', 'lastName']
     })
     res.json(users)
   } catch (err) {
@@ -136,6 +136,27 @@ router.post('/:userId/orders/completed', async (req, res, next) => {
     })
 
     res.json(newActiveOrder)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/:id', async (req, res, next) => {
+  try {
+    const [AffectedRow, updatedUser] = await User.update(
+      {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        isAdmin: req.body.isAdmin
+      },
+      {
+        where: {id: req.params.id},
+        returning: true,
+        plain: true
+      }
+    )
+    res.json(updatedUser)
   } catch (error) {
     next(error)
   }
