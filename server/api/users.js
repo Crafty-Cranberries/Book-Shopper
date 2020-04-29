@@ -62,15 +62,80 @@ router.post('/:userId/orders/active', async (req, res, next) => {
       }
     })
 
-    //if it was newly created, send it, else increment the quantity
-    if (productOnCart[1]) {
-      res.json(productOnCart[0])
-    } else {
-      const updated = await productOnCart[0].increment('quantity', {
+    //increment the quantity if it already existed
+    if (!productOnCart[1]) {
+      await productOnCart[0].increment('quantity', {
         by: req.body.quantity
       })
-      res.json(updated)
     }
+    //we'll send the product information with this
+    const productInfo = await Order.findOne({
+      where: {id: orderId},
+      include: [{model: Product, where: {id: req.body.productId}}]
+    })
+    res.json(productInfo)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/:userId/orders/active', async (req, res, next) => {
+  try {
+    //search for that user's order first
+    let id = req.params.userId
+    const singleOrder = await Order.findOne({
+      where: {userId: id, status: 'ongoing'}
+    })
+    const orderId = singleOrder.dataValues.id
+
+    const [numOfAffected, updatedProduct] = await ProductOrder.update(
+      {
+        quantity: req.body.quantity
+      },
+      {where: {orderId: orderId, productId: req.body.productId}}
+    )
+    res.json(updatedProduct)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/:userId/orders/active/:productId', async (req, res, next) => {
+  try {
+    //search for that user's order first
+    let id = req.params.userId
+    const singleOrder = await Order.findOne({
+      where: {userId: id, status: 'ongoing'}
+    })
+    const orderId = singleOrder.dataValues.id
+
+    //delete according to orderid and productid
+    const numOfDeleted = await ProductOrder.destroy({
+      where: {orderId: orderId, productId: req.params.productId}
+    })
+    res.json(`${numOfDeleted} product(s) removed from cart`)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.post('/:userId/orders/completed', async (req, res, next) => {
+  try {
+    //complete their active order
+    let id = req.params.userId
+    const [numOfAffected, completedOrder] = await Order.update(
+      {
+        status: 'completed'
+      },
+      {
+        where: {userId: id, status: 'ongoing'}
+      }
+    )
+    const newActiveOrder = await Order.create({
+      userId: id
+    })
+
+    res.json(newActiveOrder)
   } catch (error) {
     next(error)
   }

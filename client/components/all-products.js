@@ -1,9 +1,29 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import Card from 'react-bootstrap/Card'
+import {Card, Button} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
+import {removedProduct} from '../store'
 
 class AllProducts extends React.Component {
+  constructor() {
+    super()
+    this.handleOnClick = this.handleOnClick.bind(this)
+  }
+
+  handleOnClick(id) {
+    this.props.deleteProduct(id)
+  }
+
+  isAdminFunc = (admin, bookId) => {
+    if (admin) {
+      return (
+        <Button variant="danger" onClick={() => this.handleOnClick(bookId)}>
+          Remove Product
+        </Button>
+      )
+    }
+  }
+
   render() {
     return (
       <div>
@@ -20,6 +40,7 @@ class AllProducts extends React.Component {
                 <Card.Text>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit{' '}
                 </Card.Text>
+                {this.isAdminFunc(this.props.isAdmin, book.id)}
               </Card.Body>
             </Card>
           )
@@ -30,7 +51,12 @@ class AllProducts extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  products: state.products
+  products: state.products,
+  isAdmin: state.user.isAdmin
 })
 
-export default connect(mapStateToProps)(AllProducts)
+const mapDispatch = dispatch => ({
+  deleteProduct: bookId => dispatch(removedProduct(bookId))
+})
+
+export default connect(mapStateToProps, mapDispatch)(AllProducts)

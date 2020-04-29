@@ -23,7 +23,9 @@ const Navbar = props => {
   }
   return (
     <div className="nav-bar">
-      <h1>Book-Shopper</h1>
+      <Link to="/">
+        <h1>Book-Shopper</h1>
+      </Link>
       <nav>
         {isLoggedIn ? (
           <div>
@@ -39,6 +41,7 @@ const Navbar = props => {
             {/* The navbar will show these links before you log in */}
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
+            <Link to="/books"> Books </Link>
           </div>
         )}
         {isAdminFunc(isAdmin)}
@@ -53,7 +56,12 @@ const Navbar = props => {
       >
         Cart
       </Button>
-      <Cart show={modalShow} onHide={() => setModalShow(false)} />
+      <Cart
+        isLoggedIn={isLoggedIn}
+        userId={user}
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
     </div>
   )
 }
