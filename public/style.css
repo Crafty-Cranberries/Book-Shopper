@@ -98,7 +98,8 @@ form div {
   border: 2px solid #73ad21;
   padding: 5px;
   text-align: center;
-  
+}
+
 .nav-bar {
   display: flex;
   background-color: #ff9020;
@@ -163,4 +164,18 @@ form div {
 
 .nav-links {
   display: flex;
+}
+
+.user-cards {
+  display: flex;
+  flex-direction: column;
+  margin: 30px;
+}
+
+.user-page-text {
+  font-family: 'Roboto';
+  font-weight: 600;
+  margin: 0;
+  margin-top: 20px;
+  margin-left: 35px;
 }

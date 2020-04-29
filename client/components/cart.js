@@ -42,6 +42,7 @@ function Cart(props) {
               <h3>{product.title}</h3>
               <h4>Quantity: {product.quantity}</h4>
               <ButtonGroup size="sm">
+                {/* {product.quantity > 1 ? {} {}} */}
                 <Button
                   variant="secondary"
                   onClick={() => {
@@ -56,20 +57,26 @@ function Cart(props) {
                 >
                   Qty +
                 </Button>
-                <Button
-                  variant="secondary"
-                  onClick={() =>
-                    props.updateQuantity({
-                      isLoggedIn: props.isLoggedIn,
-                      userId: props.userId,
-                      productId: product.id,
-                      quantity: product.quantity,
-                      method: '-'
-                    })
-                  }
-                >
-                  Qty -
-                </Button>
+                {product.quantity > 1 ? (
+                  <Button
+                    variant="secondary"
+                    onClick={() =>
+                      props.updateQuantity({
+                        isLoggedIn: props.isLoggedIn,
+                        userId: props.userId,
+                        productId: product.id,
+                        quantity: product.quantity,
+                        method: '-'
+                      })
+                    }
+                  >
+                    Qty -
+                  </Button>
+                ) : (
+                  <Button disabled variant="secondary">
+                    Qty -
+                  </Button>
+                )}
               </ButtonGroup>
               <h4>Price: ${product.price}</h4>
               <h4>
