@@ -2,9 +2,11 @@ import axios from 'axios'
 
 export const GET_PRODUCTS = 'GET_PRODUCTS'
 export const ADD_PRODUCT = 'ADD_PRODUCT'
+export const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 
 const getProducts = products => ({type: GET_PRODUCTS, products})
 const addProduct = product => ({type: ADD_PRODUCT, product})
+const removeProduct = productId => ({type: REMOVE_PRODUCT, productId})
 
 export const fetchProducts = () => async dispatch => {
   try {
@@ -32,6 +34,16 @@ export const newProduct = info => async dispatch => {
   }
 }
 
+export const removedProduct = productId => async dispatch => {
+  console.log(productId)
+  try {
+    const {data} = await axios.delete(`/api/products/${productId}`)
+    dispatch(removeProduct(productId))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 const defaultProducts = []
 
 export default function(state = defaultProducts, action) {
@@ -41,6 +53,11 @@ export default function(state = defaultProducts, action) {
       return [...action.products]
     case ADD_PRODUCT:
       return [...state, action.product]
+    case REMOVE_PRODUCT:
+      const filteredProduct = state.filter(
+        product => product.id !== action.productId
+      )
+      return [...filteredProduct]
     default:
       return state
   }
