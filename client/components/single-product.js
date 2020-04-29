@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {fetchSingleProduct, getCart, addToCart} from '../store'
+import {fetchSingleProduct, addToCartThunk} from '../store'
 import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -26,7 +26,13 @@ class SingleProduct extends React.Component {
           <div>
             <button
               onClick={() => {
-                this.props.addToCart(this.props.book)
+                this.props.addToCart({
+                  isLoggedIn: this.props.isLoggedIn,
+                  userId: this.props.userId,
+                  productId: book.id,
+                  product: book,
+                  price: book.price
+                })
                 this.props.addToCartSuccess()
               }}
               type="button"
@@ -48,13 +54,15 @@ class SingleProduct extends React.Component {
 const mapState = state => {
   return {
     book: state.singleProduct,
-    cart: state.cart
+    cart: state.cart,
+    isLoggedIn: !!state.user.id,
+    userId: state.user.id
   }
 }
 const mapDispatch = dispatch => {
   return {
     fetchBook: bookId => dispatch(fetchSingleProduct(bookId)),
-    addToCart: product => dispatch(addToCart(product)),
+    addToCart: info => dispatch(addToCartThunk(info)),
     addToCartSuccess: () =>
       toast('Added Book To Cart!', {position: toast.POSITION.TOP_CENTER})
   }

@@ -48,7 +48,12 @@ const Navbar = props => {
       >
         Cart
       </Button>
-      <Cart show={modalShow} onHide={() => setModalShow(false)} />
+      <Cart
+        isLoggedIn={isLoggedIn}
+        userId={user}
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
     </div>
   )
 }

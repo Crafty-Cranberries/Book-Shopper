@@ -8,7 +8,8 @@ import {
   increaseQuantity,
   decreaseQuantity,
   completePurchase,
-  removeFromCart
+  removeFromCartThunk,
+  incrementOrDecrementThunk
 } from '../store'
 
 function Cart(props) {
@@ -18,6 +19,7 @@ function Cart(props) {
       autoClose: 1500
     })
   }
+  console.log('CART PROPS >>>>', props)
   return (
     <Modal
       show={props.show}
@@ -39,13 +41,30 @@ function Cart(props) {
               <ButtonGroup size="sm">
                 <Button
                   variant="secondary"
-                  onClick={() => props.increaseQuantity(product)}
+                  onClick={() => {
+                    // props.increaseQuantity(product)
+                    props.updateQuantity({
+                      isLoggedIn: props.isLoggedIn,
+                      userId: props.userId,
+                      productId: product.id,
+                      quantity: product.quantity,
+                      method: '+'
+                    })
+                  }}
                 >
                   Qty +
                 </Button>
                 <Button
                   variant="secondary"
-                  onClick={() => props.decreaseQuantity(product)}
+                  onClick={() =>
+                    props.updateQuantity({
+                      isLoggedIn: props.isLoggedIn,
+                      userId: props.userId,
+                      productId: product.id,
+                      quantity: product.quantity,
+                      method: '-'
+                    })
+                  }
                 >
                   Qty -
                 </Button>
@@ -55,7 +74,11 @@ function Cart(props) {
               <button
                 type="button"
                 onClick={() => {
-                  props.removeFromCart(product)
+                  props.removeFromCart({
+                    isLoggedIn: props.isLoggedIn,
+                    userId: props.userId,
+                    productId: product.id
+                  })
                   removeFromCartSuccess()
                 }}
               >
@@ -95,10 +118,11 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    removeFromCart: product => dispatch(removeFromCart(product)),
-    increaseQuantity: product => dispatch(increaseQuantity(product)),
-    decreaseQuantity: product => dispatch(decreaseQuantity(product)),
-    completePurchase: () => dispatch(completePurchase())
+    // increaseQuantity: (product) => dispatch(increaseQuantity(product)),
+    // decreaseQuantity: (product) => dispatch(decreaseQuantity(product)),
+    completePurchase: () => dispatch(completePurchase()),
+    removeFromCart: info => dispatch(removeFromCartThunk(info)),
+    updateQuantity: info => dispatch(incrementOrDecrementThunk(info))
   }
 }
 
