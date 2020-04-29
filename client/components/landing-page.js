@@ -1,27 +1,15 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {Button, Image, Col} from 'react-bootstrap'
+import {Button} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 
 /**
  * COMPONENT
  */
-export const UserHome = props => {
-  const {name} = props
+export const LandingPage = () => {
   return (
     <div>
       <div>
-        <div className="welcome">
-          <h3 className="welcomeText">Welcome back, {name}!</h3>
-          <Col xs={6} md={4}>
-            <Image
-              className="user-welcome-img"
-              src="https://www.pinclipart.com/picdir/big/165-1653686_female-user-icon-png-download-user-colorful-icon.png"
-              roundedCircle
-            />
-          </Col>
-        </div>
+        <div className="welcome" />
         <div className="home-page-container">
           <div className="front-page-welcome">
             <div>
@@ -51,23 +39,4 @@ export const UserHome = props => {
       </div>
     </div>
   )
-}
-
-/**
- * CONTAINER
- */
-const mapState = state => {
-  return {
-    email: state.user.email,
-    name: state.user.firstName
-  }
-}
-
-export default connect(mapState)(UserHome)
-
-/**
- * PROP TYPES
- */
-UserHome.propTypes = {
-  email: PropTypes.string
 }
