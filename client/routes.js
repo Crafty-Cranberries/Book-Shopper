@@ -11,6 +11,7 @@ import {
   SingleProduct,
   AddProduct,
   AllUsers,
+  CompletePurchase,
   LandingPage
 } from './components'
 import {me, fetchProducts} from './store'
@@ -37,6 +38,7 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
+            <Route path="/completepurchase" component={CompletePurchase} />
             {isAdmin && (
               <Switch>
                 <Route exact path="/addproduct" component={AddProduct} />{' '}

@@ -1,18 +1,8 @@
 const router = require('express').Router()
 const {Product} = require('../db/models')
-const {
-  isLoggedIn,
-  isAdmin,
-  isAdminOrCorrectUser
-} = require('../api/utility/utility')
+const {isAdmin} = require('../api/utility/utility')
 
 module.exports = router
-
-// function admin(req, res, next) {
-//   if (!req.user.isAdmin) {
-//     res.json('You do not have access to this.')
-//   }
-// }
 
 //Get all products (Books)
 router.get('/', async (req, res, next) => {
@@ -45,7 +35,7 @@ router.post('/add', isAdmin, async (req, res, next) => {
 })
 
 //Update a product
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', isAdmin, async (req, res, next) => {
   try {
     const [filled, updatedProduct] = await Product.update(req.body, {
       where: {id: req.params.id},
@@ -58,7 +48,7 @@ router.put('/:id', async (req, res, next) => {
 })
 
 //Delete a product
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', isAdmin, async (req, res, next) => {
   try {
     const numOfDeleted = await Product.destroy({
       where: {id: req.params.id}

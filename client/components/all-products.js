@@ -4,8 +4,6 @@ import {Card, Button} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import {removedProduct} from '../store'
 
-// export default function AddProductForm(props) {
-
 class AllProducts extends React.Component {
   constructor() {
     super()

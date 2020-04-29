@@ -83,6 +83,22 @@ form div {
   width: 200px;
 }
 
+.singleProduct {
+  margin: 30px;
+  padding: 0;
+}
+
+.author {
+  font-style: italic;
+  color: darkslategrey;
+}
+
+.price {
+  border-radius: 20px;
+  border: 2px solid #73ad21;
+  padding: 5px;
+  text-align: center;
+  
 .nav-bar {
   display: flex;
   background-color: #ff9020;

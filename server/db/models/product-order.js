@@ -3,7 +3,7 @@ const db = require('../db')
 
 const ProductOrder = db.define('ProductOrder', {
   quantity: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.FLOAT,
     allowNull: false,
     defaultValue: 1,
     validate: {

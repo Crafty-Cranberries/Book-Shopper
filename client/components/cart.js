@@ -10,7 +10,6 @@ import {
 import {connect} from 'react-redux'
 import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-
 import {
   removeFromCartThunk,
   incrementOrDecrementThunk,
@@ -73,7 +72,9 @@ function Cart(props) {
                 </Button>
               </ButtonGroup>
               <h4>Price: ${product.price}</h4>
-              <h4>Subtotal: ${product.price * product.quantity}</h4>
+              <h4>
+                Subtotal: ${(product.price * product.quantity).toFixed(2)}
+              </h4>
               <button
                 type="button"
                 onClick={() => {
@@ -109,9 +110,6 @@ function Cart(props) {
             Complete Purchase
           </Button>
         ) : (
-          // <Button variant="success" disabled>
-          //   Complete Purchase
-          // </Button>
           <OverlayTrigger
             overlay={
               <Tooltip id="tooltip-disabled">

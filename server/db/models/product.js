@@ -14,11 +14,11 @@ const Product = db.define('product', {
     allowNull: false
   },
   coverImg: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     defaultValue: 'https://wfbf.com/wp-content/uploads/2016/08/cover.jpg'
   },
   rating: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.INTEGER,
     defaultValue: 0,
     validate: {
       min: 0,
