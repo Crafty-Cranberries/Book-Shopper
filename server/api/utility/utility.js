@@ -31,8 +31,9 @@ const isAdmin = (req, res, next) => {
 
 //If the user it is not an admin, or the user is not the correct user, forbid entry
 const isAdminOrCorrectUser = (req, res, next) => {
+  console.log('THIS IS REQ PARAMS>>>>>>', req.params)
   try {
-    if (req.user.isAdmin || req.user.id === req.params.id) {
+    if (req.user.isAdmin || req.user.id === Number(req.params.userId)) {
       next()
     } else {
       res.sendStatus(403) //forbidden entry

@@ -23,15 +23,22 @@ const Navbar = props => {
   }
   return (
     <div className="nav-bar">
-      <Link to="/">
-        <h1>Book-Shopper</h1>
-      </Link>
-      <nav>
+      {!isLoggedIn ? (
+        <Link to="/">
+          <h1 className="nav-title">BookShopper</h1>
+        </Link>
+      ) : (
+        <Link to="/home">
+          <h1 className="nav-title">BookShopper</h1>
+        </Link>
+      )}
+
+      <nav className="nav-links">
         {isLoggedIn ? (
           <div>
             {/* The navbar will show these links after you log in */}
             <Link to="/home">Home</Link>
-            <a href="#" onClick={handleClick}>
+            <a href="/" onClick={handleClick}>
               Logout
             </a>
             {/* {isAdmin ? <Link to="/addproduct"> Add Product </Link> : ''} */}
@@ -44,18 +51,21 @@ const Navbar = props => {
             <Link to="/books"> Books </Link>
           </div>
         )}
-        {isAdminFunc(isAdmin)}
+        <div>{isAdminFunc(isAdmin)}</div>
+        <div className="button-container">
+          <Button
+            className="cart-button"
+            variant="primary"
+            onClick={() => {
+              setModalShow(true)
+              fetchCart({isLoggedIn: isLoggedIn, userId: user})
+            }}
+          >
+            Cart
+          </Button>
+        </div>
       </nav>
-      <hr />
-      <Button
-        variant="primary"
-        onClick={() => {
-          setModalShow(true)
-          fetchCart({isLoggedIn: isLoggedIn, userId: user})
-        }}
-      >
-        Cart
-      </Button>
+
       <Cart
         isLoggedIn={isLoggedIn}
         userId={user}
