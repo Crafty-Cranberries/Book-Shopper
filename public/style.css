@@ -138,8 +138,13 @@ form div {
   font-family: 'Roboto';
   font-weight: 900;
   margin-left: 75px;
+  text-decoration: none;
 }
 
 .button-container {
   padding-top: 10px;
+}
+
+.nav-links {
+  display: flex;
 }
