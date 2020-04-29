@@ -35,6 +35,7 @@ export const completePurchase = () => ({
 
 //This formats the api data response so we can access the information easier
 function returnFormatedProducts(obj) {
+  if (obj === null) return obj
   const reformatted = obj.products.map(product => {
     return {
       ...product,
@@ -192,6 +193,17 @@ export const incrementOrDecrementThunk = info => async dispatch => {
   }
 }
 
+export const checkoutThunk = userId => async dispatch => {
+  try {
+    const newActiveOrder = await axios.post(
+      `/api/users/${userId}/orders/completed`
+    )
+    dispatch(completePurchase())
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 /////////////////////////
 // ***** REDUCER ***** //
 ///////////////////////
@@ -219,7 +231,8 @@ export default function(state = defaultCart, action) {
         return product
       })
       return [...updatedQuantityCart]
-
+    case COMPLETE_PURCHASE:
+      return []
     // case COMPLETE_PURCHASE:
     //   let newState = []
     //   localStorage.setItem('cart', JSON.stringify(newState))

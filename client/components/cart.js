@@ -1,15 +1,20 @@
 import React from 'react'
-import {Modal, Button, ButtonGroup, Col} from 'react-bootstrap'
+import {
+  Modal,
+  Button,
+  ButtonGroup,
+  Col,
+  OverlayTrigger,
+  Tooltip
+} from 'react-bootstrap'
 import {connect} from 'react-redux'
 import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 import {
-  increaseQuantity,
-  decreaseQuantity,
-  completePurchase,
   removeFromCartThunk,
-  incrementOrDecrementThunk
+  incrementOrDecrementThunk,
+  checkoutThunk
 } from '../store'
 
 function Cart(props) {
@@ -19,7 +24,6 @@ function Cart(props) {
       autoClose: 1500
     })
   }
-  console.log('CART PROPS >>>>', props)
   return (
     <Modal
       show={props.show}
@@ -42,7 +46,6 @@ function Cart(props) {
                 <Button
                   variant="secondary"
                   onClick={() => {
-                    // props.increaseQuantity(product)
                     props.updateQuantity({
                       isLoggedIn: props.isLoggedIn,
                       userId: props.userId,
@@ -97,13 +100,33 @@ function Cart(props) {
             }, 0.0)
             .toFixed(2)}
         </Col>
-        <Button
-          variant="success"
-          href="/completepurchase"
-          onClick={props.completePurchase}
-        >
-          Complete Purchase
-        </Button>
+        {props.isLoggedIn ? (
+          <Button
+            variant="success"
+            href="/completepurchase"
+            onClick={() => props.completeOrder(props.userId)}
+          >
+            Complete Purchase
+          </Button>
+        ) : (
+          // <Button variant="success" disabled>
+          //   Complete Purchase
+          // </Button>
+          <OverlayTrigger
+            overlay={
+              <Tooltip id="tooltip-disabled">
+                Create an account to checkout!
+              </Tooltip>
+            }
+          >
+            <span className="d-inline-block">
+              <Button disabled style={{pointerEvents: 'none'}}>
+                Checkout
+              </Button>
+            </span>
+          </OverlayTrigger>
+        )}
+
         <Button onClick={props.onHide}>Close</Button>
       </Modal.Footer>
     </Modal>
@@ -118,11 +141,9 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    // increaseQuantity: (product) => dispatch(increaseQuantity(product)),
-    // decreaseQuantity: (product) => dispatch(decreaseQuantity(product)),
-    completePurchase: () => dispatch(completePurchase()),
     removeFromCart: info => dispatch(removeFromCartThunk(info)),
-    updateQuantity: info => dispatch(incrementOrDecrementThunk(info))
+    updateQuantity: info => dispatch(incrementOrDecrementThunk(info)),
+    completeOrder: userId => dispatch(checkoutThunk(userId))
   }
 }
 
