@@ -75,3 +75,24 @@ router.post('/:userId/orders/active', async (req, res, next) => {
     next(error)
   }
 })
+
+router.put('/:id', async (req, res, next) => {
+  try {
+    const [AffectedRow, updatedUser] = await User.update(
+      {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        isAdmin: req.body.isAdmin
+      },
+      {
+        where: {id: req.params.id},
+        returning: true,
+        plain: true
+      }
+    )
+    res.json(updatedUser)
+  } catch (error) {
+    next(error)
+  }
+})
