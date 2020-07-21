@@ -1,63 +1,71 @@
 import React from 'react'
 import {Form, Button} from 'react-bootstrap'
 
-export default function AddProductForm(props) {
-  const {handleSubmit} = props
+const AddProductForm = ({
+  handleSubmit,
+  handleChange,
+  title,
+  author,
+  price,
+  coverImg,
+  genre,
+  synopsis
+}) => {
   return (
     <div>
       <Form key="submit-form" onSubmit={handleSubmit}>
         <Form.Group controlId="formTitle">
-          <Form.Label htmlFor="title"> Title:</Form.Label>
+          <Form.Label> Title:</Form.Label>
           <Form.Control
             name="title"
             type="text"
-            value={props.state.title}
-            onChange={props.handleChange}
+            value={title}
+            onChange={handleChange}
           />
         </Form.Group>
-        <Form.Group>
-          <Form.Label htmlFor="author"> Author: </Form.Label>
+        <Form.Group controlId="formAuthor">
+          <Form.Label> Author: </Form.Label>
           <Form.Control
             name="author"
             type="text"
-            value={props.state.author}
-            onChange={props.handleChange}
+            value={author}
+            onChange={handleChange}
           />
         </Form.Group>
-        <Form.Group>
-          <Form.Label htmlFor="price"> Price: $</Form.Label>
+        <Form.Group controlId="formPrice">
+          <Form.Label> Price: $</Form.Label>
           <Form.Control
             name="price"
             type="number"
-            value={props.state.price}
-            onChange={props.handleChange}
+            value={price}
+            onChange={handleChange}
           />
         </Form.Group>
-        <Form.Group>
-          <Form.Label htmlFor="coverImg"> Cover Image URL: </Form.Label>
+        <Form.Group controlId="formCoverImg">
+          <Form.Label> Cover Image URL: </Form.Label>
           <Form.Control
             name="coverImg"
             type="text"
-            value={props.state.coverImg}
-            onChange={props.handleChange}
+            value={coverImg}
+            onChange={handleChange}
           />
         </Form.Group>
-        <Form.Group>
-          <Form.Label htmlFor="genre"> Genre: </Form.Label>
+        <Form.Group controlId="formGenre">
+          <Form.Label> Genre: </Form.Label>
           <Form.Control
             name="genre"
             type="text"
-            value={props.state.genre}
-            onChange={props.handleChange}
+            value={genre}
+            onChange={handleChange}
           />
         </Form.Group>
-        <Form.Group>
-          <Form.Label htmlFor="synopsis"> Synopsis: </Form.Label>
+        <Form.Group controlId="formSynopsis">
+          <Form.Label> Synopsis: </Form.Label>
           <Form.Control
             name="synopsis"
             type="text"
-            value={props.state.synopsis}
-            onChange={props.handleChange}
+            value={synopsis}
+            onChange={handleChange}
           />
         </Form.Group>
         <Button variant="primary" type="submit">
@@ -67,3 +75,5 @@ export default function AddProductForm(props) {
     </div>
   )
 }
+
+export default AddProductForm

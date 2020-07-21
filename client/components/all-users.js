@@ -1,39 +1,69 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {Card, CardDeck} from 'react-bootstrap'
 import {fetchAllUsers} from '../store/usersReducer'
 
-class AllUsers extends React.Component {
-  componentDidMount() {
-    this.props.getUsers()
-  }
+const AllUsers = ({users, getUser}) => {
+  useEffect(() => {
+    getUser()
+  }, [])
 
-  render() {
-    return (
-      <div>
-        <h1 className="user-page-text">Users</h1>
-        {/* <CardDeck> */}
-        <div className="user-cards">
-          {this.props.users &&
-            this.props.users.map(singleUser => {
-              return (
-                <Card key={singleUser.id} style={{width: '18rem'}}>
-                  <Card.Body>
-                    <Card.Title>
-                      Name: {singleUser.firstName || 'Not Filled Out'}{' '}
-                      {singleUser.lastName}
-                    </Card.Title>
-                    <Card.Subtitle>Email: {singleUser.email}</Card.Subtitle>
-                  </Card.Body>
-                </Card>
-              )
-            })}
-        </div>
-        {/* </CardDeck> */}
+  return (
+    <div>
+      <h1 className="user-page-text">Users</h1>
+      {/* <CardDeck> */}
+      <div className="user-cards">
+        {users &&
+          users.map(singleUser => {
+            return (
+              <Card key={singleUser.id} style={{width: '18rem'}}>
+                <Card.Body>
+                  <Card.Title>
+                    Name: {singleUser.firstName || 'Not Filled Out'}{' '}
+                    {singleUser.lastName}
+                  </Card.Title>
+                  <Card.Subtitle>Email: {singleUser.email}</Card.Subtitle>
+                </Card.Body>
+              </Card>
+            )
+          })}
       </div>
-    )
-  }
+      {/* </CardDeck> */}
+    </div>
+  )
 }
+
+// class AllUsers extends React.Component {
+//   componentDidMount() {
+//     this.props.getUsers()
+//   }
+
+//   render() {
+//     return (
+//       <div>
+//         <h1 className="user-page-text">Users</h1>
+//         {/* <CardDeck> */}
+//         <div className="user-cards">
+//           {this.props.users &&
+//             this.props.users.map(singleUser => {
+//               return (
+//                 <Card key={singleUser.id} style={{width: '18rem'}}>
+//                   <Card.Body>
+//                     <Card.Title>
+//                       Name: {singleUser.firstName || 'Not Filled Out'}{' '}
+//                       {singleUser.lastName}
+//                     </Card.Title>
+//                     <Card.Subtitle>Email: {singleUser.email}</Card.Subtitle>
+//                   </Card.Body>
+//                 </Card>
+//               )
+//             })}
+//         </div>
+//         {/* </CardDeck> */}
+//       </div>
+//     )
+//   }
+// }
 
 const mapStateToProps = state => ({
   users: state.users
