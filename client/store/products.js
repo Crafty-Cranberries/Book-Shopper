@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import axios from 'axios'
 
 export const GET_PRODUCTS = 'GET_PRODUCTS'
