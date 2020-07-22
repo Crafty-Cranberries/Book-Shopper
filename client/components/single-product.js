@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
 import {fetchSingleProduct, addToCartThunk} from '../store'
 import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -15,7 +14,7 @@ const SingleProduct = ({
   userId,
   addToCartSuccess,
   fetchBook,
-  match
+  match,
 }) => {
   useEffect(() => {
     fetchBook(match.params.id)
@@ -60,7 +59,7 @@ const SingleProduct = ({
                   userId: userId,
                   productId: book.id,
                   product: book,
-                  price: book.price
+                  price: book.price,
                 })
                 addToCartSuccess()
               }}
@@ -75,20 +74,20 @@ const SingleProduct = ({
   )
 }
 
-const mapState = state => {
+const mapState = (state) => {
   return {
     book: state.singleProduct,
     cart: state.cart,
     isLoggedIn: !!state.user.id,
-    userId: state.user.id
+    userId: state.user.id,
   }
 }
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
-    fetchBook: bookId => dispatch(fetchSingleProduct(bookId)),
-    addToCart: info => dispatch(addToCartThunk(info)),
+    fetchBook: (bookId) => dispatch(fetchSingleProduct(bookId)),
+    addToCart: (info) => dispatch(addToCartThunk(info)),
     addToCartSuccess: () =>
-      toast('Added Book To Cart!', {position: toast.POSITION.TOP_CENTER})
+      toast('Added Book To Cart!', {position: toast.POSITION.TOP_CENTER}),
   }
 }
 
