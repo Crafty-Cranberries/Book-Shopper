@@ -14,19 +14,19 @@ let defaultCart = []
 // ***** ACTION CREATORS ***** //
 ////////////////////////////////
 
-export const getCart = cart => ({type: GET_CART, cart})
-export const addToCart = product => ({type: ADD_TO_CART, product})
-export const removeFromCart = productId => ({
+export const getCart = (cart) => ({type: GET_CART, cart})
+export const addToCart = (product) => ({type: ADD_TO_CART, product})
+export const removeFromCart = (productId) => ({
   type: REMOVE_FROM_CART,
-  productId
+  productId,
 })
 export const incrementOrDecrement = (productId, method) => ({
   type: INCREMENT_OR_DECREMENT,
   productId,
-  method
+  method,
 })
 export const completePurchase = () => ({
-  type: COMPLETE_PURCHASE
+  type: COMPLETE_PURCHASE,
 })
 
 ////////////////////////////////////
@@ -36,11 +36,11 @@ export const completePurchase = () => ({
 //This formats the api data response so we can access the information easier
 function returnFormatedProducts(obj) {
   if (obj === null) return obj
-  const reformatted = obj.products.map(product => {
+  const reformatted = obj.products.map((product) => {
     return {
       ...product,
       quantity: product.ProductOrder.quantity,
-      price: product.ProductOrder.price
+      price: product.ProductOrder.price,
     }
   })
   return reformatted
@@ -53,7 +53,7 @@ async function asyncForEachPost(books, userId) {
     await axios.post(`/api/users/${userId}/orders/active`, {
       price: product.price,
       quantity: product.quantity,
-      productId: product.id
+      productId: product.id,
     })
   }
 }
@@ -112,7 +112,7 @@ function deleteFromLocalStorage(productId) {
 // ***** THUNKS ***** //
 ///////////////////////
 
-export const getCartThunk = info => async dispatch => {
+export const getCartThunk = (info) => async (dispatch) => {
   const {isLoggedIn, userId} = info
   try {
     if (!isLoggedIn) {
@@ -137,7 +137,7 @@ export const getCartThunk = info => async dispatch => {
   }
 }
 
-export const addToCartThunk = info => async dispatch => {
+export const addToCartThunk = (info) => async (dispatch) => {
   let {userId, productId, quantity, price, product, isLoggedIn} = info
   if (quantity === null) quantity = 1
   try {
@@ -148,7 +148,7 @@ export const addToCartThunk = info => async dispatch => {
       const {data} = await axios.post(`/api/users/${userId}/orders/active`, {
         productId: productId,
         quantity: quantity,
-        price: price
+        price: price,
       })
       const productInfo = returnFormatedProducts(data)
       dispatch(addToCart(productInfo))
@@ -158,7 +158,7 @@ export const addToCartThunk = info => async dispatch => {
   }
 }
 
-export const removeFromCartThunk = info => async dispatch => {
+export const removeFromCartThunk = (info) => async (dispatch) => {
   const {isLoggedIn, userId, productId} = info
   try {
     if (!isLoggedIn) {
@@ -173,7 +173,7 @@ export const removeFromCartThunk = info => async dispatch => {
   }
 }
 
-export const incrementOrDecrementThunk = info => async dispatch => {
+export const incrementOrDecrementThunk = (info) => async (dispatch) => {
   let {isLoggedIn, userId, productId, quantity, method} = info
   if (method === '+') quantity++
   if (method === '-') quantity--
@@ -184,7 +184,7 @@ export const incrementOrDecrementThunk = info => async dispatch => {
     } else {
       await axios.put(`/api/users/${userId}/orders/active`, {
         productId: productId,
-        quantity: quantity
+        quantity: quantity,
       })
       dispatch(incrementOrDecrement(productId, method))
     }
@@ -193,7 +193,7 @@ export const incrementOrDecrementThunk = info => async dispatch => {
   }
 }
 
-export const checkoutThunk = userId => async dispatch => {
+export const checkoutThunk = (userId) => async (dispatch) => {
   try {
     const newActiveOrder = await axios.post(
       `/api/users/${userId}/orders/completed`
@@ -209,19 +209,19 @@ export const checkoutThunk = userId => async dispatch => {
 ///////////////////////
 
 // eslint-disable-next-line complexity
-export default function(state = defaultCart, action) {
+export default function (state = defaultCart, action) {
   switch (action.type) {
     case GET_CART:
       return [...action.cart]
     case ADD_TO_CART:
       return [...state, action.product]
     case REMOVE_FROM_CART:
-      const filteredCart = state.filter(product => {
+      const filteredCart = state.filter((product) => {
         return product.id !== action.productId
       })
       return [...filteredCart]
     case INCREMENT_OR_DECREMENT:
-      const updatedQuantityCart = state.map(product => {
+      const updatedQuantityCart = state.map((product) => {
         if (product.id === action.productId && action.method === '+') {
           product.quantity++
         }
@@ -236,7 +236,6 @@ export default function(state = defaultCart, action) {
     // case COMPLETE_PURCHASE:
     //   let newState = []
     //   localStorage.setItem('cart', JSON.stringify(newState))
-
     //   return newState
     default:
       return state

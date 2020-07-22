@@ -5,11 +5,11 @@ export const GET_PRODUCTS = 'GET_PRODUCTS'
 export const ADD_PRODUCT = 'ADD_PRODUCT'
 export const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 
-const getProducts = products => ({type: GET_PRODUCTS, products})
-const addProduct = product => ({type: ADD_PRODUCT, product})
-const removeProduct = productId => ({type: REMOVE_PRODUCT, productId})
+const getProducts = (products) => ({type: GET_PRODUCTS, products})
+const addProduct = (product) => ({type: ADD_PRODUCT, product})
+const removeProduct = (productId) => ({type: REMOVE_PRODUCT, productId})
 
-export const fetchProducts = () => async dispatch => {
+export const fetchProducts = () => async (dispatch) => {
   try {
     const {data} = await axios.get('/api/products')
     dispatch(getProducts(data))
@@ -18,12 +18,12 @@ export const fetchProducts = () => async dispatch => {
   }
 }
 
-export const newProduct = info => async dispatch => {
+export const newProduct = (info) => async (dispatch) => {
   try {
     if (info.coverImg.length > 0) {
       info = {
         ...info.productInfo,
-        coverImg: info.coverImg
+        coverImg: info.coverImg,
       }
     } else {
       info = info.productInfo
@@ -35,9 +35,9 @@ export const newProduct = info => async dispatch => {
   }
 }
 
-export const removedProduct = productId => async dispatch => {
+export const removedProduct = (productId) => async (dispatch) => {
   try {
-    const {data} = await axios.delete(`/api/products/${productId}`)
+    await axios.delete(`/api/products/${productId}`)
     dispatch(removeProduct(productId))
   } catch (error) {
     console.error(error)
@@ -46,7 +46,7 @@ export const removedProduct = productId => async dispatch => {
 
 const defaultProducts = []
 
-export default function(state = defaultProducts, action) {
+export default function (state = defaultProducts, action) {
   switch (action.type) {
     case GET_PRODUCTS:
       return [...action.products]
@@ -54,7 +54,7 @@ export default function(state = defaultProducts, action) {
       return [...state, action.product]
     case REMOVE_PRODUCT:
       const filteredProduct = state.filter(
-        product => product.id !== action.productId
+        (product) => product.id !== action.productId
       )
       return [...filteredProduct]
     default:

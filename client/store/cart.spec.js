@@ -16,6 +16,7 @@ const mockStore = configureMockStore(middlewares)
 //  no thunks for cart
 //////////////////////////////
 //////////////////////////////
+
 describe('thunk creators', () => {
   let store
   let mockAxios

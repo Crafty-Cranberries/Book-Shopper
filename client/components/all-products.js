@@ -18,7 +18,6 @@ const AllProducts = ({products, deleteProduct, isAdmin}) => {
       )
     }
   }
-
   return (
     <div className="all-products-start">
       <div>
@@ -51,13 +50,13 @@ const AllProducts = ({products, deleteProduct, isAdmin}) => {
   )
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   products: state.products,
-  isAdmin: state.user.isAdmin
+  isAdmin: state.user.isAdmin,
 })
 
-const mapDispatch = dispatch => ({
-  deleteProduct: bookId => dispatch(removedProduct(bookId))
+const mapDispatch = (dispatch) => ({
+  deleteProduct: (bookId) => dispatch(removedProduct(bookId)),
 })
 
 export default connect(mapStateToProps, mapDispatch)(AllProducts)
