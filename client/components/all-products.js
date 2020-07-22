@@ -31,7 +31,7 @@ class AllProducts extends React.Component {
           <h1>Books:</h1>
         </div>
         <div className="all-products-container">
-          {this.props.products.map(book => {
+          {this.props.products.map((book) => {
             return (
               <Card
                 className="product-preview"
@@ -45,7 +45,7 @@ class AllProducts extends React.Component {
                   </Link>
                   <Card.Subtitle>{book.author}</Card.Subtitle>
                   <Card.Text>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit{' '}
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
                   </Card.Text>
                   {this.isAdminFunc(this.props.isAdmin, book.id)}
                 </Card.Body>
@@ -58,13 +58,13 @@ class AllProducts extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   products: state.products,
-  isAdmin: state.user.isAdmin
+  isAdmin: state.user.isAdmin,
 })
 
-const mapDispatch = dispatch => ({
-  deleteProduct: bookId => dispatch(removedProduct(bookId))
+const mapDispatch = (dispatch) => ({
+  deleteProduct: (bookId) => dispatch(removedProduct(bookId)),
 })
 
 export default connect(mapStateToProps, mapDispatch)(AllProducts)
