@@ -62,7 +62,6 @@ const createApp = () => {
   )
 
   app.use((req, res, next) => {
-    console.log('REQ SESSION>>>>', req.session)
     next()
   })
 

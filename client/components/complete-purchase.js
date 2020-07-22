@@ -1,9 +1,11 @@
 import React from 'react'
 
-export default function CompletePurchase(props) {
+const CompletePurchase = () => {
   return (
     <div>
       <h1> Thank You For Your Purchase!</h1>
     </div>
   )
 }
+
+export default CompletePurchase
