@@ -16,6 +16,11 @@ const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
 
 /**
+ * INITIAL STATE
+ */
+const defaultUser = {}
+
+/**
  * THUNK CREATORS
  */
 export const me = () => async dispatch => {
@@ -62,11 +67,6 @@ export const logout = () => async dispatch => {
     console.error(err)
   }
 }
-
-/**
- * INITIAL STATE
- */
-const defaultUser = {}
 
 /**
  * REDUCER

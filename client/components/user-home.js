@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom'
 /**
  * COMPONENT
  */
-export const UserHome = ({email, name}) => {
+export const UserHome = ({name}) => {
   return (
     <div>
       <div>
