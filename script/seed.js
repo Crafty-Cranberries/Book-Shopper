@@ -1,213 +1,178 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Product, Order, ProductOrder} = require('../server/db/models')
+const Chance = require('chance')
+const chance = new Chance()
+
+const {User, Product, Order} = require('../server/db/models')
+
+const genre = () => {
+  const types = [
+    'Fantasy',
+    'Horror',
+    'Mystery',
+    'Young Adult',
+    "Children's",
+    'Sci-Fi',
+    'Music',
+    'Finance',
+    'Comedy',
+    'Comic',
+    'Romance',
+  ]
+  return types[Math.floor(Math.random() * (types.length - 1))]
+}
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  const users = await Promise.all([
+  ///////////////////////////
+  //manually created users//
+  /////////////////////////
+  await Promise.all([
     User.create({
       firstName: 'Cody',
       lastName: 'Codingson',
       email: 'cody@email.com',
-      password: '123'
+      password: '123',
     }),
     User.create({
       firstName: 'Franco',
       lastName: 'Trelles',
       email: 'franco@email.com',
-      password: '123'
+      password: '123',
     }),
     User.create({
       firstName: 'Jared',
       lastName: 'Usher',
       email: 'jared@email.com',
-      password: '123'
+      password: '123',
     }),
     User.create({
       firstName: 'Gary',
       lastName: 'Hagen',
       email: 'gary@email.com',
-      password: '123'
+      password: '123',
     }),
-    User.create({
-      firstName: 'Eric',
-      lastName: 'Trelles',
-      email: 'eric@email.com',
-      password: '123'
-    }),
-    User.create({
-      firstName: 'Matthew',
-      lastName: 'Trelles',
-      email: 'matthew@email.com',
-      password: '123'
-    }),
-    User.create({
-      firstName: 'Andy',
-      lastName: 'Chalco',
-      email: 'andy@email.com',
-      password: '123'
-    }),
-    User.create({
-      firstName: 'Mariana',
-      lastName: 'Llanos',
-      email: 'mariana@email.com',
-      password: '123'
-    }),
-    User.create({
-      firstName: 'Norma',
-      lastName: 'Juela',
-      email: 'norma@email.com',
-      password: '123'
-    }),
-    User.create({
-      firstName: 'Carlos',
-      lastName: 'Trelles',
-      email: 'carlos@email.com',
-      password: '123'
-    }),
-    User.create({
-      firstName: 'Jacob',
-      lastName: 'DeGrom',
-      email: 'jacob@email.com',
-      password: '123'
-    }),
-    User.create({
-      firstName: 'Pete',
-      lastName: 'Alonso',
-      email: 'pete@email.com',
-      password: '123'
-    }),
-    User.create({
-      firstName: 'David',
-      lastName: 'Wright',
-      email: 'david@email.com',
-      password: '123'
-    }),
-    User.create({
-      firstName: 'Jose',
-      lastName: 'Reyes',
-      email: 'jose@email.com',
-      password: '123'
-    }),
-    User.create({
-      firstName: 'Anthony',
-      lastName: 'Enriquez',
-      email: 'anthony@email.com',
-      password: '123'
-    })
   ])
 
-  const books = await Promise.all([
+  //creates random users
+  for (let i = 0; i < 50; i++) {
+    let name = chance.name().split(' ')
+    User.create({
+      firstName: name[0],
+      lastName: name[1],
+      email: chance.email(),
+      password: 'chance123',
+    })
+  }
+
+  for (let i = 0; i < 200; i++) {
+    Product.create({
+      title: chance.company(),
+      author: chance.name(),
+      price: chance.natural({min: 3, max: 50}) + 0.99,
+      rating: chance.natural({min: 1, max: 5}),
+      genre: genre(),
+      coverImg: 'https://picsum.photos/300/500',
+    })
+  }
+
+  await Promise.all([
     Product.create({
       title: "Harry Potter and The Sorcerer's Stone",
       author: 'J.K Rowling',
       price: 15.99,
       rating: 5,
-      genre: 'Fantasy'
+      genre: 'Fantasy',
     }),
     Product.create({
       title: 'Green Eggs and Ham',
       author: 'Dr. Seuss',
       price: 10.99,
       rating: 5,
-      genre: 'Children'
+      genre: 'Children',
     }),
     Product.create({
       title: 'The Very Hungry Caterpillar',
       author: 'Eric Carle',
       price: 10.99,
       rating: 5,
-      genre: 'Children'
+      genre: 'Children',
     }),
     Product.create({
       title: 'If It Bleeds',
       author: 'Stephen King',
       price: 13.99,
       rating: 3,
-      genre: 'Horror'
+      genre: 'Horror',
     }),
     Product.create({
       title: 'The Hobbit',
       author: 'J.R.R Tolkien',
       price: 9.99,
       rating: 5,
-      genre: 'Fantasy'
+      genre: 'Fantasy',
     }),
     Product.create({
       title: 'Lord of The Rings',
       author: 'J.R.R Tolkien',
       price: 10.99,
       rating: 5,
-      genre: 'Fantasy'
+      genre: 'Fantasy',
     }),
     Product.create({
       title: 'The Little Prince',
       author: 'Antoine de Saint-Exupéry',
       price: 8.99,
       rating: 5,
-      genre: 'Fantasy'
+      genre: 'Fantasy',
     }),
     Product.create({
       title: "Alice's Adventures in Wonderland",
       author: 'Lewis Carroll',
       price: 5.99,
       rating: 4,
-      genre: 'Fantasy'
+      genre: 'Fantasy',
     }),
     Product.create({
       title: 'She: A History of Adventure',
       author: 'H. Rider Haggard',
       price: 14.79,
       rating: 5,
-      genre: 'Adventure'
+      genre: 'Adventure',
     }),
     Product.create({
       title: 'The Da Vinci Code',
       author: 'Dan Brown',
       price: 12.5,
       rating: 5,
-      genre: 'Adventure'
+      genre: 'Adventure',
     }),
     Product.create({
       title: "Charlotte's Web",
       author: 'E.B White',
       price: 5.99,
       rating: 5,
-      genre: "Children's Fiction"
+      genre: "Children's Fiction",
     }),
     Product.create({
       title: 'The Ginger Man',
       author: 'J.P Donleavy',
       price: 15.79,
       rating: 2,
-      genre: 'Unknown'
-    })
+      genre: 'Unknown',
+    }),
   ])
 
-  const orders = await Promise.all([
-    Order.create({userId: 1}),
-    Order.create({userId: 2}),
-    Order.create({userId: 3}),
-    Order.create({userId: 4}),
-    Order.create({userId: 5}),
-    Order.create({userId: 6}),
-    Order.create({userId: 7}),
-    Order.create({userId: 8}),
-    Order.create({userId: 9}),
-    Order.create({userId: 10}),
-    Order.create({userId: 11}),
-    Order.create({userId: 12}),
-    Order.create({userId: 13}),
-    Order.create({userId: 14}),
-    Order.create({userId: 15})
-  ])
+  for (let i = 1; i <= 54; i++) {
+    await Order.create({userId: i})
+  }
 
-  console.log(`seeded ${users.length} users`)
-  console.log(`seeded ${books.length} products`)
-  console.log(`seeded ${orders.length} orders`)
+  console.log(`seeded 54 users`)
+  console.log(`seeded 212 products`)
+  console.log(`seeded 54 orders`)
   console.log(`seeded successfully`)
 }
 
