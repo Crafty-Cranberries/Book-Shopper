@@ -22,7 +22,7 @@ router.get('/:userId/orders', isAdminOrCorrectUser, async (req, res, next) => {
   try {
     const userOrders = await Order.findAll({
       where: {userId: req.params.userId},
-      include: [{model: Product}]
+      include: [{model: Product}],
     })
     res.json(userOrders)
   } catch (err) {
@@ -39,7 +39,7 @@ router.get(
       let id = req.params.userId
       const singleOrder = await Order.findOne({
         where: {userId: id, status: 'ongoing'},
-        include: [{model: Product}]
+        include: [{model: Product}],
       })
       res.json(singleOrder)
     } catch (error) {
@@ -57,7 +57,7 @@ router.post(
       //search for that user's order first
       let id = req.params.userId
       const singleOrder = await Order.findOne({
-        where: {userId: id, status: 'ongoing'}
+        where: {userId: id, status: 'ongoing'},
       })
       const orderId = singleOrder.dataValues.id
 
@@ -67,20 +67,20 @@ router.post(
         where: {orderId: orderId, productId: req.body.productId},
         defaults: {
           quantity: req.body.quantity,
-          price: req.body.price
-        }
+          price: req.body.price,
+        },
       })
 
       //increment the quantity if it already existed
       if (!productOnCart[1]) {
         await productOnCart[0].increment('quantity', {
-          by: req.body.quantity
+          by: req.body.quantity,
         })
       }
       //we'll send the product information with this
       const productInfo = await Order.findOne({
         where: {id: orderId},
-        include: [{model: Product, where: {id: req.body.productId}}]
+        include: [{model: Product, where: {id: req.body.productId}}],
       })
       res.json(productInfo)
     } catch (error) {
@@ -97,13 +97,13 @@ router.put(
       //search for that user's order first
       let id = req.params.userId
       const singleOrder = await Order.findOne({
-        where: {userId: id, status: 'ongoing'}
+        where: {userId: id, status: 'ongoing'},
       })
       const orderId = singleOrder.dataValues.id
 
       const [numOfAffected, updatedProduct] = await ProductOrder.update(
         {
-          quantity: req.body.quantity
+          quantity: req.body.quantity,
         },
         {where: {orderId: orderId, productId: req.body.productId}}
       )
@@ -122,13 +122,13 @@ router.delete(
       //search for that user's order first
       let id = req.params.userId
       const singleOrder = await Order.findOne({
-        where: {userId: id, status: 'ongoing'}
+        where: {userId: id, status: 'ongoing'},
       })
       const orderId = singleOrder.dataValues.id
 
       //delete according to orderid and productid
       const numOfDeleted = await ProductOrder.destroy({
-        where: {orderId: orderId, productId: req.params.productId}
+        where: {orderId: orderId, productId: req.params.productId},
       })
       res.json(`${numOfDeleted} product(s) removed from cart`)
     } catch (error) {
@@ -144,16 +144,16 @@ router.post(
     try {
       //complete their active order
       let id = req.params.userId
-      const [numOfAffected, completedOrder] = await Order.update(
+      await Order.update(
         {
-          status: 'completed'
+          status: 'completed',
         },
         {
-          where: {userId: id, status: 'ongoing'}
+          where: {userId: id, status: 'ongoing'},
         }
       )
       const newActiveOrder = await Order.create({
-        userId: id
+        userId: id,
       })
 
       res.json(newActiveOrder)
@@ -170,12 +170,12 @@ router.put('/:id', isAdminOrCorrectUser, async (req, res, next) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
-        isAdmin: req.body.isAdmin
+        isAdmin: req.body.isAdmin,
       },
       {
         where: {id: req.params.id},
         returning: true,
-        plain: true
+        plain: true,
       }
     )
     res.json(updatedUser)
