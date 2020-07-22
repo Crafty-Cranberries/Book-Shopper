@@ -5,7 +5,7 @@ import {
   ButtonGroup,
   Col,
   OverlayTrigger,
-  Tooltip
+  Tooltip,
 } from 'react-bootstrap'
 import {connect} from 'react-redux'
 import {toast} from 'react-toastify'
@@ -13,7 +13,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import {
   removeFromCartThunk,
   incrementOrDecrementThunk,
-  checkoutThunk
+  checkoutThunk,
 } from '../store'
 
 const Cart = ({
@@ -24,13 +24,13 @@ const Cart = ({
   removeFromCart,
   show,
   updateQuantity,
-  userId
+  userId,
 }) => {
   // toast on successfully removing item from cart
   const removeFromCartSuccess = () => {
     toast('Removed Item from Cart', {
       position: toast.POSITION.TOP_CENTER,
-      autoClose: 1500
+      autoClose: 1500,
     })
   }
   return (
@@ -46,13 +46,12 @@ const Cart = ({
         <Modal.Title id="contained-modal-title-vcenter">Cart</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {cart.map(product => {
+        {cart.map((product) => {
           return (
             <div key={product.id}>
               <h3>{product.title}</h3>
               <h4>Quantity: {product.quantity}</h4>
               <ButtonGroup size="sm">
-                {/* {product.quantity > 1 ? {} {}} */}
                 <Button
                   variant="secondary"
                   onClick={() => {
@@ -61,7 +60,7 @@ const Cart = ({
                       userId: userId,
                       productId: product.id,
                       quantity: product.quantity,
-                      method: '+'
+                      method: '+',
                     })
                   }}
                 >
@@ -76,7 +75,7 @@ const Cart = ({
                         userId: userId,
                         productId: product.id,
                         quantity: product.quantity,
-                        method: '-'
+                        method: '-',
                       })
                     }
                   >
@@ -98,7 +97,7 @@ const Cart = ({
                   removeFromCart({
                     isLoggedIn: isLoggedIn,
                     userId: userId,
-                    productId: product.id
+                    productId: product.id,
                   })
                   removeFromCartSuccess()
                 }}
@@ -148,17 +147,17 @@ const Cart = ({
   )
 }
 
-const mapState = state => {
+const mapState = (state) => {
   return {
-    cart: state.cart
+    cart: state.cart,
   }
 }
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
-    removeFromCart: info => dispatch(removeFromCartThunk(info)),
-    updateQuantity: info => dispatch(incrementOrDecrementThunk(info)),
-    completeOrder: userId => dispatch(checkoutThunk(userId))
+    removeFromCart: (info) => dispatch(removeFromCartThunk(info)),
+    updateQuantity: (info) => dispatch(incrementOrDecrementThunk(info)),
+    completeOrder: (userId) => dispatch(checkoutThunk(userId)),
   }
 }
 

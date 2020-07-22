@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout, getCartThunk} from '../store'
 import {Button} from 'react-bootstrap'
-import Cart from './cart'
+import {Cart} from './index'
 
 const Navbar = ({handleClick, isLoggedIn, fetchCart, user, isAdmin}) => {
   const [modalShow, setModalShow] = React.useState(false)
@@ -74,20 +74,20 @@ const Navbar = ({handleClick, isLoggedIn, fetchCart, user, isAdmin}) => {
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapState = (state) => {
   return {
     isLoggedIn: !!state.user.id,
     user: state.user.id,
-    isAdmin: state.user.isAdmin
+    isAdmin: state.user.isAdmin,
   }
 }
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
     handleClick() {
       dispatch(logout())
     },
-    fetchCart: info => dispatch(getCartThunk(info))
+    fetchCart: (info) => dispatch(getCartThunk(info)),
   }
 }
 
@@ -98,5 +98,5 @@ export default connect(mapState, mapDispatch)(Navbar)
  */
 Navbar.propTypes = {
   handleClick: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
+  isLoggedIn: PropTypes.bool.isRequired,
 }

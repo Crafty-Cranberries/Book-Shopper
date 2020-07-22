@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {newProduct} from '../store'
 import {connect} from 'react-redux'
-import AddProductForm from './add-product-form'
+import {AddProductForm} from './index'
 
 const AddProduct = ({addToProductList}) => {
   // state variables
@@ -12,7 +12,7 @@ const AddProduct = ({addToProductList}) => {
   const [synopsis, setSynopsis] = useState('')
   const [title, setTitle] = useState('')
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     if (event.target.name === 'author') {
       setAuthor(event.target.value)
     } else if (event.target.name === 'coverImg') {
@@ -27,7 +27,7 @@ const AddProduct = ({addToProductList}) => {
       setTitle(event.target.value)
     }
   }
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault()
     const info = {
       productInfo: {
@@ -35,9 +35,9 @@ const AddProduct = ({addToProductList}) => {
         author: event.target.author.value,
         price: event.target.price.value,
         genre: event.target.genre.value,
-        synopsis: event.target.synopsis.value
+        synopsis: event.target.synopsis.value,
       },
-      coverImg: event.target.coverImg.value
+      coverImg: event.target.coverImg.value,
     }
     // adding form submission's info to product list
     addToProductList(info)
@@ -67,8 +67,8 @@ const AddProduct = ({addToProductList}) => {
   )
 }
 
-const mapDispatch = dispatch => ({
-  addToProductList: event => dispatch(newProduct(event))
+const mapDispatch = (dispatch) => ({
+  addToProductList: (event) => dispatch(newProduct(event)),
 })
 
 export default connect(null, mapDispatch)(AddProduct)
