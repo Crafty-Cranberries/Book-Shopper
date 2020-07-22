@@ -16,7 +16,17 @@ import {
   checkoutThunk
 } from '../store'
 
-function Cart(props) {
+const Cart = ({
+  cart,
+  completeOrder,
+  isLoggedIn,
+  onHide,
+  removeFromCart,
+  show,
+  updateQuantity,
+  userId
+}) => {
+  // toast on successfully removing item from cart
   const removeFromCartSuccess = () => {
     toast('Removed Item from Cart', {
       position: toast.POSITION.TOP_CENTER,
@@ -25,8 +35,8 @@ function Cart(props) {
   }
   return (
     <Modal
-      show={props.show}
-      onHide={props.onHide}
+      show={show}
+      onHide={onHide}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       dispatch="false"
@@ -36,7 +46,7 @@ function Cart(props) {
         <Modal.Title id="contained-modal-title-vcenter">Cart</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {props.cart.map(product => {
+        {cart.map(product => {
           return (
             <div key={product.id}>
               <h3>{product.title}</h3>
@@ -46,9 +56,9 @@ function Cart(props) {
                 <Button
                   variant="secondary"
                   onClick={() => {
-                    props.updateQuantity({
-                      isLoggedIn: props.isLoggedIn,
-                      userId: props.userId,
+                    updateQuantity({
+                      isLoggedIn: isLoggedIn,
+                      userId: userId,
                       productId: product.id,
                       quantity: product.quantity,
                       method: '+'
@@ -61,9 +71,9 @@ function Cart(props) {
                   <Button
                     variant="secondary"
                     onClick={() =>
-                      props.updateQuantity({
-                        isLoggedIn: props.isLoggedIn,
-                        userId: props.userId,
+                      updateQuantity({
+                        isLoggedIn: isLoggedIn,
+                        userId: userId,
                         productId: product.id,
                         quantity: product.quantity,
                         method: '-'
@@ -85,9 +95,9 @@ function Cart(props) {
               <button
                 type="button"
                 onClick={() => {
-                  props.removeFromCart({
-                    isLoggedIn: props.isLoggedIn,
-                    userId: props.userId,
+                  removeFromCart({
+                    isLoggedIn: isLoggedIn,
+                    userId: userId,
                     productId: product.id
                   })
                   removeFromCartSuccess()
@@ -102,17 +112,17 @@ function Cart(props) {
       <Modal.Footer>
         <Col>
           Total: ${' '}
-          {props.cart
+          {cart
             .reduce((total, product) => {
               return total + product.price * product.quantity
             }, 0.0)
             .toFixed(2)}
         </Col>
-        {props.isLoggedIn ? (
+        {isLoggedIn ? (
           <Button
             variant="success"
             href="/completepurchase"
-            onClick={() => props.completeOrder(props.userId)}
+            onClick={() => completeOrder(userId)}
           >
             Complete Purchase
           </Button>
@@ -132,7 +142,7 @@ function Cart(props) {
           </OverlayTrigger>
         )}
 
-        <Button onClick={props.onHide}>Close</Button>
+        <Button onClick={onHide}>Close</Button>
       </Modal.Footer>
     </Modal>
   )

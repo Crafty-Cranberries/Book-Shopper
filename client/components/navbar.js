@@ -6,12 +6,12 @@ import {logout, getCartThunk} from '../store'
 import {Button} from 'react-bootstrap'
 import Cart from './cart'
 
-const Navbar = props => {
-  const {handleClick, isLoggedIn, fetchCart, user, isAdmin} = props
-
+const Navbar = ({handleClick, isLoggedIn, fetchCart, user, isAdmin}) => {
   const [modalShow, setModalShow] = React.useState(false)
 
   const isAdminFunc = admin => {
+    // has access to isAdmin, which should be true/false,
+    // the admin variable seems redundant
     if (admin) {
       return (
         <div>
@@ -38,6 +38,7 @@ const Navbar = props => {
           <div>
             {/* The navbar will show these links after you log in */}
             <Link to="/home">Home</Link>
+            <Link to="/books"> Books </Link>
             <a href="/" onClick={handleClick}>
               Logout
             </a>

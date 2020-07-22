@@ -1,28 +1,33 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {newProduct} from '../store'
 import {connect} from 'react-redux'
 import AddProductForm from './add-product-form'
 
-class AddProduct extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      title: '',
-      author: '',
-      price: 0.0,
-      coverImg: '',
-      genre: '',
-      synopsis: ''
+const AddProduct = ({addToProductList}) => {
+  // state variables
+  const [author, setAuthor] = useState('')
+  const [coverImg, setCoverImg] = useState('')
+  const [genre, setGenre] = useState('')
+  const [price, setPrice] = useState(0.0)
+  const [synopsis, setSynopsis] = useState('')
+  const [title, setTitle] = useState('')
+
+  const handleChange = event => {
+    if (event.target.name === 'author') {
+      setAuthor(event.target.value)
+    } else if (event.target.name === 'coverImg') {
+      setCoverImg(event.target.value)
+    } else if (event.target.name === 'genre') {
+      setGenre(event.target.value)
+    } else if (event.target.name === 'price') {
+      setPrice(event.target.value)
+    } else if (event.target.name === 'synopsis') {
+      setSynopsis(event.target.value)
+    } else if (event.target.name === 'title') {
+      setTitle(event.target.value)
     }
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
-  handleChange(event) {
-    this.setState({
-      [event.target.name]: event.target.value
-    })
-  }
-  handleSubmit(event) {
+  const handleSubmit = event => {
     event.preventDefault()
     const info = {
       productInfo: {
@@ -34,31 +39,36 @@ class AddProduct extends React.Component {
       },
       coverImg: event.target.coverImg.value
     }
-    this.props.newProduct(info)
-    this.setState({
-      title: '',
-      author: '',
-      price: 0.0,
-      coverImg: '',
-      genre: '',
-      synopsis: ''
-    })
+    // adding form submission's info to product list
+    addToProductList(info)
+
+    // clearing form's state
+    setAuthor('')
+    setCoverImg('')
+    setGenre('')
+    setPrice(0.0)
+    setSynopsis('')
+    setTitle('')
   }
-  render() {
-    return (
-      <div>
-        <AddProductForm
-          handleSubmit={this.handleSubmit}
-          state={this.state}
-          handleChange={this.handleChange}
-        />
-      </div>
-    )
-  }
+
+  return (
+    <div>
+      <AddProductForm
+        handleSubmit={handleSubmit}
+        title={title}
+        author={author}
+        price={price}
+        coverImg={coverImg}
+        genre={genre}
+        synopsis={synopsis}
+        handleChange={handleChange}
+      />
+    </div>
+  )
 }
 
 const mapDispatch = dispatch => ({
-  newProduct: event => dispatch(newProduct(event))
+  addToProductList: event => dispatch(newProduct(event))
 })
 
 export default connect(null, mapDispatch)(AddProduct)
