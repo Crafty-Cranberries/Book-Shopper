@@ -8,9 +8,6 @@ const Order = db.define('order', {
     validate: {
       isIn: [['ongoing', 'completed']]
     }
-  },
-  cart: {
-    type: Sequelize.ARRAY(Sequelize.JSONB)
   }
 })
 
