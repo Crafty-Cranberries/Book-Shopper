@@ -1,11 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Card, Button} from 'react-bootstrap'
-import {Link} from 'react-router-dom'
 import {removedProduct} from '../store'
 import history from '../history'
 import {MdAddShoppingCart} from 'react-icons/md'
 import {AiFillDelete} from 'react-icons/ai'
+import {Rating} from '@material-ui/lab'
+import {Box} from '@material-ui/core'
 
 const AllProducts = ({products, deleteProduct, isAdmin}) => {
   const handleOnClick = (id) => {
@@ -24,6 +24,7 @@ const AllProducts = ({products, deleteProduct, isAdmin}) => {
                   className="product-img-preview"
                   onClick={() => history.push(`/books/${book.id}`)}
                 />
+                <p className="book-genre-preview">{book.genre}</p>
                 <button className="quick-add" type="button">
                   <MdAddShoppingCart />
                 </button>
@@ -45,12 +46,16 @@ const AllProducts = ({products, deleteProduct, isAdmin}) => {
                 >
                   {book.title}
                 </p>
-                <p
-                  onClick={() => history.push(`/books/${book.id}`)}
-                  className="book-card-author hover-links"
-                >
-                  {book.author}
-                </p>
+                <div className="author-price-container">
+                  <p
+                    onClick={() => history.push(`/books/${book.id}`)}
+                    className="book-card-author hover-links"
+                  >
+                    {book.author}
+                  </p>
+                  <p className="price-preview">${book.price}</p>
+                </div>
+                <Rating name="read-only" value={book.rating} readOnly />
               </div>
             </div>
           )
