@@ -9,19 +9,6 @@ import {AiOutlineShoppingCart} from 'react-icons/ai'
 
 const Navbar = ({handleClick, isLoggedIn, fetchCart, user, isAdmin}) => {
   const [modalShow, setModalShow] = React.useState(false)
-
-  const isAdminFunc = (admin) => {
-    // has access to isAdmin, which should be true/false,
-    // the admin variable seems redundant
-    if (admin) {
-      return (
-        <div>
-          <Link to="/addproduct"> Add Product </Link>
-          <Link to="/users"> View Users </Link>
-        </div>
-      )
-    }
-  }
   return (
     <div className="nav-bar">
       {!isLoggedIn ? (
@@ -45,7 +32,6 @@ const Navbar = ({handleClick, isLoggedIn, fetchCart, user, isAdmin}) => {
             <a href="/" onClick={handleClick}>
               Logout
             </a>
-            {/* {isAdmin ? <Link to="/addproduct"> Add Product </Link> : ''} */}
           </div>
         ) : (
           <div>
@@ -55,7 +41,14 @@ const Navbar = ({handleClick, isLoggedIn, fetchCart, user, isAdmin}) => {
             <Link to="/books"> Books </Link>
           </div>
         )}
-        <div>{isAdminFunc(isAdmin)}</div>
+        <div>
+          {isAdmin && (
+            <div>
+              <Link to="/addproduct"> Add Product </Link>
+              <Link to="/users"> View Users </Link>
+            </div>
+          )}
+        </div>
         <div className="button-container">
           <Button
             className="cart-button"
