@@ -41,6 +41,9 @@
   "author": "Jared Usher, Franco Trelles, Gary Hagen",
   "license": "MIT",
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.56",
     "@trendmicro/react-sidenav": "^0.5.0",
     "axios": "^0.19.0",
     "bootstrap": "^4.4.1",

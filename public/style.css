@@ -212,6 +212,7 @@ form div {
   width: 225px;
   background-size: cover;
   border-radius: 5px;
+  border: 5px solid lightseagreen;
 }
 
 .product-img-preview:hover {
@@ -234,7 +235,7 @@ form div {
 
 .book-card-title {
   font-family: 'Roboto';
-  font-size: 1.3em;
+  font-size: 1.1em;
   font-weight: 500;
 }
 
@@ -295,6 +296,33 @@ form div {
 
 .book-card-author {
   font-family: 'Roboto';
-  font-size: 1em;
+  font-size: 0.9em;
   margin: 0;
+}
+
+.author-price-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.price-preview {
+  font-family: 'Roboto';
+  font-weight: 500;
+  color: darkslategrey;
+  margin: 0;
+}
+
+.book-genre-preview {
+  font-family: 'Roboto';
+  font-size: 0.8em;
+  margin: 0;
+  background-color: white;
+  width: fit-content;
+  padding: 10px;
+  font-weight: 600;
+  border-radius: 15px;
+  position: absolute;
+  top: -15px;
+  right: -20px;
 }
