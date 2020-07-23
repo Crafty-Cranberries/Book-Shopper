@@ -214,6 +214,10 @@ form div {
   border-radius: 5px;
 }
 
+.product-img-preview:hover {
+  cursor: pointer;
+}
+
 .book-card {
   margin: 25px;
   padding: 10px;
@@ -253,8 +257,44 @@ form div {
   box-shadow: 0 5px 20px rgb(33, 33, 33);
 }
 
+.quick-delete-book {
+  border: none;
+  background-color: lightcoral;
+  border-radius: 25px;
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  right: -17px;
+  bottom: 0;
+  font-family: 'Roboto';
+  font-weight: 700;
+  color: #fff;
+  font-size: 1.5em;
+}
+
+.quick-delete-book:hover {
+  box-shadow: 0 5px 20px rgb(33, 33, 33);
+}
+
 .img-preview-container {
   width: 100%;
   height: 80%;
   position: relative;
+}
+
+.book-card-title {
+  font-family: 'Roboto';
+  font-size: 1.5;
+  margin: 0;
+}
+
+.hover-links:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.book-card-author {
+  font-family: 'Roboto';
+  font-size: 1em;
+  margin: 0;
 }
