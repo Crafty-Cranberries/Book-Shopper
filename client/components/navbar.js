@@ -36,7 +36,7 @@ const Navbar = ({handleClick, isLoggedIn, fetchCart, user, isAdmin}) => {
 
       <nav className="nav-links">
         {isLoggedIn ? (
-          <div id>
+          <div>
             {/* The navbar will show these links after you log in */}
             <Link className="cool-link" to="/home">
               Home
