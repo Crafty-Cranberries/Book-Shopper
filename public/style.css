@@ -1,20 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Karla:Poppins:100,400|Work+Sans');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,700|Playfair+Display:400i');
+@import url('https://fonts.googleapis.com/css2?family=Damion&display=swap');
 
 body {
   font-family: sans-serif;
 }
 
-a {
-  text-decoration: none;
-}
-
 label {
   display: block;
-}
-
-nav a {
-  display: inline-block;
-  margin: 1em;
 }
 
 form div {
@@ -31,7 +25,7 @@ form div {
 }
 
 .front-display-text {
-  color: white;
+  color: whitesmoke;
   font-size: 30px;
   font-family: 'Roboto';
   font-weight: 600;
@@ -63,7 +57,7 @@ form div {
 .subtext {
   font-family: 'Roboto';
   font-weight: 400;
-  color: white;
+  color: whitesmoke;
   margin-left: 75px;
   margin-top: 20px;
 }
@@ -102,9 +96,14 @@ form div {
 
 .nav-bar {
   display: flex;
-  background-color: #ff9020;
+  background-color: whitesmoke;
   padding-top: 10px;
   height: 75px;
+  flex-direction: row;
+}
+
+.nav-bar a {
+  text-decoration: none !important;
 }
 
 .product-preview {
@@ -154,10 +153,11 @@ form div {
 }
 
 .nav-title {
-  font-family: 'Roboto';
-  font-weight: 900;
-  margin-left: 75px;
-  text-decoration: none;
+  font-family: 'Damion', cursive;
+  color: black;
+  text-shadow: 1px 10px 5px rgba(16, 16, 16, 0.4),
+    1px 15px 10px rgba(16, 16, 16, 0.2), 1px 20px 35px rgba(16, 16, 16, 0.2),
+    1px 25px 60px rgba(16, 16, 16, 0.4);
 }
 
 .button-container {
@@ -166,6 +166,30 @@ form div {
 
 .nav-links {
   display: flex;
+  margin-left: 250px;
+}
+
+.nav-links a {
+  font-family: 'Poppins', sans-serif;
+  font-weight: lighter;
+  display: inline-block;
+  margin: 1em;
+  text-transform: uppercase;
+  color: inherit !important;
+}
+
+.nav-links a::after {
+  content: '';
+  display: block;
+  width: 0px;
+  height: 1px;
+  background: black;
+  transition: width 0.3s;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+  transition: width 0.3s;
 }
 
 .user-cards {

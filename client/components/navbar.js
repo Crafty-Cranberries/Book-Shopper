@@ -4,11 +4,24 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout, getCartThunk} from '../store'
 import {Button} from 'react-bootstrap'
-import {Cart} from './index'
+import Cart from './cart'
+import {AiOutlineShoppingCart} from 'react-icons/ai'
 
 const Navbar = ({handleClick, isLoggedIn, fetchCart, user, isAdmin}) => {
   const [modalShow, setModalShow] = React.useState(false)
 
+  const isAdminFunc = (admin) => {
+    // has access to isAdmin, which should be true/false,
+    // the admin variable seems redundant
+    if (admin) {
+      return (
+        <div>
+          <Link to="/addproduct"> Add Product </Link>
+          <Link to="/users"> View Users </Link>
+        </div>
+      )
+    }
+  }
   return (
     <div className="nav-bar">
       {!isLoggedIn ? (
@@ -25,11 +38,14 @@ const Navbar = ({handleClick, isLoggedIn, fetchCart, user, isAdmin}) => {
         {isLoggedIn ? (
           <div>
             {/* The navbar will show these links after you log in */}
-            <Link to="/home">Home</Link>
+            <Link className="cool-link" to="/home">
+              Home
+            </Link>
             <Link to="/books"> Books </Link>
             <a href="/" onClick={handleClick}>
               Logout
             </a>
+            {/* {isAdmin ? <Link to="/addproduct"> Add Product </Link> : ''} */}
           </div>
         ) : (
           <div>
@@ -39,24 +55,17 @@ const Navbar = ({handleClick, isLoggedIn, fetchCart, user, isAdmin}) => {
             <Link to="/books"> Books </Link>
           </div>
         )}
-        <div>
-          {isAdmin && (
-            <div>
-              <Link to="/addproduct"> Add Product </Link>
-              <Link to="/users"> View Users </Link>
-            </div>
-          )}
-        </div>
+        <div>{isAdminFunc(isAdmin)}</div>
         <div className="button-container">
           <Button
             className="cart-button"
-            variant="primary"
+            variant="light"
             onClick={() => {
               setModalShow(true)
               fetchCart({isLoggedIn: isLoggedIn, userId: user})
             }}
           >
-            Cart
+            <AiOutlineShoppingCart />
           </Button>
         </div>
       </nav>
