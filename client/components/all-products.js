@@ -3,9 +3,10 @@ import {connect} from 'react-redux'
 import {Card, Button} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import {removedProduct} from '../store'
+import history from '../history'
 
 const AllProducts = ({products, deleteProduct, isAdmin}) => {
-  const handleOnClick = id => {
+  const handleOnClick = (id) => {
     deleteProduct(id)
   }
 
@@ -24,25 +25,26 @@ const AllProducts = ({products, deleteProduct, isAdmin}) => {
         <h1>Books:</h1>
       </div>
       <div className="all-products-container">
-        {products.map(book => {
+        {products.map((book) => {
           return (
-            <Card
-              className="product-preview"
+            <div
               key={book.id}
-              style={{width: '18rem'}}
+              className="book-card"
+              onClick={() => history.push(`/books/${book.id}`)}
             >
-              <Card.Img variant="top" src={book.coverImg} />
-              <Card.Body>
-                <Link to={`/books/${book.id}`}>
-                  <Card.Title> {book.title}</Card.Title>
-                </Link>
-                <Card.Subtitle>{book.author}</Card.Subtitle>
-                <Card.Text>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit{' '}
-                </Card.Text>
+              <div className="img-preview-container">
+                <img src={book.coverImg} className="product-img-preview" />
+                <button className="quick-add" type="button">
+                  +
+                </button>
+              </div>
+
+              <div className="book-card-textarea">
+                <p className="book-card-title">{book.title}</p>
+                <p>{book.author}</p>
                 {isAdminFunc(isAdmin, book.id)}
-              </Card.Body>
-            </Card>
+              </div>
+            </div>
           )
         })}
       </div>

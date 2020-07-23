@@ -8,7 +8,7 @@ import {Cart} from './index'
 
 const Navbar = ({handleClick, isLoggedIn, fetchCart, user, isAdmin}) => {
   const [modalShow, setModalShow] = React.useState(false)
-
+  console.log('IS ADMIN', isAdmin)
   return (
     <div className="nav-bar">
       {!isLoggedIn ? (

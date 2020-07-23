@@ -68,6 +68,7 @@ async function seed() {
     })
   }
 
+  //creates random books
   for (let i = 0; i < 200; i++) {
     Product.create({
       title: chance.company(),
@@ -75,7 +76,10 @@ async function seed() {
       price: chance.natural({min: 3, max: 50}) + 0.99,
       rating: chance.natural({min: 1, max: 5}),
       genre: genre(),
-      coverImg: 'https://picsum.photos/300/500',
+      coverImg: `https://picsum.photos/id/${chance.natural({
+        min: 1,
+        max: 50,
+      })}/300/500`,
     })
   }
 
