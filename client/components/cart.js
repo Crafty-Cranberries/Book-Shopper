@@ -87,12 +87,9 @@ const Cart = ({
                   </Button>
                 )}
               </ButtonGroup>
-              <h4>Price: ${product.price}</h4>
-              <h4>
-                Subtotal: ${(product.price * product.quantity).toFixed(2)}
-              </h4>
               <button
                 type="button"
+                style={{margin: '10px'}}
                 onClick={() => {
                   removeFromCart({
                     isLoggedIn: isLoggedIn,
@@ -104,6 +101,10 @@ const Cart = ({
               >
                 Remove from cart
               </button>
+              <h4>Price: ${product.price}</h4>
+              <h4>
+                Subtotal: ${(product.price * product.quantity).toFixed(2)}
+              </h4>
             </div>
           )
         })}
