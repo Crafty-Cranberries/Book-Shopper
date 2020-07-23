@@ -4,42 +4,53 @@ import {Card, Button} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import {removedProduct} from '../store'
 import history from '../history'
+import {MdAddShoppingCart} from 'react-icons/md'
+import {AiFillDelete} from 'react-icons/ai'
 
 const AllProducts = ({products, deleteProduct, isAdmin}) => {
   const handleOnClick = (id) => {
     deleteProduct(id)
   }
 
-  const isAdminFunc = (admin, bookId) => {
-    if (admin) {
-      return (
-        <Button variant="danger" onClick={() => handleOnClick(bookId)}>
-          Remove Product
-        </Button>
-      )
-    }
-  }
   return (
     <div className="all-products-start">
       <div className="all-products-container">
         {products.map((book) => {
           return (
-            <div
-              key={book.id}
-              className="book-card"
-              onClick={() => history.push(`/books/${book.id}`)}
-            >
+            <div key={book.id} className="book-card">
               <div className="img-preview-container">
-                <img src={book.coverImg} className="product-img-preview" />
+                <img
+                  src={book.coverImg}
+                  className="product-img-preview"
+                  onClick={() => history.push(`/books/${book.id}`)}
+                />
                 <button className="quick-add" type="button">
-                  +
+                  <MdAddShoppingCart />
                 </button>
+                {isAdmin && (
+                  <button
+                    type="button"
+                    className="quick-delete-book"
+                    onClick={() => handleOnClick(book.id)}
+                  >
+                    <AiFillDelete />
+                  </button>
+                )}
               </div>
 
               <div className="book-card-textarea">
-                <p className="book-card-title">{book.title}</p>
-                <p>{book.author}</p>
-                {isAdminFunc(isAdmin, book.id)}
+                <p
+                  onClick={() => history.push(`/books/${book.id}`)}
+                  className="book-card-title hover-links"
+                >
+                  {book.title}
+                </p>
+                <p
+                  onClick={() => history.push(`/books/${book.id}`)}
+                  className="book-card-author hover-links"
+                >
+                  {book.author}
+                </p>
               </div>
             </div>
           )
