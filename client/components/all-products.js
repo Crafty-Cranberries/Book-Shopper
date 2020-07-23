@@ -21,9 +21,6 @@ const AllProducts = ({products, deleteProduct, isAdmin}) => {
   }
   return (
     <div className="all-products-start">
-      <div>
-        <h1>Books:</h1>
-      </div>
       <div className="all-products-container">
         {products.map((book) => {
           return (
