@@ -18,6 +18,17 @@ router.get('/', isAdmin, async (req, res, next) => {
   }
 })
 
+router.get('/:userId', isAdmin, async (req, res, next) => {
+  try {
+    console.log('HERE')
+    const user = await User.findByPk(req.params.userId)
+    res.json(user)
+  } catch (err) {
+    console.log('the error is in the api route')
+    next(err)
+  }
+})
+
 router.get('/:userId/orders', isAdminOrCorrectUser, async (req, res, next) => {
   try {
     const userOrders = await Order.findAll({
@@ -114,6 +125,7 @@ router.put(
   }
 )
 
+// remove a product
 router.delete(
   '/:userId/orders/active/:productId',
   isAdminOrCorrectUser,
@@ -136,6 +148,18 @@ router.delete(
     }
   }
 )
+
+// remove user
+router.delete('/:userId', isAdminOrCorrectUser, async (req, res, next) => {
+  try {
+    await User.destroy({
+      where: {id: req.params.userId},
+    })
+    res.json('User successfully removed')
+  } catch (error) {
+    next(error)
+  }
+})
 
 router.post(
   '/:userId/orders/completed',
