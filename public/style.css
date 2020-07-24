@@ -113,6 +113,8 @@ form div {
 .all-products-container {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
 }
 
 .all-products-start {
@@ -121,6 +123,8 @@ form div {
 
   background-attachment: fixed;
   background-size: cover;
+  display: flex;
+  width: 100%;
 }
 
 .main-page-image {
@@ -333,4 +337,60 @@ form div {
   position: absolute;
   top: -5px;
   right: -20px;
+}
+
+.left-filter-container {
+  display: flex;
+  width: 300px;
+  background-color: white;
+  flex-direction: column;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.rating-filter-text {
+  font-family: 'Roboto';
+  font-size: 1.12em;
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+.rating-filter {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.label-text {
+  font-family: 'Roboto';
+  font-size: 1em;
+  font-weight: 400;
+  margin-left: 10px;
+}
+
+.genre-text {
+  font-family: 'Roboto';
+  font-weight: 600;
+  font-size: 1.12em;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.genre-checkbox {
+  height: 20px;
+  width: 20px;
+}
+
+.divider {
+  width: 100%;
+}
+
+.hover:hover {
+  cursor: pointer;
+}
+
+.rating-checkbox {
+  margin-right: 10px;
 }
