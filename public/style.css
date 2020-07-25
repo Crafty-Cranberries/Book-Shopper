@@ -67,11 +67,6 @@ form div {
   margin-right: 20px;
 }
 
-.cart-nav {
-  height: 100%;
-  width: 100px;
-}
-
 .single-product-img {
   height: 300px;
   width: 200px;
@@ -92,18 +87,6 @@ form div {
   border: 2px solid #73ad21;
   padding: 5px;
   text-align: center;
-}
-
-.nav-bar {
-  display: flex;
-  background-color: whitesmoke;
-  padding-top: 10px;
-  height: 75px;
-  flex-direction: row;
-}
-
-.nav-bar a {
-  text-decoration: none !important;
 }
 
 .product-preview {
@@ -152,22 +135,50 @@ form div {
   height: 50px;
   width: 50px;
 }
+/* NAVBAR */
+
+.nav-bar {
+  display: flex;
+  background-color: whitesmoke;
+  padding-top: 10px;
+  height: 75px;
+  justify-content: space-between;
+}
+
+.nav-bar a {
+  text-decoration: none !important;
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: end;
+  width: 100px;
+  height: 100%;
+  padding-top: 10px;
+}
+
+.cart-button {
+  display: flex;
+  margin-right: 10px;
+  position: absolute;
+  right: 0;
+}
 
 .nav-title {
+  display: flex;
   font-family: 'Damion', cursive;
   color: black;
   text-shadow: 1px 10px 5px rgba(16, 16, 16, 0.4),
     1px 15px 10px rgba(16, 16, 16, 0.2), 1px 20px 35px rgba(16, 16, 16, 0.2),
     1px 25px 60px rgba(16, 16, 16, 0.4);
-}
-
-.button-container {
-  padding-top: 10px;
+  width: 100%;
+  justify-content: start;
 }
 
 .nav-links {
   display: flex;
-  margin-left: 250px;
+  width: 100%;
+  justify-content: center;
 }
 
 .nav-links a {
@@ -192,6 +203,7 @@ form div {
   width: 100%;
   transition: width 0.3s;
 }
+/*-------*/
 
 .user-cards {
   display: flex;

@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import {logout, getCartThunk} from '../store'
 import {Button} from 'react-bootstrap'
 import Cart from './cart'
-import {AiOutlineShoppingCart} from 'react-icons/ai'
+import {AiOutlineShoppingCart, AiOutlineUser} from 'react-icons/ai'
 
 const Navbar = ({handleClick, isLoggedIn, fetchCart, user, isAdmin}) => {
   const [modalShow, setModalShow] = React.useState(false)
@@ -25,9 +25,7 @@ const Navbar = ({handleClick, isLoggedIn, fetchCart, user, isAdmin}) => {
         {isLoggedIn ? (
           <div>
             {/* The navbar will show these links after you log in */}
-            <Link className="cool-link" to="/home">
-              Home
-            </Link>
+            <Link to="/home">Home</Link>
             <Link to="/books"> Books </Link>
             <a href="/" onClick={handleClick}>
               Logout
@@ -49,7 +47,16 @@ const Navbar = ({handleClick, isLoggedIn, fetchCart, user, isAdmin}) => {
             </div>
           )}
         </div>
-        <div className="button-container">
+        <div className="nav-buttons">
+          <Button
+            className="cart-button"
+            variant="light"
+            onClick={() => {
+              console.log('click!')
+            }}
+          >
+            <AiOutlineUser />
+          </Button>
           <Button
             className="cart-button"
             variant="light"
