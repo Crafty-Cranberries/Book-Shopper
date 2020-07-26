@@ -1,13 +1,30 @@
 const router = require('express').Router()
 const {Product} = require('../db/models')
 const {isAdmin} = require('../api/utility/utility')
+const {Op} = require('sequelize')
 
 module.exports = router
 
 //Get all products (Books)
-router.get('/', async (req, res, next) => {
+router.put('/', async (req, res, next) => {
   try {
-    const allProducts = await Product.findAll()
+    let allProducts
+    let ratings = [1, 2, 3, 4, 5]
+    const sorting = req.body.order.split(' ')
+    if (req.body.ratings.length) ratings = req.body.ratings
+    if (req.body.selections.length === 0) {
+      allProducts = await Product.findAll({
+        where: [{rating: ratings}],
+        order: [[sorting[0], sorting[1]]],
+      })
+    } else {
+      allProducts = await Product.findAll({
+        where: {
+          [Op.and]: [{genre: req.body.selections}, {rating: ratings}],
+        },
+        order: [[sorting[0], sorting[1]]],
+      })
+    }
     res.json(allProducts)
   } catch (err) {
     next(err)
@@ -39,7 +56,7 @@ router.put('/:id', isAdmin, async (req, res, next) => {
   try {
     const [filled, updatedProduct] = await Product.update(req.body, {
       where: {id: req.params.id},
-      returning: true
+      returning: true,
     })
     res.json(updatedProduct)
   } catch (err) {
@@ -51,7 +68,7 @@ router.put('/:id', isAdmin, async (req, res, next) => {
 router.delete('/:id', isAdmin, async (req, res, next) => {
   try {
     const numOfDeleted = await Product.destroy({
-      where: {id: req.params.id}
+      where: {id: req.params.id},
     })
     res.json(numOfDeleted)
   } catch (err) {
