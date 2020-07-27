@@ -50,7 +50,7 @@ const Navbar = ({handleClick, isLoggedIn, fetchCart, user, isAdmin}) => {
       </nav>
       <div className="nav-buttons">
         <Button
-          // className="cart-button"
+          className="mr-1"
           variant="light"
           onClick={() => {
             console.log('click!')
@@ -59,7 +59,7 @@ const Navbar = ({handleClick, isLoggedIn, fetchCart, user, isAdmin}) => {
           <AiOutlineUser />
         </Button>
         <Button
-          // className="cart-button"
+          className="ml-1"
           variant="light"
           onClick={() => {
             setModalShow(true)
