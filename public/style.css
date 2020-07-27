@@ -96,6 +96,8 @@ form div {
 .all-products-container {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
 }
 
 .all-products-start {
@@ -104,6 +106,13 @@ form div {
 
   background-attachment: fixed;
   background-size: cover;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.left-right-container {
+  display: flex;
 }
 
 .main-page-image {
@@ -223,7 +232,12 @@ form div {
   height: 310px;
   width: 225px;
   background-size: cover;
-  border-radius: 5px;
+  border-radius: 5px 0 0 0;
+  border: 1px solid darkslategrey;
+}
+
+.product-img-preview:hover {
+  cursor: pointer;
 }
 
 .book-card {
@@ -236,19 +250,22 @@ form div {
 
 .book-card-textarea {
   width: 100%;
-  height: 20%;
+  height: 21.5%;
   padding: 5px;
+  background-color: white;
+  border-radius: 0 0 5px 5px;
 }
 
 .book-card-title {
   font-family: 'Roboto';
-  font-size: 1.3em;
+  font-size: 1.1em;
   font-weight: 500;
+  text-overflow: ellipsis;
 }
 
 .quick-add {
   position: absolute;
-  bottom: -3px;
+  bottom: -6px;
   left: -17px;
   height: 40px;
   width: 40px;
@@ -265,8 +282,168 @@ form div {
   box-shadow: 0 5px 20px rgb(33, 33, 33);
 }
 
+.quick-delete-book {
+  border: none;
+  background-color: lightcoral;
+  border-radius: 25px;
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  right: -17px;
+  bottom: 0px;
+  font-family: 'Roboto';
+  font-weight: 700;
+  color: #fff;
+  font-size: 1.5em;
+}
+
+.quick-delete-book:hover {
+  box-shadow: 0 5px 20px rgb(33, 33, 33);
+}
+
 .img-preview-container {
   width: 100%;
   height: 80%;
   position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.book-card-title {
+  font-family: 'Roboto';
+  font-size: 1.1em;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hover-links:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.book-card-author {
+  font-family: 'Roboto';
+  font-size: 0.9em;
+  margin: 0;
+}
+
+.author-price-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.price-preview {
+  font-family: 'Roboto';
+  font-weight: 500;
+  color: darkslategrey;
+  margin: 0;
+}
+
+.book-genre-preview {
+  font-family: 'Roboto';
+  font-size: 0.8em;
+  margin: 0;
+  background-color: white;
+  width: fit-content;
+  padding: 10px;
+  font-weight: 600;
+  border-radius: 15px;
+  position: absolute;
+  top: -5px;
+  right: -20px;
+}
+
+.left-filter-container {
+  display: flex;
+  width: 300px;
+  background-color: white;
+  flex-direction: column;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.rating-filter-text {
+  font-family: 'Roboto';
+  font-size: 1.12em;
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+.rating-filter {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.label-text {
+  font-family: 'Roboto';
+  font-size: 1em;
+  font-weight: 400;
+  margin-left: 10px;
+}
+
+.genre-text {
+  font-family: 'Roboto';
+  font-weight: 600;
+  font-size: 1.12em;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.genre-checkbox {
+  height: 20px;
+  width: 20px;
+}
+
+.divider {
+  width: 100%;
+}
+
+.hover:hover {
+  cursor: pointer;
+}
+
+.rating-checkbox {
+  margin-right: 10px;
+}
+
+.results-text {
+  font-family: 'Roboto';
+  font-size: 1.1em;
+  font-weight: 500;
+  margin: 0;
+  margin-left: 30px;
+}
+
+.top-container {
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+  box-shadow: 0 0 10px #ddd;
+  height: 50px;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sorting-container {
+  margin-right: 30px;
+}
+
+.sort-text {
+  font-family: 'Roboto';
+  font-size: 1.1em;
+  font-weight: 500;
+  margin: 0;
+  margin-right: 15px;
+}
+
+.sort-container-main {
+  display: flex;
 }

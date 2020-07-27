@@ -1,12 +1,26 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
-import {Card} from 'react-bootstrap'
-import {fetchAllUsers} from '../store'
+import {Button, Card} from 'react-bootstrap'
+import {fetchAllUsers, deletedUser} from '../store'
 
-const AllUsers = ({users, getUsers}) => {
+const AllUsers = ({users, getUsers, isAdmin, removeUser}) => {
   useEffect(() => {
     getUsers()
   }, [])
+
+  const handleOnClick = (id) => {
+    removeUser(id)
+  }
+
+  const isAdminFunc = (admin, userId) => {
+    if (admin) {
+      return (
+        <Button variant="danger" onClick={() => handleOnClick(userId)}>
+          Remove User
+        </Button>
+      )
+    }
+  }
 
   return (
     <div>
@@ -23,6 +37,7 @@ const AllUsers = ({users, getUsers}) => {
                     {singleUser.lastName}
                   </Card.Title>
                   <Card.Subtitle>Email: {singleUser.email}</Card.Subtitle>
+                  {isAdminFunc(isAdmin, singleUser.id)}
                 </Card.Body>
               </Card>
             )
@@ -35,9 +50,11 @@ const AllUsers = ({users, getUsers}) => {
 
 const mapStateToProps = (state) => ({
   users: state.users,
+  isAdmin: state.user.isAdmin,
 })
 const mapDispatch = (dispatch) => ({
   getUsers: () => dispatch(fetchAllUsers()),
+  removeUser: (userId) => dispatch(deletedUser(userId)),
 })
 
 export default connect(mapStateToProps, mapDispatch)(AllUsers)
