@@ -47,28 +47,28 @@ const Navbar = ({handleClick, isLoggedIn, fetchCart, user, isAdmin}) => {
             </div>
           )}
         </div>
-        <div className="nav-buttons">
-          <Button
-            className="cart-button"
-            variant="light"
-            onClick={() => {
-              console.log('click!')
-            }}
-          >
-            <AiOutlineUser />
-          </Button>
-          <Button
-            className="cart-button"
-            variant="light"
-            onClick={() => {
-              setModalShow(true)
-              fetchCart({isLoggedIn: isLoggedIn, userId: user})
-            }}
-          >
-            <AiOutlineShoppingCart />
-          </Button>
-        </div>
       </nav>
+      <div className="nav-buttons">
+        <Button
+          // className="cart-button"
+          variant="light"
+          onClick={() => {
+            console.log('click!')
+          }}
+        >
+          <AiOutlineUser />
+        </Button>
+        <Button
+          // className="cart-button"
+          variant="light"
+          onClick={() => {
+            setModalShow(true)
+            fetchCart({isLoggedIn: isLoggedIn, userId: user})
+          }}
+        >
+          <AiOutlineShoppingCart />
+        </Button>
+      </div>
 
       <Cart
         isLoggedIn={isLoggedIn}
