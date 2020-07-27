@@ -9,9 +9,15 @@ const getProducts = (products) => ({type: GET_PRODUCTS, products})
 const addProduct = (product) => ({type: ADD_PRODUCT, product})
 const removeProduct = (productId) => ({type: REMOVE_PRODUCT, productId})
 
-export const fetchProducts = () => async (dispatch) => {
+export const fetchProducts = (selections, ratings, order) => async (
+  dispatch
+) => {
   try {
-    const {data} = await axios.get('/api/products')
+    const {data} = await axios.put('/api/products', {
+      selections,
+      ratings,
+      order,
+    })
     dispatch(getProducts(data))
   } catch (err) {
     console.error(err)
