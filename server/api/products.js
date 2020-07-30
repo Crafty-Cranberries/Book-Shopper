@@ -11,18 +11,31 @@ router.put('/', async (req, res, next) => {
     let allProducts
     let ratings = [1, 2, 3, 4, 5]
     const sorting = req.body.order.split(' ')
+    let offset = (req.body.page - 1) * req.body.perPage
+
     if (req.body.ratings.length) ratings = req.body.ratings
+
     if (req.body.selections.length === 0) {
-      allProducts = await Product.findAll({
+      allProducts = await Product.findAndCountAll({
         where: [{rating: ratings}],
-        order: [[sorting[0], sorting[1]]],
+        order: [
+          [sorting[0], sorting[1]],
+          ['ratingCount', 'DESC'],
+        ],
+        offset: offset,
+        limit: req.body.perPage,
       })
     } else {
-      allProducts = await Product.findAll({
+      allProducts = await Product.findAndCountAll({
         where: {
           [Op.and]: [{genre: req.body.selections}, {rating: ratings}],
         },
-        order: [[sorting[0], sorting[1]]],
+        order: [
+          [sorting[0], sorting[1]],
+          ['ratingCount', 'DESC'],
+        ],
+        offset: offset,
+        limit: req.body.perPage,
       })
     }
     res.json(allProducts)

@@ -1,30 +1,40 @@
 import React, {useState, useEffect} from 'react'
+import {ProductPreview} from './index'
 import {connect} from 'react-redux'
 import {removedProduct, fetchProducts} from '../store'
-import history from '../history'
-import {MdAddShoppingCart} from 'react-icons/md'
-import {AiFillDelete} from 'react-icons/ai'
-import {Rating} from '@material-ui/lab'
+import {Rating, Pagination} from '@material-ui/lab'
+import {FaThList} from 'react-icons/fa'
+import {BsFillGrid3X2GapFill} from 'react-icons/bs'
 
 const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
   const [selections, setSelections] = useState([])
   const [ratings, setRatings] = useState([])
   const [sort, setSort] = useState('rating DESC')
+  const [page, setPage] = useState(1)
+  const [perPage, setPerPage] = useState(15)
+  const [view, setView] = useState('all-products-container')
+
+  const handlePage = (e, val) => {
+    setPage(val)
+    window.scrollTo({top: 0})
+  }
 
   const handleOnClick = (id) => {
     deleteProduct(id)
   }
 
   useEffect(() => {
-    getProducts(selections, ratings, sort)
-  }, [selections, ratings, sort])
+    getProducts(selections, ratings, sort, page, perPage)
+  }, [selections, ratings, sort, page, perPage])
 
   const handleChange = (item) => {
     let val = item.target.value
     if (selections.indexOf(val) >= 0) {
       setSelections((state) => state.filter((i) => i !== val))
+      setPage(1)
     } else {
       setSelections((state) => [...state, val])
+      setPage(1)
     }
   }
 
@@ -32,21 +42,56 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
     let val = Number(e.target.value)
     if (ratings.indexOf(val) >= 0) {
       setRatings((state) => state.filter((i) => i !== val))
+      setPage(1)
     } else {
       setRatings((state) => [...state, val])
+      setPage(1)
     }
   }
 
   const handleSorting = (e) => {
     const val = e.target.value
     setSort(val)
+    setPage(1)
+  }
+
+  const handlePerPage = (e) => {
+    const val = Number(e.target.value)
+    setPerPage(val)
+    setPage(1)
+  }
+
+  const handleView = () => {
+    if (view === 'all-products-container') {
+      setView('all-products-container-list')
+    } else {
+      setView('all-products-container')
+    }
   }
 
   return (
     <div className="all-products-start">
       <div className="top-container">
-        <p className="results-text">{products.length} results</p>
+        <p className="results-text">{products.count} results</p>
         <div className="sort-container-main">
+          <button
+            className="column-button"
+            type="button"
+            onClick={() => handleView()}
+          >
+            {view === 'all-products-container' ? (
+              <BsFillGrid3X2GapFill />
+            ) : (
+              <FaThList />
+            )}
+          </button>
+          <p className="sort-text">Per Page</p>
+          <select className="sorting-container" onChange={handlePerPage}>
+            <option value="15">15</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
           <p className="sort-text">Sort by</p>
           <select className="sorting-container" onChange={handleSorting}>
             <option value="rating DESC">High Rating</option>
@@ -59,7 +104,7 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
           <div className="rating-filter">
             <form>
               <p className="rating-filter-text">Rating</p>
-              <div>
+              <div className="rating-view">
                 <input
                   className="rating-checkbox genre-checkbox"
                   type="checkbox"
@@ -68,7 +113,7 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
                 />
                 <Rating className="hover" name="read-only" value={5} readOnly />
               </div>
-              <div>
+              <div className="rating-view">
                 <input
                   className="rating-checkbox genre-checkbox"
                   type="checkbox"
@@ -77,7 +122,7 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
                 />
                 <Rating className="hover" name="read-only" value={4} readOnly />
               </div>
-              <div>
+              <div className="rating-view">
                 <input
                   className="rating-checkbox genre-checkbox"
                   type="checkbox"
@@ -86,7 +131,7 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
                 />
                 <Rating className="hover" name="read-only" value={3} readOnly />
               </div>
-              <div>
+              <div className="rating-view">
                 <input
                   className="rating-checkbox genre-checkbox"
                   type="checkbox"
@@ -95,7 +140,7 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
                 />
                 <Rating className="hover" name="read-only" value={2} readOnly />
               </div>
-              <div>
+              <div className="rating-view">
                 <input
                   className="rating-checkbox genre-checkbox"
                   type="checkbox"
@@ -254,52 +299,27 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
             </div>
           </div>
         </div>
-        <div className="all-products-container">
-          {products.map((book) => {
-            return (
-              <div key={book.id} className="book-card">
-                <div className="img-preview-container">
-                  <img
-                    src={book.coverImg}
-                    className="product-img-preview"
-                    onClick={() => history.push(`/books/${book.id}`)}
-                  />
-                  <p className="book-genre-preview">{book.genre}</p>
-                  <button className="quick-add" type="button">
-                    <MdAddShoppingCart />
-                  </button>
-                  {isAdmin && (
-                    <button
-                      type="button"
-                      className="quick-delete-book"
-                      onClick={() => handleOnClick(book.id)}
-                    >
-                      <AiFillDelete />
-                    </button>
-                  )}
-                </div>
-
-                <div className="book-card-textarea">
-                  <p
-                    onClick={() => history.push(`/books/${book.id}`)}
-                    className="book-card-title hover-links"
-                  >
-                    {book.title}
-                  </p>
-                  <div className="author-price-container">
-                    <p
-                      onClick={() => history.push(`/books/${book.id}`)}
-                      className="book-card-author hover-links"
-                    >
-                      {book.author}
-                    </p>
-                    <p className="price-preview">${book.price}</p>
-                  </div>
-                  <Rating name="read-only" value={book.rating} readOnly />
-                </div>
-              </div>
-            )
-          })}
+        <div>
+          <div className={view}>
+            {products.rows.map((book) => {
+              return (
+                <ProductPreview
+                  key={book.id}
+                  book={book}
+                  isAdmin={isAdmin}
+                  handleOnClick={handleOnClick}
+                  view={view}
+                />
+              )
+            })}
+          </div>
+          <div className="pagination">
+            <Pagination
+              count={Math.floor(products.count / perPage)}
+              page={page}
+              onChange={handlePage}
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -312,8 +332,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatch = (dispatch) => ({
-  getProducts: (data, stars, order) =>
-    dispatch(fetchProducts(data, stars, order)),
+  getProducts: (data, stars, order, current, perPage) =>
+    dispatch(fetchProducts(data, stars, order, current, perPage)),
   deleteProduct: (bookId) => dispatch(removedProduct(bookId)),
 })
 
