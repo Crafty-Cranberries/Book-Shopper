@@ -9,14 +9,20 @@ const getProducts = (products) => ({type: GET_PRODUCTS, products})
 const addProduct = (product) => ({type: ADD_PRODUCT, product})
 const removeProduct = (productId) => ({type: REMOVE_PRODUCT, productId})
 
-export const fetchProducts = (selections, ratings, order) => async (
-  dispatch
-) => {
+export const fetchProducts = (
+  selections,
+  ratings,
+  order,
+  page,
+  perPage
+) => async (dispatch) => {
   try {
     const {data} = await axios.put('/api/products', {
       selections,
       ratings,
       order,
+      page,
+      perPage,
     })
     dispatch(getProducts(data))
   } catch (err) {
@@ -50,19 +56,24 @@ export const removedProduct = (productId) => async (dispatch) => {
   }
 }
 
-const defaultProducts = []
+const defaultProducts = {
+  count: 0,
+  rows: [],
+}
 
 export default function (state = defaultProducts, action) {
   switch (action.type) {
     case GET_PRODUCTS:
-      return [...action.products]
+      return {...action.products}
     case ADD_PRODUCT:
-      return [...state, action.product]
+      const added = state.count + 1
+      return {count: added, rows: [...state.rows, action.product]}
     case REMOVE_PRODUCT:
-      const filteredProduct = state.filter(
+      const filteredProduct = state.rows.filter(
         (product) => product.id !== action.productId
       )
-      return [...filteredProduct]
+      const removed = state.count - 1
+      return {count: removed, rows: filteredProduct}
     default:
       return state
   }
