@@ -5,11 +5,20 @@ const {Op} = require('sequelize')
 
 module.exports = router
 
+router.get('/', async (req, res, next) => {
+  try {
+    const allProducts = await Product.findAll()
+    res.json(allProducts)
+  } catch (err) {
+    next(err)
+  }
+})
+
 //Get all products (Books)
 router.put('/', async (req, res, next) => {
   try {
     let allProducts
-    let ratings = [1, 2, 3, 4, 5]
+    let ratings = [0, 1, 2, 3, 4, 5]
     const sorting = req.body.order.split(' ')
     let offset = (req.body.page - 1) * req.body.perPage
 

@@ -1,17 +1,22 @@
 import React, {useState, useEffect} from 'react'
+import axios from 'axios'
 import {ProductPreview} from './index'
 import {connect} from 'react-redux'
 import {removedProduct, fetchProducts} from '../store'
 import {Rating, Pagination} from '@material-ui/lab'
 import {FaThList} from 'react-icons/fa'
 import {BsFillGrid3X2GapFill} from 'react-icons/bs'
+import SearchBar from 'material-ui-search-bar'
 
 const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
-  const [selections, setSelections] = useState([])
-  const [ratings, setRatings] = useState([])
-  const [sort, setSort] = useState('rating DESC')
   const [page, setPage] = useState(1)
   const [perPage, setPerPage] = useState(15)
+  const [productList, setProductList] = useState([])
+  const [filteredProducts, setFilteredProducts] = useState([])
+  const [ratings, setRatings] = useState([])
+  const [searchTerm, setSearchTerm] = useState('')
+  const [selections, setSelections] = useState([])
+  const [sort, setSort] = useState('rating DESC')
   const [view, setView] = useState('all-products-container')
 
   const handlePage = (e, val) => {
@@ -23,9 +28,57 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
     deleteProduct(id)
   }
 
+  const fetchAllProducts = async () => {
+    try {
+      const allProducts = await axios.get('/api/products')
+      setProductList(allProducts.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchAllProducts()
+  }, [])
+
   useEffect(() => {
     getProducts(selections, ratings, sort, page, perPage)
-  }, [selections, ratings, sort, page, perPage])
+    // console.log('useEffect >>>> productlist = ', productList)
+  }, [selections, ratings, sort, page, perPage, productList])
+
+  const handleSearch = (value) => {
+    let newProducts = []
+    let countOfProducts = 0
+    console.log('handleSearch >>> value = ', value)
+    if (value.trim().length > 0) {
+      // currentProducts = productList.filter(el => {
+      //   console.log( 'el >>> ', el);
+      // })
+      // console.log('searchingggg >>>> products = ', currentProducts)
+      console.log('s >>>> productlist = ', productList)
+      console.log(
+        'Before filtering!!! >>>> filteredProducts = ',
+        filteredProducts
+      )
+
+      newProducts = productList.filter((product) => {
+        countOfProducts++
+        // console.log('each product >>> ', product)
+        const lCase = product.title.toLowerCase()
+
+        const filter = value.toLowerCase()
+
+        return lCase.includes(filter)
+      })
+    } else {
+      newProducts = productList
+    }
+    setSearchTerm(value)
+    setFilteredProducts(newProducts)
+    console.log('     count = ', countOfProducts)
+    console.log('newProducts >>> ', newProducts)
+    console.log('After >>>> filteredProducts = ', filteredProducts)
+  }
 
   const handleChange = (item) => {
     let val = item.target.value
@@ -73,6 +126,27 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
     <div className="all-products-start">
       <div className="top-container">
         <p className="results-text">{products.count} results</p>
+
+        <SearchBar
+          value={searchTerm}
+          onChange={(newValue) => setSearchTerm(newValue)}
+          onRequestSearch={() => handleSearch(searchTerm)}
+          onCancelSearch={() => {
+            setSearchTerm('')
+            setFilteredProducts([])
+          }}
+        />
+
+        {/* <form onSubmit={(e) => onFormSubmit(e)}>
+          <input
+            name="search"
+            type="text"
+            placeholder='Search...'
+            value={searchTerm}
+            onChange={(e) => handleSearchChange(e)}
+            // onChange={e => setSearchTerm(e.target.value)}
+          />
+        </form> */}
         <div className="sort-container-main">
           <button
             className="column-button"
@@ -301,24 +375,44 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
         </div>
         <div>
           <div className={view}>
-            {products.rows.map((book) => {
-              return (
-                <ProductPreview
-                  key={book.id}
-                  book={book}
-                  isAdmin={isAdmin}
-                  handleOnClick={handleOnClick}
-                  view={view}
-                />
-              )
-            })}
+            {filteredProducts.length > 0
+              ? filteredProducts.map((book) => {
+                  return (
+                    <ProductPreview
+                      key={book.id}
+                      book={book}
+                      isAdmin={isAdmin}
+                      handleOnClick={handleOnClick}
+                      view={view}
+                    />
+                  )
+                })
+              : products.rows.map((book) => {
+                  return (
+                    <ProductPreview
+                      key={book.id}
+                      book={book}
+                      isAdmin={isAdmin}
+                      handleOnClick={handleOnClick}
+                      view={view}
+                    />
+                  )
+                })}
           </div>
           <div className="pagination">
-            <Pagination
-              count={Math.floor(products.count / perPage)}
-              page={page}
-              onChange={handlePage}
-            />
+            {filteredProducts.length > 0 ? (
+              <Pagination
+                count={Math.floor(filteredProducts.length / perPage)}
+                page={page}
+                onChange={handlePage}
+              />
+            ) : (
+              <Pagination
+                count={Math.floor(products.count / perPage)}
+                page={page}
+                onChange={handlePage}
+              />
+            )}
           </div>
         </div>
       </div>
