@@ -80,9 +80,9 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
             onClick={() => handleView()}
           >
             {view === 'all-products-container' ? (
-              <BsFillGrid3X2GapFill />
-            ) : (
               <FaThList />
+            ) : (
+              <BsFillGrid3X2GapFill />
             )}
           </button>
           <p className="sort-text">Per Page</p>
@@ -315,7 +315,7 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
           </div>
           <div className="pagination">
             <Pagination
-              count={Math.floor(products.count / perPage)}
+              count={Math.ceil(products.count / perPage)}
               page={page}
               onChange={handlePage}
             />
