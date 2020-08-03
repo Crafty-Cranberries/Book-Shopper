@@ -110,6 +110,13 @@ to prevent the navbar from overlapping anything near the top.
   border-radius: 2px;
 }
 
+.single-book-synopsis {
+  font-family: 'Roboto';
+  font-weight: 500;
+  font-size: 1.1em;
+  text-decoration: underline;
+}
+
 .single-product-price-container {
   display: flex;
   flex-direction: column;
@@ -204,6 +211,7 @@ to prevent the navbar from overlapping anything near the top.
 
 .single-product-container {
   display: flex;
+  margin-top: 75px;
 }
 
 .author {
@@ -692,12 +700,6 @@ to prevent the navbar from overlapping anything near the top.
   margin-top: 12px;
 }
 
-.single-book-synopsis {
-  font-family: 'Roboto';
-  font-weight: 500;
-  font-size: 1.1em;
-  text-decoration: underline;
-}
 /* ------------- To Top Button ---------------*/
 .toTop {
   position: fixed;
