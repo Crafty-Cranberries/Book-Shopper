@@ -5,16 +5,19 @@ import {removedProduct, fetchProducts} from '../store'
 import {Rating, Pagination} from '@material-ui/lab'
 import {FaThList} from 'react-icons/fa'
 import {BsFillGrid3X2GapFill} from 'react-icons/bs'
+import SearchBar from 'material-ui-search-bar'
 import {ScrollTop} from '../components'
 import Fab from '@material-ui/core/Fab'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 
 const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
-  const [selections, setSelections] = useState([])
-  const [ratings, setRatings] = useState([])
-  const [sort, setSort] = useState('rating DESC')
   const [page, setPage] = useState(1)
   const [perPage, setPerPage] = useState(15)
+  const [ratings, setRatings] = useState([])
+  const [text, setText] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
+  const [selections, setSelections] = useState([])
+  const [sort, setSort] = useState('rating DESC')
   const [view, setView] = useState('all-products-container')
   const genres = [
     'Comedy',
@@ -33,20 +36,16 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
   ]
   const bookRatings = [5, 4, 3, 2, 1]
 
-  const handlePage = (e, val) => {
-    setPage(val)
-    window.scrollTo({top: 0})
-  }
+  useEffect(() => {
+    getProducts(selections, ratings, sort, page, perPage, searchTerm)
+  }, [selections, ratings, sort, page, perPage, searchTerm])
 
   const handleOnClick = (id) => {
     deleteProduct(id)
   }
 
-  useEffect(() => {
-    getProducts(selections, ratings, sort, page, perPage)
-  }, [selections, ratings, sort, page, perPage])
-
-  const handleChange = (item) => {
+  // Handle the genre checkbox change
+  const handleGenre = (item) => {
     let val = item.target.value
     if (selections.indexOf(val) >= 0) {
       setSelections((state) => state.filter((i) => i !== val))
@@ -68,12 +67,22 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
     }
   }
 
+  // sort by (high rating or low rating)
   const handleSorting = (e) => {
     const val = e.target.value
+    console.log('handleSorting e.target.value = ', val)
     setSort(val)
     setPage(1)
   }
 
+  // when clicking pagination (paging) button number
+  const handlePage = (e, val) => {
+    console.log('handlePage >>> val ', val)
+    setPage(val)
+    window.scrollTo({top: 0})
+  }
+
+  // handles change to items per page
   const handlePerPage = (e) => {
     const val = Number(e.target.value)
     setPerPage(val)
@@ -93,30 +102,44 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
       {/* ---------- Results/Sorting Bar ----------*/}
       <div className="top-container">
         <p className="results-text">{products.count} results</p>
-        <div className="sort-container-main">
-          <button
-            className="column-button"
-            type="button"
-            onClick={() => handleView()}
-          >
-            {view === 'all-products-container' ? (
-              <BsFillGrid3X2GapFill />
-            ) : (
-              <FaThList />
-            )}
-          </button>
-          <p className="sort-text">Per Page</p>
-          <select className="sorting-container" onChange={handlePerPage}>
-            <option value="15">15</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-          </select>
-          <p className="sort-text">Sort by</p>
-          <select className="sorting-container" onChange={handleSorting}>
-            <option value="rating DESC">High Rating</option>
-            <option value="rating ASC">Low Rating</option>
-          </select>
+        <div className="search-bar-container">
+          <SearchBar
+            value={text}
+            onChange={(newValue) => setText(newValue)}
+            onRequestSearch={() => {
+              setSearchTerm(text)
+            }}
+            onCancelSearch={() => {
+              setSearchTerm('')
+              setText('')
+            }}
+          />
+          <span className="divider-bar" />
+          <div className="sort-container-main">
+            <button
+              className="column-button"
+              type="button"
+              onClick={() => handleView()}
+            >
+              {view === 'all-products-container' ? (
+                <BsFillGrid3X2GapFill />
+              ) : (
+                <FaThList />
+              )}
+            </button>
+            <p className="sort-text">Per Page</p>
+            <select className="sorting-container" onChange={handlePerPage}>
+              <option value="15">15</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+            <p className="sort-text">Sort by</p>
+            <select className="sorting-container" onChange={handleSorting}>
+              <option value="rating DESC">High Rating</option>
+              <option value="rating ASC">Low Rating</option>
+            </select>
+          </div>
         </div>
       </div>
       {/* ---------- Rating Sort Bar ----------*/}
@@ -149,6 +172,7 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
           {/* ---------- Genre Sort Bar ----------*/}
           <div className="genre-filter">
             <p className="genre-text">Genre</p>
+
             {genres.map((genre, i) => {
               return (
                 <div className="single-genre" key={i}>
@@ -211,8 +235,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatch = (dispatch) => ({
-  getProducts: (data, stars, order, current, perPage) =>
-    dispatch(fetchProducts(data, stars, order, current, perPage)),
+  getProducts: (data, stars, order, current, perPage, searchTerm) =>
+    dispatch(fetchProducts(data, stars, order, current, perPage, searchTerm)),
   deleteProduct: (bookId) => dispatch(removedProduct(bookId)),
 })
 
