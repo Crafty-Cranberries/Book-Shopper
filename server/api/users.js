@@ -125,7 +125,7 @@ router.put(
   }
 )
 
-// remove a product
+// remove a product from cart
 router.delete(
   '/:userId/orders/active/:productId',
   isAdminOrCorrectUser,
@@ -137,7 +137,6 @@ router.delete(
         where: {userId: id, status: 'ongoing'},
       })
       const orderId = singleOrder.dataValues.id
-
       //delete according to orderid and productid
       const numOfDeleted = await ProductOrder.destroy({
         where: {orderId: orderId, productId: req.params.productId},

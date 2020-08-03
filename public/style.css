@@ -1,8 +1,10 @@
+/* ------------- Fonts ---------------*/
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Karla:Poppins:100,400|Work+Sans');
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,700|Playfair+Display:400i');
 @import url('https://fonts.googleapis.com/css2?family=Damion&display=swap');
 
+/* ------------- General  ---------------*/
 body {
   font-family: sans-serif;
 }
@@ -16,6 +18,14 @@ form div {
   display: inline-block;
 }
 
+/* This is a container for all the content on the page
+to prevent the navbar from overlapping anything near the top. 
+*/
+.content {
+  padding-top: 75px;
+}
+
+/* ------------- Landing Page ---------------*/
 .home-page-container {
   display: flex;
   height: 350px;
@@ -68,6 +78,31 @@ form div {
   margin-right: 20px;
 }
 
+.main-page-image {
+  height: 150px;
+  width: 300px;
+}
+
+.welcome {
+  background-color: #ff9020;
+  height: 80px;
+  display: flex;
+  align-items: center;
+}
+
+.welcomeText {
+  margin: 0;
+  margin-left: 75px;
+  font-family: 'Roboto';
+  font-weight: 700;
+}
+
+.user-welcome-img {
+  height: 50px;
+  width: 50px;
+}
+
+/* ------------- Single Product Page ---------------*/
 .single-product-img {
   height: 300px;
   width: 200px;
@@ -94,6 +129,7 @@ form div {
   margin: 25px;
 }
 
+/* ------------- All Products Page ---------------*/
 .all-products-container {
   display: flex;
   flex-wrap: wrap;
@@ -116,37 +152,7 @@ form div {
   display: flex;
 }
 
-.main-page-image {
-  height: 150px;
-  width: 300px;
-}
-
-.cart-button {
-  margin-right: 10px;
-  position: absolute;
-  right: 0;
-}
-
-.welcome {
-  background-color: #ff9020;
-  height: 80px;
-  display: flex;
-  align-items: center;
-}
-
-.welcomeText {
-  margin: 0;
-  margin-left: 75px;
-  font-family: 'Roboto';
-  font-weight: 700;
-}
-
-.user-welcome-img {
-  height: 50px;
-  width: 50px;
-}
-/* NAVBAR */
-
+/* ------------- NAVBAR ---------------*/
 .nav-bar {
   display: flex;
   background-color: whitesmoke;
@@ -167,8 +173,6 @@ form div {
 .nav-buttons {
   display: flex;
   justify-content: space-between !important;
-  /* height: 100%;
-  padding-top: 10px; */
   padding-right: 15px;
 }
 
@@ -180,6 +184,7 @@ form div {
     1px 25px 60px rgba(16, 16, 16, 0.4);
   padding-left: 15px;
 }
+
 .nav-links {
   display: flex;
 }
@@ -206,7 +211,7 @@ form div {
   width: 100%;
   transition: width 0.3s;
 }
-/*-------*/
+/*---- ADMIN USERS PAGE ---*/
 
 .user-cards {
   display: flex;
@@ -440,8 +445,4 @@ form div {
 
 .sort-container-main {
   display: flex;
-}
-
-.content {
-  padding-top: 75px;
 }
