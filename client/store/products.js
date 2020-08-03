@@ -16,8 +16,10 @@ export const fetchProducts = (
   ratings,
   order,
   page,
-  perPage
+  perPage,
+  searchTerm
 ) => async (dispatch) => {
+  console.log(' >>>>>>>>    api call searchTerm = ', searchTerm)
   try {
     const {data} = await axios.put('/api/products', {
       selections,
@@ -25,6 +27,7 @@ export const fetchProducts = (
       order,
       page,
       perPage,
+      searchTerm,
     })
     dispatch(getProducts(data))
   } catch (err) {

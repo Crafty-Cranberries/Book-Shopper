@@ -21,12 +21,44 @@ router.put('/', async (req, res, next) => {
     let ratings = [0, 1, 2, 3, 4, 5]
     const sorting = req.body.order.split(' ')
     let offset = (req.body.page - 1) * req.body.perPage
-
+    console.log(
+      '>>>>>>>>> req.body search term length',
+      req.body.searchTerm.length
+    )
     if (req.body.ratings.length) ratings = req.body.ratings
 
-    if (req.body.selections.length === 0) {
+    if (req.body.selections.length === 0 && req.body.searchTerm.length === 0) {
       allProducts = await Product.findAndCountAll({
         where: [{rating: ratings}],
+        order: [
+          [sorting[0], sorting[1]],
+          ['ratingCount', 'DESC'],
+        ],
+        offset: offset,
+        limit: req.body.perPage,
+      })
+    } // NEVER GETTING INTO THE ELSE IF BELOW *******
+    else if (req.body.searchTerm.length > 0) {
+      // filter to only show containing term
+      console.log('>>>>>>>>> search term ====== ', req.body.searchTerm)
+      let term = req.body.searchTerm.toLowerCase()
+      allProducts = await Product.findAndCountAll({
+        where: {
+          [Op.contains]: [
+            {
+              title: [term],
+            },
+          ],
+          // [Op.and]: [{genre: req.body.selections}, {rating: ratings}],
+          // [Op.or]: [
+          //   {
+          //     title: {
+          //       [Op.like]: `%${req.body.searchTerm}%`
+          //     }
+          //   },
+          // { synopsis: { [Op.like]: `%${req.body.searchTerm}%`}}
+          // ]
+        },
         order: [
           [sorting[0], sorting[1]],
           ['ratingCount', 'DESC'],
@@ -47,6 +79,9 @@ router.put('/', async (req, res, next) => {
         limit: req.body.perPage,
       })
     }
+
+    console.log('>>>>> allProducts >>>> ', allProducts.rows[0])
+
     res.json(allProducts)
   } catch (err) {
     next(err)

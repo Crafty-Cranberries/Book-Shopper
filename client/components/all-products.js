@@ -19,15 +19,6 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
   const [sort, setSort] = useState('rating DESC')
   const [view, setView] = useState('all-products-container')
 
-  const handlePage = (e, val) => {
-    setPage(val)
-    window.scrollTo({top: 0})
-  }
-
-  const handleOnClick = (id) => {
-    deleteProduct(id)
-  }
-
   const fetchAllProducts = async () => {
     try {
       const allProducts = await axios.get('/api/products')
@@ -37,50 +28,48 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
     }
   }
 
-  useEffect(() => {
-    fetchAllProducts()
-  }, [])
+  // fetches all products upon mounting
+  // useEffect(() => {
+  //   fetchAllProducts()
+  // }, [])
 
   useEffect(() => {
-    getProducts(selections, ratings, sort, page, perPage)
-    // console.log('useEffect >>>> productlist = ', productList)
-  }, [selections, ratings, sort, page, perPage, productList])
+    getProducts(selections, ratings, sort, page, perPage, searchTerm)
+    setTimeout(() => {
+      console.log('useEffect >>>> products = ', products)
+    }, 1000)
+  }, [selections, ratings, sort, page, perPage, searchTerm])
+
+  const handleOnClick = (id) => {
+    deleteProduct(id)
+  }
 
   const handleSearch = (value) => {
     let newProducts = []
-    let countOfProducts = 0
     console.log('handleSearch >>> value = ', value)
-    if (value.trim().length > 0) {
-      // currentProducts = productList.filter(el => {
-      //   console.log( 'el >>> ', el);
-      // })
-      // console.log('searchingggg >>>> products = ', currentProducts)
-      console.log('s >>>> productlist = ', productList)
-      console.log(
-        'Before filtering!!! >>>> filteredProducts = ',
-        filteredProducts
-      )
+    // if (value.trim().length > 0) {
+    //   console.log('s >>>> productlist = ', productList)
+    //   console.log(
+    //     'Before filtering!!! >>>> filteredProducts = ',
+    //     filteredProducts
+    //     )
+    //     newProducts = productList.filter((product) => {
+    //       const lCase = product.title.toLowerCase()
+    //       const filter = value.toLowerCase()
+    //       return lCase.includes(filter)
+    //     })
+    //   } else {
+    //     newProducts = productList
+    //   }
 
-      newProducts = productList.filter((product) => {
-        countOfProducts++
-        // console.log('each product >>> ', product)
-        const lCase = product.title.toLowerCase()
-
-        const filter = value.toLowerCase()
-
-        return lCase.includes(filter)
-      })
-    } else {
-      newProducts = productList
-    }
     setSearchTerm(value)
     setFilteredProducts(newProducts)
-    console.log('     count = ', countOfProducts)
-    console.log('newProducts >>> ', newProducts)
-    console.log('After >>>> filteredProducts = ', filteredProducts)
+    // console.log('newProducts >>> ', newProducts)
+    // console.log('After >>>> filteredProducts = ', filteredProducts)
   }
 
-  const handleChange = (item) => {
+  // Handle the genre checkbox change
+  const handleGenre = (item) => {
     let val = item.target.value
     if (selections.indexOf(val) >= 0) {
       setSelections((state) => state.filter((i) => i !== val))
@@ -102,12 +91,22 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
     }
   }
 
+  // sort by (high rating or low rating)
   const handleSorting = (e) => {
     const val = e.target.value
+    console.log('handleSorting e.target.value = ', val)
     setSort(val)
     setPage(1)
   }
 
+  // when clicking pagination (paging) button number
+  const handlePage = (e, val) => {
+    console.log('handlePage >>> val ', val)
+    setPage(val)
+    window.scrollTo({top: 0})
+  }
+
+  // handles change to items per page
   const handlePerPage = (e) => {
     const val = Number(e.target.value)
     setPerPage(val)
@@ -125,12 +124,21 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
   return (
     <div className="all-products-start">
       <div className="top-container">
-        <p className="results-text">{products.count} results</p>
+        <p className="results-text">
+          {filteredProducts.length > 0
+            ? filteredProducts.length
+            : products.count}{' '}
+          results
+        </p>
 
         <SearchBar
           value={searchTerm}
           onChange={(newValue) => setSearchTerm(newValue)}
-          onRequestSearch={() => handleSearch(searchTerm)}
+          onRequestSearch={() => {
+            handleSearch(searchTerm)
+            // handleView()
+            // handlePage(null, 1)
+          }}
           onCancelSearch={() => {
             setSearchTerm('')
             setFilteredProducts([])
@@ -233,7 +241,7 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
                 className="genre-checkbox"
                 type="checkbox"
                 value="Comedy"
-                onChange={handleChange}
+                onChange={handleGenre}
               />
               <label className="label-text" htmlFor="comedy">
                 Comedy
@@ -244,7 +252,7 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
                 className="genre-checkbox"
                 type="checkbox"
                 value="Fantasy"
-                onChange={handleChange}
+                onChange={handleGenre}
               />
               <label className="label-text" htmlFor="fantasy">
                 Fantasy
@@ -255,7 +263,7 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
                 className="genre-checkbox"
                 type="checkbox"
                 value="Horror"
-                onChange={handleChange}
+                onChange={handleGenre}
               />
               <label className="label-text" htmlFor="horror">
                 Horror
@@ -266,7 +274,7 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
                 className="genre-checkbox"
                 type="checkbox"
                 value="Mystery"
-                onChange={handleChange}
+                onChange={handleGenre}
               />
               <label className="label-text" htmlFor="mystery">
                 Mystery
@@ -277,7 +285,7 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
                 className="genre-checkbox"
                 type="checkbox"
                 value="Young Adult"
-                onChange={handleChange}
+                onChange={handleGenre}
               />
               <label className="label-text" htmlFor="young-adult">
                 Young Adult
@@ -288,7 +296,7 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
                 className="genre-checkbox"
                 type="checkbox"
                 value="Children"
-                onChange={handleChange}
+                onChange={handleGenre}
               />
               <label className="label-text" htmlFor="children">
                 Children's
@@ -299,7 +307,7 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
                 className="genre-checkbox"
                 type="checkbox"
                 value="Sci-Fi"
-                onChange={handleChange}
+                onChange={handleGenre}
               />
               <label className="label-text" htmlFor="sci-fi">
                 Sci-Fi
@@ -310,7 +318,7 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
                 className="genre-checkbox"
                 type="checkbox"
                 value="Music"
-                onChange={handleChange}
+                onChange={handleGenre}
               />
               <label className="label-text" htmlFor="music">
                 Music
@@ -321,7 +329,7 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
                 className="genre-checkbox"
                 type="checkbox"
                 value="Finance"
-                onChange={handleChange}
+                onChange={handleGenre}
               />
               <label className="label-text" htmlFor="finance">
                 Finance
@@ -332,7 +340,7 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
                 className="genre-checkbox"
                 type="checkbox"
                 value="Comic"
-                onChange={handleChange}
+                onChange={handleGenre}
               />
               <label className="label-text" htmlFor="comic">
                 Comic
@@ -343,7 +351,7 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
                 className="genre-checkbox"
                 type="checkbox"
                 value="Romance"
-                onChange={handleChange}
+                onChange={handleGenre}
               />
               <label className="label-text" htmlFor="romance">
                 Romance
@@ -354,7 +362,7 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
                 className="genre-checkbox"
                 type="checkbox"
                 value="Drama"
-                onChange={handleChange}
+                onChange={handleGenre}
               />
               <label className="label-text" htmlFor="drama">
                 Drama
@@ -365,7 +373,7 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
                 className="genre-checkbox"
                 type="checkbox"
                 value="Health"
-                onChange={handleChange}
+                onChange={handleGenre}
               />
               <label className="label-text" htmlFor="health">
                 Health
@@ -375,44 +383,32 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
         </div>
         <div>
           <div className={view}>
-            {filteredProducts.length > 0
-              ? filteredProducts.map((book) => {
-                  return (
-                    <ProductPreview
-                      key={book.id}
-                      book={book}
-                      isAdmin={isAdmin}
-                      handleOnClick={handleOnClick}
-                      view={view}
-                    />
-                  )
-                })
-              : products.rows.map((book) => {
-                  return (
-                    <ProductPreview
-                      key={book.id}
-                      book={book}
-                      isAdmin={isAdmin}
-                      handleOnClick={handleOnClick}
-                      view={view}
-                    />
-                  )
-                })}
+            {products.rows.map((book) => {
+              return (
+                <ProductPreview
+                  key={book.id}
+                  book={book}
+                  isAdmin={isAdmin}
+                  handleOnClick={handleOnClick}
+                  view={view}
+                />
+              )
+            })}
           </div>
           <div className="pagination">
-            {filteredProducts.length > 0 ? (
+            {/* {filteredProducts.length > 0 ? (
               <Pagination
                 count={Math.floor(filteredProducts.length / perPage)}
                 page={page}
                 onChange={handlePage}
               />
-            ) : (
-              <Pagination
-                count={Math.floor(products.count / perPage)}
-                page={page}
-                onChange={handlePage}
-              />
-            )}
+            ) : ( */}
+            <Pagination
+              count={Math.floor(products.count / perPage)}
+              page={page}
+              onChange={handlePage}
+            />
+            {/* )} */}
           </div>
         </div>
       </div>
@@ -420,14 +416,28 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
   )
 }
 
+// filteredProducts.length > 0
+//               ? filteredProducts.map((book) => {
+//                   return (
+//                     <ProductPreview
+//                       key={book.id}
+//                       book={book}
+//                       isAdmin={isAdmin}
+//                       handleOnClick={handleOnClick}
+//                       view={view}
+//                     />
+//                   )
+//                 })
+//               :
+
 const mapStateToProps = (state) => ({
   products: state.products,
   isAdmin: state.user.isAdmin,
 })
 
 const mapDispatch = (dispatch) => ({
-  getProducts: (data, stars, order, current, perPage) =>
-    dispatch(fetchProducts(data, stars, order, current, perPage)),
+  getProducts: (data, stars, order, current, perPage, searchTerm) =>
+    dispatch(fetchProducts(data, stars, order, current, perPage, searchTerm)),
   deleteProduct: (bookId) => dispatch(removedProduct(bookId)),
 })
 
