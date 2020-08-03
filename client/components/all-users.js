@@ -23,7 +23,7 @@ const AllUsers = ({users, getUsers, isAdmin, removeUser}) => {
   }
 
   return (
-    <div>
+    <div className="content">
       <h1 className="user-page-text">Users</h1>
       {/* <CardDeck> */}
       <div className="user-cards">
