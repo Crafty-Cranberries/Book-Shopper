@@ -3,7 +3,8 @@ import {connect} from 'react-redux'
 import {fetchSingleProduct, addToCartThunk} from '../store'
 import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import {Container, Col, Button, Image, Row} from 'react-bootstrap'
+import {Rating} from '@material-ui/lab'
+import {Button} from '@material-ui/core'
 
 toast.configure()
 
@@ -21,55 +22,48 @@ const SingleProduct = ({
   }, [])
 
   return (
-    <div className="singleproduct">
-      <Container bsPrefix="singleProduct">
-        <Row>
-          <Col>
-            <Image className="single-product-img" src={book.coverImg} rounded />
-            <h2>Title: {book.title}</h2>
-            <h5 className="author">By: {book.author}</h5>
-            <Row xs={2} md={4} lg={6}>
-              {' '}
-              <Col>
-                <h4>Genre: {book.genre}</h4>
-              </Col>
-              <Col>
-                <h4>Rating: {book.rating}</h4>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <p>Synopsis: {book.synopsis}</p>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-        <Row xs={2} md={4} lg={6}>
-          {' '}
-          <Col bsPrefix="price">
-            <h3> ${book.price} </h3>
-          </Col>
-          <Col>
-            <Button
-              variant="success"
-              key="singleButton"
-              onClick={() => {
-                addToCart({
-                  isLoggedIn: isLoggedIn,
-                  userId: userId,
-                  productId: book.id,
-                  product: book,
-                  price: book.price,
-                })
-                addToCartSuccess()
-              }}
-              type="button"
-            >
-              Add To Cart
-            </Button>
-          </Col>
-        </Row>
-      </Container>
+    <div className="single-product-container">
+      <div className="single-product-img-container">
+        <img className="single-product-img" src={book.coverImg} />
+      </div>
+      <div className="single-product-info-container">
+        <p className="single-product-view-title">{book.title}</p>
+        <p className="single-product-view-author">
+          by <span className="book-author-link">{book.author}</span>
+        </p>
+        <div className="single-product-rating-container">
+          <Rating name="read-only" value={book.rating || 0} readOnly />
+          <p className="rating-count-text">{book.ratingCount} reviews</p>
+        </div>
+        <p className="single-product-genre">{book.genre}</p>
+        <p className="single-book-synopsis">Synopsis</p>
+        <p className="single-product-synopsis">{book.synopsis}</p>
+      </div>
+      <div className="single-product-price-container">
+        <div>
+          Price: <span className="book-price-text">${book.price}</span>
+        </div>
+        <span className="wishlist-button" />
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => {
+            addToCart({
+              isLoggedIn: isLoggedIn,
+              userId: userId,
+              productId: book.id,
+              product: book,
+              price: book.price,
+            })
+            addToCartSuccess()
+          }}
+          type="button"
+        >
+          Add To Cart
+        </Button>
+        <span className="wishlist-button" />
+        <Button variant="contained">Add To Wishlist</Button>
+      </div>
     </div>
   )
 }

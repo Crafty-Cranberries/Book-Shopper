@@ -208,7 +208,7 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
           {/* ---------- Pagination ----------*/}
           <div className="pagination">
             <Pagination
-              count={Math.floor(products.count / perPage)}
+              count={Math.ceil(products.count / perPage)}
               page={page}
               onChange={handlePage}
             />

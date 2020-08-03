@@ -104,13 +104,106 @@ to prevent the navbar from overlapping anything near the top.
 
 /* ------------- Single Product Page ---------------*/
 .single-product-img {
-  height: 300px;
-  width: 200px;
+  height: 400px;
+  width: 275px;
+  background-size: cover;
+  border-radius: 2px;
+}
+
+.single-product-price-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 275px;
+  height: 175px;
+  justify-content: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: solid 1px #ddd;
+  margin-top: 25px;
+  margin-right: 50px;
+  margin-left: 25px;
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+}
+
+.single-product-info-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+  margin-left: 50px;
+  padding-right: 150px;
+}
+
+.single-product-view-title {
+  font-family: 'Roboto';
+  font-size: 2em;
+  margin: 0;
+  font-weight: 500;
+}
+
+.single-product-view-author {
+  font-family: 'Roboto';
+  font-size: 1.1em;
+  margin: 0;
+  font-weight: 400;
+}
+
+.rating-count-text {
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-size: 1em;
+  margin: 0;
+  margin-left: 15px;
+  margin-top: 2.2px;
+  color: #0066c0;
+}
+
+.single-product-rating-container {
+  display: flex;
+  height: 30px;
+  width: fit-content;
+  border-bottom: 1.6px solid #ddd;
+  margin-bottom: 10px;
+}
+
+.book-author-link {
+  color: #0066c0;
+}
+
+.book-price-text {
+  font-family: 'Roboto';
+  font-weight: 600;
+  font-size: 1.4em;
+  color: #710d1f;
+}
+
+.single-product-img-container {
+  height: fit-content;
+  margin-left: 50px;
+  margin-top: 25px;
+}
+
+.single-product-genre {
+  font-family: 'Roboto';
+  font-weight: 1em;
+  margin: 0;
+  color: #0066c0;
+  margin-bottom: 30px;
+}
+
+.single-product-synopsis {
+  font-family: 'Roboto';
+  font-size: 1em;
+  align-self: flex-end;
 }
 
 .singleProduct {
   margin: 30px;
   padding: 0;
+}
+
+.single-product-container {
+  display: flex;
 }
 
 .author {
@@ -595,6 +688,16 @@ to prevent the navbar from overlapping anything near the top.
   text-overflow: ellipsis;
 }
 
+.wishlist-button {
+  margin-top: 12px;
+}
+
+.single-book-synopsis {
+  font-family: 'Roboto';
+  font-weight: 500;
+  font-size: 1.1em;
+  text-decoration: underline;
+}
 /* ------------- To Top Button ---------------*/
 .toTop {
   position: fixed;
