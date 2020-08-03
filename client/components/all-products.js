@@ -154,13 +154,13 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
                     <input
                       className="rating-checkbox genre-checkbox"
                       type="checkbox"
-                      value={`${rating}`}
+                      value={rating}
                       onChange={handleRating}
                     />
                     <Rating
                       className="hover"
                       name="read-only"
-                      value={`${rating}`}
+                      value={rating}
                       readOnly
                     />
                   </div>
@@ -180,7 +180,7 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
                     className="genre-checkbox"
                     type="checkbox"
                     value={`${genre}`}
-                    onChange={handleChange}
+                    onChange={handleGenre}
                   />
                   <label className="label-text" htmlFor={`${genre}`}>
                     {`${genre}`}
@@ -215,9 +215,9 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
           </div>
         </div>
       </div>
+      {/* ---------- Scroll To Top Button ----------*/}
       <ScrollTop>
         <Fab
-          // className="toTop"
           color="default"
           size="medium"
           onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
