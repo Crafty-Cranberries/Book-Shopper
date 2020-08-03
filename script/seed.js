@@ -75,6 +75,7 @@ async function seed() {
       author: chance.name(),
       price: chance.natural({min: 3, max: 50}) + 0.99,
       rating: chance.natural({min: 1, max: 5}),
+      ratingCount: chance.natural({min: 2, max: 3000}),
       genre: genre(),
       coverImg: `https://picsum.photos/id/${chance.natural({
         min: 1,
@@ -89,6 +90,7 @@ async function seed() {
       author: 'J.K Rowling',
       price: 15.99,
       rating: 5,
+      ratingCount: 1142,
       genre: 'Fantasy',
     }),
     Product.create({
@@ -96,6 +98,7 @@ async function seed() {
       author: 'Dr. Seuss',
       price: 10.99,
       rating: 5,
+      ratingCount: 366,
       genre: 'Children',
     }),
     Product.create({
@@ -103,6 +106,7 @@ async function seed() {
       author: 'Eric Carle',
       price: 10.99,
       rating: 5,
+      ratingCount: 324,
       genre: 'Children',
     }),
     Product.create({
@@ -110,6 +114,7 @@ async function seed() {
       author: 'Stephen King',
       price: 13.99,
       rating: 3,
+      ratingCount: 415,
       genre: 'Horror',
     }),
     Product.create({
@@ -117,6 +122,7 @@ async function seed() {
       author: 'J.R.R Tolkien',
       price: 9.99,
       rating: 5,
+      ratingCount: 1257,
       genre: 'Fantasy',
     }),
     Product.create({
@@ -124,6 +130,7 @@ async function seed() {
       author: 'J.R.R Tolkien',
       price: 10.99,
       rating: 5,
+      ratingCount: 1372,
       genre: 'Fantasy',
     }),
     Product.create({
@@ -131,6 +138,7 @@ async function seed() {
       author: 'Antoine de Saint-Exupéry',
       price: 8.99,
       rating: 5,
+      ratingCount: 642,
       genre: 'Fantasy',
     }),
     Product.create({
@@ -138,6 +146,7 @@ async function seed() {
       author: 'Lewis Carroll',
       price: 5.99,
       rating: 4,
+      ratingCount: 403,
       genre: 'Fantasy',
     }),
     Product.create({
@@ -145,6 +154,7 @@ async function seed() {
       author: 'H. Rider Haggard',
       price: 14.79,
       rating: 5,
+      ratingCount: 34,
       genre: 'Adventure',
     }),
     Product.create({
@@ -152,6 +162,7 @@ async function seed() {
       author: 'Dan Brown',
       price: 12.5,
       rating: 5,
+      ratingCount: 355,
       genre: 'Adventure',
     }),
     Product.create({
@@ -159,6 +170,7 @@ async function seed() {
       author: 'E.B White',
       price: 5.99,
       rating: 5,
+      ratingCount: 231,
       genre: "Children's Fiction",
     }),
     Product.create({
@@ -166,6 +178,7 @@ async function seed() {
       author: 'J.P Donleavy',
       price: 15.79,
       rating: 2,
+      ratingCount: 22,
       genre: 'Unknown',
     }),
   ])

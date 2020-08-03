@@ -137,6 +137,17 @@ to prevent the navbar from overlapping anything near the top.
   justify-content: center;
 }
 
+.all-products-container-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.all-products-container::after {
+  content: '';
+  flex: auto;
+}
+
 .all-products-start {
   background-color: #ffffff;
   background-image: linear-gradient(315deg, #ffffff 0%, #d7e1ec 74%);
@@ -262,6 +273,13 @@ to prevent the navbar from overlapping anything near the top.
   text-overflow: ellipsis;
 }
 
+.book-card-title-list {
+  font-family: 'Roboto';
+  font-size: 1.5em;
+  font-weight: 500;
+  margin: 0;
+}
+
 .quick-add {
   position: absolute;
   bottom: -6px;
@@ -308,6 +326,15 @@ to prevent the navbar from overlapping anything near the top.
   flex-direction: column-reverse;
 }
 
+.img-preview-container-list {
+  width: fit-content;
+  height: 80%;
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+  margin-right: 35px;
+}
+
 .book-card-title {
   font-family: 'Roboto';
   font-size: 1.1em;
@@ -328,10 +355,23 @@ to prevent the navbar from overlapping anything near the top.
   margin: 0;
 }
 
+.book-card-author-list {
+  font-family: 'Roboto';
+  font-size: 1em;
+  margin: 0;
+  color: #0066c0;
+}
+
 .author-price-container {
   width: 100%;
   display: flex;
   justify-content: space-between;
+}
+
+.author-price-container-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .price-preview {
@@ -339,6 +379,28 @@ to prevent the navbar from overlapping anything near the top.
   font-weight: 500;
   color: darkslategrey;
   margin: 0;
+}
+
+.price-preview-list {
+  font-family: 'Roboto';
+  font-size: 1.2em;
+  font-weight: 500;
+  color: darkslategrey;
+  margin: 0;
+  margin-top: 5px;
+  margin-bottom: 3px;
+}
+
+.author-card-list {
+  display: flex;
+}
+
+.by-text {
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-size: 1em;
+  margin: 0;
+  margin-right: 5px;
 }
 
 .book-genre-preview {
@@ -355,13 +417,29 @@ to prevent the navbar from overlapping anything near the top.
   right: -20px;
 }
 
+.book-genre-preview-list {
+  font-family: 'Roboto';
+  font-size: 0.8em;
+  margin: 0;
+  background-color: white;
+  width: fit-content;
+  padding: 10px;
+  font-weight: 600;
+  border-radius: 15px;
+  position: absolute;
+  top: -20px;
+  right: -30px;
+}
+
 .left-filter-container {
   display: flex;
   width: 300px;
+  height: fit-content;
   background-color: white;
   flex-direction: column;
   padding-left: 30px;
   padding-right: 30px;
+  border-right: 2px solid #ddd;
 }
 
 .rating-filter-text {
@@ -445,4 +523,63 @@ to prevent the navbar from overlapping anything near the top.
 
 .sort-container-main {
   display: flex;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+.rating-preview-container {
+  display: flex;
+}
+
+.rating-count {
+  font-family: 'Roboto';
+  font-weight: 400;
+  color: grey;
+  margin: 0;
+  margin-left: 10px;
+}
+
+.rating-view {
+  margin: 0;
+  display: flex;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.column-button {
+  border: none;
+  margin-right: 25px;
+  background-color: transparent;
+}
+
+.book-card-list {
+  display: flex;
+  margin: 25px;
+  padding: 20px;
+  border-radius: 7px;
+  width: 800px;
+  height: fit-content;
+  border-bottom: 2px solid #ddd;
+}
+
+.synopsis-list {
+  font-family: 'Roboto';
+  font-weight: 500;
+  font-size: 1em;
+  margin: 0;
+  margin-top: 10px;
+  margin-bottom: 2px;
+  text-decoration: underline;
+}
+
+.synopsis-text-list {
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-size: 0.92em;
+  text-overflow: ellipsis;
 }
