@@ -5,6 +5,9 @@ import {removedProduct, fetchProducts} from '../store'
 import {Rating, Pagination} from '@material-ui/lab'
 import {FaThList} from 'react-icons/fa'
 import {BsFillGrid3X2GapFill} from 'react-icons/bs'
+import {ScrollTop} from '../components'
+import Fab from '@material-ui/core/Fab'
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 
 const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
   const [selections, setSelections] = useState([])
@@ -322,6 +325,16 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
           </div>
         </div>
       </div>
+      <ScrollTop>
+        <Fab
+          // className="toTop"
+          color="default"
+          size="medium"
+          onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
+        >
+          <KeyboardArrowUpIcon />
+        </Fab>
+      </ScrollTop>
     </div>
   )
 }
