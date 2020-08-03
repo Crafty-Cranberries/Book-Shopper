@@ -11,10 +11,11 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+//Find order by id
 router.get('/:id/all', async (req, res, next) => {
   try {
     const allUserOrders = await Order.findAll({
-      where: {userId: req.params.id}
+      where: {userId: req.params.id},
     })
     res.json(allUserOrders)
   } catch (err) {
@@ -26,7 +27,7 @@ router.get('/:id/all', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const newOrder = await Order.create({
-      userId: req.body.session
+      userId: req.body.session,
     })
     res.json(newOrder)
   } catch (error) {
@@ -39,12 +40,12 @@ router.put('/:id', async (req, res, next) => {
   try {
     const [NumOfAffected, updatedOrder] = await Order.update(
       {
-        status: req.body.status
+        status: req.body.status,
       },
       {
         where: {id: req.params.id},
         returning: true,
-        plain: true
+        plain: true,
       }
     )
     res.json(updatedOrder)
@@ -57,7 +58,7 @@ router.put('/:id', async (req, res, next) => {
 router.delete('/:id', async (req, res, next) => {
   try {
     const orderDeleted = await Order.destroy({
-      where: {id: req.params.id}
+      where: {id: req.params.id},
     })
     res.json(orderDeleted)
   } catch (error) {

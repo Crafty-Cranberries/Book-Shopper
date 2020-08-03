@@ -52,7 +52,7 @@ const AddProduct = ({addToProductList}) => {
   }
 
   return (
-    <div>
+    <div className="content">
       <AddProductForm
         handleSubmit={handleSubmit}
         title={title}
