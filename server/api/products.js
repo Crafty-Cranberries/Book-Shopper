@@ -5,19 +5,39 @@ const {Op} = require('sequelize')
 
 module.exports = router
 
+router.get('/', async (req, res, next) => {
+  try {
+    const allProducts = await Product.findAll()
+    res.json(allProducts)
+  } catch (err) {
+    next(err)
+  }
+})
+
 //Get all products (Books)
 router.put('/', async (req, res, next) => {
   try {
     let allProducts
-    let ratings = [1, 2, 3, 4, 5]
+    let ratings = [0, 1, 2, 3, 4, 5]
     const sorting = req.body.order.split(' ')
     let offset = (req.body.page - 1) * req.body.perPage
 
     if (req.body.ratings.length) ratings = req.body.ratings
 
+    // QUERY
+    let query = {}
+
+    //set user search term on query
+    if (req.body.searchTerm.length) {
+      query.title = {[Op.iLike]: `%${req.body.searchTerm}%`}
+    }
+
     if (req.body.selections.length === 0) {
+      //set rating propert on query
+      query.rating = ratings
+
       allProducts = await Product.findAndCountAll({
-        where: [{rating: ratings}],
+        where: query,
         order: [
           [sorting[0], sorting[1]],
           ['ratingCount', 'DESC'],
@@ -26,10 +46,11 @@ router.put('/', async (req, res, next) => {
         limit: req.body.perPage,
       })
     } else {
+      //set filtering on query
+      query[Op.and] = [{genre: req.body.selections}, {rating: ratings}]
+
       allProducts = await Product.findAndCountAll({
-        where: {
-          [Op.and]: [{genre: req.body.selections}, {rating: ratings}],
-        },
+        where: query,
         order: [
           [sorting[0], sorting[1]],
           ['ratingCount', 'DESC'],
@@ -38,6 +59,7 @@ router.put('/', async (req, res, next) => {
         limit: req.body.perPage,
       })
     }
+
     res.json(allProducts)
   } catch (err) {
     next(err)
