@@ -20,7 +20,7 @@ const SingleProduct = ({
   useEffect(() => {
     fetchBook(match.params.id)
   }, [])
-  console.log('BOOK RATING', book.rating)
+
   return (
     <div className="single-product-container">
       <div className="single-product-img-container">
@@ -36,14 +36,17 @@ const SingleProduct = ({
           <p className="rating-count-text">{book.ratingCount} reviews</p>
         </div>
         <p className="single-product-genre">{book.genre}</p>
+        <p className="single-book-synopsis">Synopsis</p>
         <p className="single-product-synopsis">{book.synopsis}</p>
       </div>
       <div className="single-product-price-container">
         <div>
           Price: <span className="book-price-text">${book.price}</span>
         </div>
+        <span className="wishlist-button" />
         <Button
           variant="contained"
+          color="secondary"
           onClick={() => {
             addToCart({
               isLoggedIn: isLoggedIn,
@@ -58,6 +61,8 @@ const SingleProduct = ({
         >
           Add To Cart
         </Button>
+        <span className="wishlist-button" />
+        <Button variant="contained">Add To Wishlist</Button>
       </div>
     </div>
   )
