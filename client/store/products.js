@@ -19,7 +19,6 @@ export const fetchProducts = (
   perPage,
   searchTerm
 ) => async (dispatch) => {
-  console.log(' >>>>>>>>    api call searchTerm = ', searchTerm)
   try {
     const {data} = await axios.put('/api/products', {
       selections,

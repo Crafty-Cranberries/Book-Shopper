@@ -496,6 +496,16 @@ form div {
 
 .sorting-container {
   margin-right: 30px;
+  height: 25px;
+}
+
+.search-bar-container {
+  display: flex;
+}
+
+.divider-bar {
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
 .sort-text {
@@ -508,6 +518,7 @@ form div {
 
 .sort-container-main {
   display: flex;
+  align-items: center;
 }
 
 .pagination {
