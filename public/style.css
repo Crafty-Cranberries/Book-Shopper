@@ -204,6 +204,7 @@ to prevent the navbar from overlapping anything near the top.
 
 .single-product-container {
   display: flex;
+  padding-top: 56px;
 }
 
 .author {
@@ -242,9 +243,8 @@ to prevent the navbar from overlapping anything near the top.
 }
 
 .all-products-start {
-  background-color: #ffffff;
-  background-image: linear-gradient(315deg, #ffffff 0%, #d7e1ec 74%);
-  padding-top: 75px;
+  background-color: #fff;
+  padding-top: 56px;
   background-attachment: fixed;
   background-size: cover;
   display: flex;
@@ -259,11 +259,11 @@ to prevent the navbar from overlapping anything near the top.
 /* ------------- NAVBAR ---------------*/
 .nav-bar {
   display: flex;
-  background-color: whitesmoke;
-  padding-top: 5px;
-  height: 75px;
-  justify-content: space-between;
+  background-color: #fff;
   align-items: center;
+  box-shadow: 14px 9px 42px -19px rgba(0, 0, 0, 0.35);
+  padding-top: 5px;
+  height: 55px;
   position: fixed; /* Set the navbar to fixed position */
   top: 0; /* Position the navbar at the top of the page */
   width: 100%;
@@ -276,7 +276,7 @@ to prevent the navbar from overlapping anything near the top.
 
 .nav-buttons {
   display: flex;
-  justify-content: space-between !important;
+  margin-left: auto;
   padding-right: 15px;
 }
 
@@ -291,6 +291,7 @@ to prevent the navbar from overlapping anything near the top.
 
 .nav-links {
   display: flex;
+  align-items: center;
 }
 
 .nav-links a {
@@ -315,6 +316,16 @@ to prevent the navbar from overlapping anything near the top.
   width: 100%;
   transition: width 0.3s;
 }
+
+.nav-site-logo {
+  height: 38px;
+  margin-left: 20px;
+}
+
+.nav-logo-container {
+  margin-right: 50px;
+}
+
 /*---- ADMIN USERS PAGE ---*/
 
 .user-cards {
@@ -608,7 +619,8 @@ to prevent the navbar from overlapping anything near the top.
 }
 
 .search-bar-container {
-  display: flex;
+  width: 400px;
+  margin-left: auto;
 }
 
 .divider-bar {

@@ -11,17 +11,24 @@ const Navbar = ({handleClick, isLoggedIn, fetchCart, user, isAdmin}) => {
   const [modalShow, setModalShow] = React.useState(false)
   return (
     <div className="nav-bar">
-      {!isLoggedIn ? (
-        <Link to="/">
-          <h1 className="nav-title">BookShopper</h1>
-        </Link>
-      ) : (
-        <Link to="/home">
-          <h1 className="nav-title">BookShopper</h1>
-        </Link>
-      )}
-
-      <nav className="nav-links">
+      <div className="nav-logo-container">
+        {!isLoggedIn ? (
+          <Link to="/">
+            <img
+              className="nav-site-logo"
+              src="https://res.cloudinary.com/bramble/image/upload/v1596519151/bookshopper_new_i6ho6e.png"
+            />
+          </Link>
+        ) : (
+          <Link to="/home">
+            <img
+              className="nav-site-logo"
+              src="https://res.cloudinary.com/bramble/image/upload/v1596519151/bookshopper_new_i6ho6e.png"
+            />
+          </Link>
+        )}
+      </div>
+      <div className="nav-links">
         {isLoggedIn ? (
           <div>
             {/* The navbar will show these links after you log in */}
@@ -47,7 +54,7 @@ const Navbar = ({handleClick, isLoggedIn, fetchCart, user, isAdmin}) => {
             </div>
           )}
         </div>
-      </nav>
+      </div>
       <div className="nav-buttons">
         <Button
           className="mr-1"
@@ -68,14 +75,13 @@ const Navbar = ({handleClick, isLoggedIn, fetchCart, user, isAdmin}) => {
         >
           <AiOutlineShoppingCart />
         </Button>
+        <Cart
+          isLoggedIn={isLoggedIn}
+          userId={user}
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+        />
       </div>
-
-      <Cart
-        isLoggedIn={isLoggedIn}
-        userId={user}
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-      />
     </div>
   )
 }

@@ -114,32 +114,32 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
               setText('')
             }}
           />
-          <span className="divider-bar" />
-          <div className="sort-container-main">
-            <button
-              className="column-button"
-              type="button"
-              onClick={() => handleView()}
-            >
-              {view === 'all-products-container' ? (
-                <BsFillGrid3X2GapFill />
-              ) : (
-                <FaThList />
-              )}
-            </button>
-            <p className="sort-text">Per Page</p>
-            <select className="sorting-container" onChange={handlePerPage}>
-              <option value="15">15</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
-            </select>
-            <p className="sort-text">Sort by</p>
-            <select className="sorting-container" onChange={handleSorting}>
-              <option value="rating DESC">High Rating</option>
-              <option value="rating ASC">Low Rating</option>
-            </select>
-          </div>
+        </div>
+        <span className="divider-bar" />
+        <div className="sort-container-main">
+          <button
+            className="column-button"
+            type="button"
+            onClick={() => handleView()}
+          >
+            {view === 'all-products-container' ? (
+              <BsFillGrid3X2GapFill />
+            ) : (
+              <FaThList />
+            )}
+          </button>
+          <p className="sort-text">Per Page</p>
+          <select className="sorting-container" onChange={handlePerPage}>
+            <option value="15">15</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+          <p className="sort-text">Sort by</p>
+          <select className="sorting-container" onChange={handleSorting}>
+            <option value="rating DESC">High Rating</option>
+            <option value="rating ASC">Low Rating</option>
+          </select>
         </div>
       </div>
       {/* ---------- Rating Sort Bar ----------*/}
@@ -206,13 +206,17 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
             })}
           </div>
           {/* ---------- Pagination ----------*/}
-          <div className="pagination">
-            <Pagination
-              count={Math.ceil(products.count / perPage)}
-              page={page}
-              onChange={handlePage}
-            />
-          </div>
+          {products.count > 0 ? (
+            <div className="pagination">
+              <Pagination
+                count={Math.ceil(products.count / perPage)}
+                page={page}
+                onChange={handlePage}
+              />
+            </div>
+          ) : (
+            <div>No Results</div>
+          )}
         </div>
       </div>
       {/* ---------- Scroll To Top Button ----------*/}
