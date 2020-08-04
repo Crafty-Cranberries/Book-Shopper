@@ -6,6 +6,7 @@ import {logout, getCartThunk} from '../store'
 import {Button} from 'react-bootstrap'
 import Cart from './cart'
 import {AiOutlineShoppingCart, AiOutlineUser} from 'react-icons/ai'
+import history from '../history'
 
 const Navbar = ({handleClick, isLoggedIn, fetchCart, user, isAdmin}) => {
   const [modalShow, setModalShow] = React.useState(false)
@@ -49,15 +50,15 @@ const Navbar = ({handleClick, isLoggedIn, fetchCart, user, isAdmin}) => {
         </div>
       </nav>
       <div className="nav-buttons">
-        <Button
-          className="mr-1"
-          variant="light"
-          onClick={() => {
-            console.log('click!')
-          }}
-        >
-          <AiOutlineUser />
-        </Button>
+        {isLoggedIn && (
+          <Button
+            className="mr-1"
+            variant="light"
+            onClick={() => history.push('/profile')}
+          >
+            <AiOutlineUser />
+          </Button>
+        )}
         <Button
           className="ml-1"
           variant="light"
