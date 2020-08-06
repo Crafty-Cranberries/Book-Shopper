@@ -3,8 +3,18 @@ import {MdAddShoppingCart} from 'react-icons/md'
 import {AiFillDelete} from 'react-icons/ai'
 import {Rating} from '@material-ui/lab'
 import history from '../history'
+import {use} from 'chai'
 
-function ProductPreview({book, isAdmin, handleOnClick, view}) {
+function ProductPreview({
+  book,
+  isAdmin,
+  handleOnClick,
+  view,
+  isLoggedIn,
+  userId,
+  addToCart,
+  addToCartSuccess,
+}) {
   if (view === 'all-products-container') {
     return (
       <div className="book-card">
@@ -15,7 +25,20 @@ function ProductPreview({book, isAdmin, handleOnClick, view}) {
             onClick={() => history.push(`/books/${book.id}`)}
           />
           <p className="book-genre-preview">{book.genre}</p>
-          <button className="quick-add" type="button">
+          <button
+            className="quick-add"
+            type="button"
+            onClick={() => {
+              addToCart({
+                isLoggedIn: isLoggedIn,
+                userId: userId,
+                productId: book.id,
+                product: book,
+                price: book.price,
+              })
+              addToCartSuccess()
+            }}
+          >
             <MdAddShoppingCart />
           </button>
           {isAdmin && (

@@ -48,7 +48,7 @@ const Cart = ({
       <Modal.Body>
         {cart.map((product) => {
           return (
-            <div key={product.id}>
+            <div key={`item${product.id + product.title}`}>
               <h3>{product.title}</h3>
               <h4>Quantity: {product.quantity}</h4>
               <ButtonGroup size="sm">

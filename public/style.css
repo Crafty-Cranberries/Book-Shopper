@@ -136,7 +136,7 @@ to prevent the navbar from overlapping anything near the top.
 
 .single-product-view-title {
   font-family: 'Roboto';
-  font-size: 2em;
+  font-size: 1.5em;
   margin: 0;
   font-weight: 500;
 }
@@ -221,6 +221,54 @@ to prevent the navbar from overlapping anything near the top.
 
 .product-preview {
   margin: 25px;
+}
+
+.book-format-container {
+  display: flex;
+  margin-bottom: 25px;
+}
+
+.book-format-choice {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  width: 145px;
+  border: #a2a6ac solid 1px;
+  border-radius: 5px;
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-size: 1.05em;
+  margin-left: 7px;
+  margin-right: 7px;
+}
+
+.book-format-choice:hover {
+  background-color: #ededed;
+  cursor: pointer;
+}
+
+.book-format-choice-selected {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  width: 145px;
+  border: #a2a6ac solid 1px;
+  background-color: #ededed;
+  border-radius: 5px;
+  font-family: 'Roboto';
+  font-weight: 600;
+  font-size: 1.05em;
+  margin-left: 7px;
+  margin-right: 7px;
+  cursor: pointer;
+}
+
+.book-choice-price {
+  font-size: 0.9em;
+  margin-left: 5px;
+  color: #4f4f4f;
 }
 
 /* ------------- All Products Page ---------------*/

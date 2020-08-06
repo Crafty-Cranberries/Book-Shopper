@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleProduct, addToCartThunk} from '../store'
 import {toast} from 'react-toastify'
@@ -17,6 +17,15 @@ const SingleProduct = ({
   fetchBook,
   match,
 }) => {
+  const [bookChoice, setBookChoice] = useState('Hardcover')
+
+  const handleChoice = (e) => {
+    setBookChoice(e.target.innerText)
+  }
+
+  const selectedClass = 'book-format-choice-selected'
+  const choiceClass = 'book-format-choice'
+
   useEffect(() => {
     fetchBook(match.params.id)
   }, [])
@@ -36,12 +45,33 @@ const SingleProduct = ({
           <p className="rating-count-text">{book.ratingCount} reviews</p>
         </div>
         <p className="single-product-genre">{book.genre}</p>
+        <div className="book-format-container">
+          <div
+            className={bookChoice === 'Hardcover' ? selectedClass : choiceClass}
+            onClick={handleChoice}
+          >
+            Hardcover
+          </div>
+          <div
+            className={bookChoice === 'Paperback' ? selectedClass : choiceClass}
+            onClick={handleChoice}
+          >
+            Paperback
+          </div>
+          <div
+            className={bookChoice === 'Digital' ? selectedClass : choiceClass}
+            onClick={handleChoice}
+          >
+            Digital
+          </div>
+        </div>
         <p className="single-book-synopsis">Synopsis</p>
         <p className="single-product-synopsis">{book.synopsis}</p>
       </div>
       <div className="single-product-price-container">
         <div>
-          Price: <span className="book-price-text">${book.price}</span>
+          Price: <span className="book-price-text">${book.price}</span>{' '}
+          <span className="book-choice-price">{bookChoice}</span>
         </div>
         <span className="wishlist-button" />
         <Button

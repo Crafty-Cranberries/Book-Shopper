@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {ProductPreview} from './index'
 import {connect} from 'react-redux'
-import {removedProduct, fetchProducts} from '../store'
+import {removedProduct, fetchProducts, addToCartThunk} from '../store'
 import {Rating, Pagination} from '@material-ui/lab'
 import {FaThList} from 'react-icons/fa'
 import {BsFillGrid3X2GapFill} from 'react-icons/bs'
@@ -9,8 +9,20 @@ import SearchBar from 'material-ui-search-bar'
 import {ScrollTop} from '../components'
 import Fab from '@material-ui/core/Fab'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
+import {toast} from 'react-toastify'
 
-const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
+toast.configure()
+
+const AllProducts = ({
+  products,
+  deleteProduct,
+  isAdmin,
+  getProducts,
+  isLoggedIn,
+  userId,
+  addToCart,
+  addToCartSuccess,
+}) => {
   const [page, setPage] = useState(1)
   const [perPage, setPerPage] = useState(15)
   const [ratings, setRatings] = useState([])
@@ -201,6 +213,10 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
                   isAdmin={isAdmin}
                   handleOnClick={handleOnClick}
                   view={view}
+                  isLoggedIn={isLoggedIn}
+                  userId={userId}
+                  addToCart={addToCart}
+                  addToCartSuccess={addToCartSuccess}
                 />
               )
             })}
@@ -236,12 +252,17 @@ const AllProducts = ({products, deleteProduct, isAdmin, getProducts}) => {
 const mapStateToProps = (state) => ({
   products: state.products,
   isAdmin: state.user.isAdmin,
+  isLoggedIn: !!state.user.id,
+  userId: state.user.id,
 })
 
 const mapDispatch = (dispatch) => ({
   getProducts: (data, stars, order, current, perPage, searchTerm) =>
     dispatch(fetchProducts(data, stars, order, current, perPage, searchTerm)),
   deleteProduct: (bookId) => dispatch(removedProduct(bookId)),
+  addToCart: (info) => dispatch(addToCartThunk(info)),
+  addToCartSuccess: () =>
+    toast('Added Book To Cart!', {position: toast.POSITION.TOP_CENTER}),
 })
 
 export default connect(mapStateToProps, mapDispatch)(AllProducts)
