@@ -13,8 +13,10 @@ import {
   AllUsers,
   CompletePurchase,
   LandingPage,
+  Profile,
 } from './components'
 import {me, fetchProducts} from './store'
+import userHome from './components/user-home'
 /**
  * COMPONENT
  */
@@ -24,7 +26,7 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn, isAdmin} = this.props
+    const {isLoggedIn, isAdmin, user} = this.props
 
     return (
       <Switch>
@@ -39,6 +41,10 @@ class Routes extends Component {
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
             <Route path="/completepurchase" component={CompletePurchase} />
+            <Route
+              path="/profile"
+              render={() => <Profile {...user} /*isAuthed={true}*/ />}
+            />
             {isAdmin && (
               <Switch>
                 <Route exact path="/addproduct" component={AddProduct} />{' '}

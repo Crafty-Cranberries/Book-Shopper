@@ -284,7 +284,6 @@ to prevent the navbar from overlapping anything near the top.
 
 .nav-buttons {
   display: flex;
-  justify-content: space-between !important;
   padding-right: 15px;
 }
 
@@ -705,4 +704,57 @@ to prevent the navbar from overlapping anything near the top.
   position: fixed;
   right: 30px;
   bottom: 35px;
+}
+
+/* ------------- Profile Page ---------------*/
+
+.profileHead {
+  display: flex;
+  background-color: #2b2d42;
+  color: white;
+  height: 250px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #000000;
+  background-image: linear-gradient(315deg, #000000 0%, #414141 74%);
+}
+
+.profileHead h1 {
+  font-family: 'Roboto';
+}
+
+.profileHead h6 {
+  color: #8d99ae;
+  font-family: 'Roboto';
+}
+
+.profButtons {
+  display: flex;
+  height: 50px;
+  padding-right: 50px;
+}
+
+.profHeadTxt {
+  display: flex;
+  justify-content: left;
+  flex-direction: column;
+  padding-left: 50px;
+}
+
+.profileInfo {
+  display: flex;
+  justify-content: space-between;
+}
+
+.profileList {
+  margin-left: 50px;
+  margin-top: 50px;
+  font-family: 'Roboto';
+  width: 20%;
+  padding-top: 0px;
+}
+
+.profContent {
+  margin-right: 200px;
+  margin-top: 50px;
 }
