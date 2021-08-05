@@ -18,8 +18,8 @@ export const LandingPage = () => {
                 Around The World
               </h1>
               <p className="subtext">
-                Browse through our vibrant collection of books. Search by Author
-                or by Genre. <br />
+                Browse through our vibrant collection of books. <br />
+                Search by Author or by Genre. <br />
                 Check out our clearance section for plenty of discounts!
               </p>
             </div>
@@ -36,6 +36,11 @@ export const LandingPage = () => {
             />
           </div>
         </div>
+      </div>
+      <div className="gif-container">
+        <img src="https://media.giphy.com/media/NFA61GS9qKZ68/giphy.gif" />
+
+        <img src="https://media.giphy.com/media/DwrnYsZCXspu8/giphy.gif" />
       </div>
     </div>
   )

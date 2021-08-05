@@ -19,7 +19,7 @@ form div {
 }
 
 /* This is a container for all the content on the page
-to prevent the navbar from overlapping anything near the top. 
+to prevent the navbar from overlapping anything near the top.
 */
 .content {
   padding-top: 75px;
@@ -63,6 +63,20 @@ to prevent the navbar from overlapping anything near the top.
   justify-content: flex-end;
   align-items: center;
   margin-right: 120px;
+}
+
+.gif-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-right: 120px;
+}
+
+.gif-container > img {
+  height: 400px;
+  width: 600px;
 }
 
 .subtext {
